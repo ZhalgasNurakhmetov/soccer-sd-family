@@ -1,0 +1,75 @@
+<admin-list-control-bar
+  (onGoToAdminCreate)="onGoToAdminCreate.emit()"
+>
+</admin-list-control-bar>
+<div class="container-fluid">
+  <div class="row mt-2">
+    <div class="col-sm-12 col-md-12 col-lg-11 col-xl-10">
+      <table class="table table-bordered table-hover table-responsive-sm">
+        <thead class="thead-dark">
+        <tr>
+          <th>
+            Имя
+          </th>
+          <th>
+            Фамилия
+          </th>
+          <th>
+            Имя пользователя
+          </th>
+          <th>
+            Почта
+          </th>
+          <th>
+            Действия
+          </th>
+        </tr>
+        </thead>
+        <ng-container [ngSwitch]="true">
+          <tbody *ngSwitchCase="currentAdminTabState === adminTabState.LIST">
+            <tr *ngFor="let admin of adminList">
+              <td>{{admin?.givenName}}</td>
+              <td>{{admin?.lastName}}</td>
+              <td>{{admin?.username}}</td>
+              <td>{{admin?.email}}</td>
+              <td>
+                <div class="btn-group">
+                  <button type="button" class="btn btn-outline-warning" (click)="onEditAdmin.emit(admin)"><i class="bi bi-pencil-fill"></i></button>
+                  <button type="button" class="btn btn-outline-danger ml-2" (click)="onDeleteAdmin.emit(admin?.id)"><i class="bi bi-trash-fill"></i></button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+          <tbody *ngSwitchCase="currentAdminTabState === adminTabState.EDIT">
+            <tr *ngFor="let admin of adminList">
+              <ng-container *ngIf="admin?.id !== idOfAdminOnEdit">
+                <td>{{admin?.givenName}}</td>
+                <td>{{admin?.lastName}}</td>
+                <td>{{admin?.username}}</td>
+                <td>{{admin?.email}}</td>
+                <td>
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-outline-warning" (click)="onEditAdmin.emit(admin)" [disabled]="true"><i class="bi bi-pencil-fill"></i></button>
+                    <button type="button" class="btn btn-outline-danger ml-2" (click)="onDeleteAdmin.emit(admin?.id)" [disabled]="true"><i class="bi bi-trash-fill"></i></button>
+                  </div>
+                </td>
+              </ng-container>
+              <ng-container *ngIf="admin?.id === idOfAdminOnEdit">
+                <td><input type="text" class="form-control" [formControl]="form?.controls?.givenName"></td>
+                <td><input type="text" class="form-control" [formControl]="form?.controls?.lastName"></td>
+                <td><input type="text" class="form-control" [formControl]="form?.controls?.username"></td>
+                <td><input type="text" class="form-control" [formControl]="form?.controls?.email"></td>
+                <td>
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-outline-success" (click)="onSaveChanges.emit({form: form?.value, id: idOfAdminOnEdit})" [disabled]="!form?.valid || !form?.touched"><i class="bi bi-check-circle-fill"></i></button>
+                    <button type="button" class="btn btn-outline-danger ml-2" (click)="onCancelEdit.emit()"><i class="bi bi-x-square-fill"></i></button>
+                  </div>
+                </td>
+              </ng-container>
+            </tr>
+          </tbody>
+        </ng-container>
+      </table>
+    </div>
+  </div>
+</div>

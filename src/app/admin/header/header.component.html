@@ -1,0 +1,15 @@
+<div class="container-fluid bg-primary text-white pb-3 pt-3">
+  <div class="row h-100">
+    <div class="col-sm-6 col-md-8 col-lg-8 col-xl-8 my-auto">
+      <p class="font-weight-bold m-0">{{admin?.givenName}} {{admin?.lastName}}</p>
+    </div>
+    <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 my-auto">
+      <ul class="list-inline m-0">
+        <li class="list-inline-item m-0" (click)="onGoToAdmins.emit()">Администраторы</li>
+        <li class="list-inline-item m-0 ml-2" (click)="onGoToCoaches.emit()">Тренеры</li>
+        <li class="list-inline-item m-0 ml-2" (click)="onGoToPlayers.emit()">Игроки</li>
+      </ul>
+    </div>
+  </div>
+</div>
+

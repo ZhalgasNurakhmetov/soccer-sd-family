@@ -1,0 +1,22 @@
+<div class="container-fluid">
+  <div class="row center justify-content-center" id="login_content">
+    <div class="col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4">
+      <form [formGroup]="loginForm" (ngSubmit)="login()">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text"><i class="bi bi-person-fill"></i></span>
+          </div>
+          <input type="text" class="form-control" placeholder="Имя учетной записи" [formControl]="loginForm?.controls?.username">
+        </div>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
+          </div>
+          <input type="password" class="form-control" placeholder="Пароль" [formControl]="loginForm?.controls?.password">
+        </div>
+        <button type="submit" class="btn btn-primary login-button mb-3" [disabled]="!loginForm.valid">Войти</button>
+      </form>
+      <button type="button" class="btn btn-outline-dark login-button">Забыли пароль?</button>
+    </div>
+  </div>
+</div>

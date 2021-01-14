@@ -1,0 +1,20 @@
+<ng-container [ngSwitch]="true">
+  <admin-list
+    *ngSwitchCase="currentAdminTabState === adminTabState.LIST || currentAdminTabState === adminTabState.EDIT"
+    [adminList]="adminList"
+    [currentAdminTabState]="adminTabState$ | async"
+    [idOfAdminOnEdit]="idOfAdminOnEdit$ | async"
+    (onGoToAdminCreate)="goToAdminCreate()"
+    (onEditAdmin)="goToEditAdmin($event)"
+    (onSaveChanges)="saveChanges($event)"
+    (onCancelEdit)="cancelEdit()"
+    (onDeleteAdmin)="deleteAdmin($event)"
+  >
+  </admin-list>
+  <admin-create
+    *ngSwitchCase="currentAdminTabState === adminTabState.CREATE"
+    (onCreateAdmin)="createAdmin($event)"
+    (onCancel)="cancelCreating()"
+  >
+  </admin-create>
+</ng-container>

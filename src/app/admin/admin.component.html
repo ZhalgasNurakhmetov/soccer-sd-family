@@ -1,0 +1,10 @@
+
+  <admin-header
+    [admin]="admin$ | async"
+    (onGoToAdmins)="goToAdmins()"
+    (onGoToCoaches)="goToCoaches()"
+    (onGoToPlayers)="goToPlayers()"
+  >
+  </admin-header>
+
+  <router-outlet></router-outlet>
