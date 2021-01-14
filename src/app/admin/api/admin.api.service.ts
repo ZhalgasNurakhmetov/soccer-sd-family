@@ -6,6 +6,7 @@ import {environment} from '../../../environments/environment';
 import {ApiResponse} from '../../core/models/api-response';
 import {AdminCreateFormModel} from '../content/admin-content/content/admin-create/forms/admin-create.form.model';
 import {AdminEditFormModel} from '../content/admin-content/content/admin-list/forms/admin-edit.form.model';
+import {ChangePasswordFormModel} from '../content/change-password/forms/change-password.form.model';
 
 @Injectable()
 export class AdminApiService {
@@ -26,6 +27,10 @@ export class AdminApiService {
 
   editAdmin(id: number, admin: AdminEditFormModel): Observable<User> {
     return this.http.put<User>(`${environment.apiUrl}/admin/${id.toString()}`, admin);
+  }
+
+  changePassword(passwords: ChangePasswordFormModel): Observable<ApiResponse> {
+    return this.http.put<ApiResponse>(`${environment.apiUrl}/admin/change-password`, passwords);
   }
 
   deleteAdmin(id: number): Observable<ApiResponse> {

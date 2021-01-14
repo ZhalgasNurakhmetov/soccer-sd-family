@@ -14,6 +14,8 @@ export class HeaderComponent implements OnInit {
   @Output() onGoToAdmins = new EventEmitter();
   @Output() onGoToCoaches = new EventEmitter();
   @Output() onGoToPlayers = new EventEmitter();
+  @Output() onChangePassword = new EventEmitter();
+  @Output() onLogout = new EventEmitter();
 
   constructor() { }
 

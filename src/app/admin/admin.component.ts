@@ -6,6 +6,7 @@ import {AdminState} from './store';
 import {Router} from '@angular/router';
 import {AppRoutes} from '../app.routes';
 import {AdminRoutes} from './admin.routes';
+import {AuthService} from '../core/auth/auth.service';
 
 @Component({
   selector: 'app-admin',
@@ -18,7 +19,8 @@ export class AdminComponent implements OnInit {
   @Select(AdminState.admin) admin$: Observable<User>;
 
   constructor(
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) { }
 
   goToAdmins() {
@@ -31,6 +33,14 @@ export class AdminComponent implements OnInit {
 
   goToPlayers() {
     this.router.navigate([AppRoutes.admin, AdminRoutes.player]);
+  }
+
+  goToChangePassword() {
+    this.router.navigate([AppRoutes.admin, AdminRoutes.changePassword]);
+  }
+
+  logout() {
+    this.authService.logout();
   }
 
   ngOnInit(): void {

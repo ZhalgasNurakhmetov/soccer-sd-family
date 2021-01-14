@@ -6,6 +6,7 @@ import {AdminRoutes} from './admin.routes';
 import {AdminContentComponent} from './content/admin-content/admin-content.component';
 import {CoachContentComponent} from './content/coach-content/coach-content.component';
 import {PlayerContentComponent} from './content/player-content/player-content.component';
+import {ChangePasswordComponent} from './content/change-password/change-password.component';
 
 const routes: Routes = [
   {
@@ -23,6 +24,10 @@ const routes: Routes = [
       {
         path: AdminRoutes.player,
         component: PlayerContentComponent
+      },
+      {
+        path: AdminRoutes.changePassword,
+        component: ChangePasswordComponent
       },
       {
         path: '',

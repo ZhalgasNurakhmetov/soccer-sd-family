@@ -5,6 +5,7 @@ import {Component, Input} from '@angular/core';
 import {User} from '../core/models/user';
 import {RouterTestingModule} from '@angular/router/testing';
 import {NgxsModule} from '@ngxs/store';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
 
 @Component({
   selector: 'admin-header',
@@ -21,7 +22,7 @@ describe('AdminComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ AdminComponent, AdminHeaderMock ],
-      imports: [RouterTestingModule, NgxsModule.forRoot()]
+      imports: [RouterTestingModule, NgxsModule.forRoot(), HttpClientTestingModule]
     })
     .compileComponents();
   }));
