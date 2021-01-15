@@ -19,7 +19,7 @@ export class AdminApiService {
   }
 
   getAdminList(): Observable<User[]> {
-    return this.http.get<User[]>(`${environment.apiUrl}/admins`);
+    return this.http.get<User[]>(`${environment.apiUrl}/admin/admin-list`);
   }
 
   createAdmin(admin: AdminCreateFormModel): Observable<User> {
@@ -27,7 +27,7 @@ export class AdminApiService {
   }
 
   editAdmin(id: number, admin: AdminEditFormModel): Observable<User> {
-    return this.http.put<User>(`${environment.apiUrl}/admin/${id.toString()}`, admin);
+    return this.http.put<User>(`${environment.apiUrl}/admin/admin-list/${id.toString()}`, admin);
   }
 
   changePassword(passwords: ChangePasswordFormModel): Observable<ApiResponse> {
@@ -35,22 +35,22 @@ export class AdminApiService {
   }
 
   deleteAdmin(id: number): Observable<ApiResponse> {
-    return this.http.delete<ApiResponse>(`${environment.apiUrl}/admin/${id.toString()}`);
+    return this.http.delete<ApiResponse>(`${environment.apiUrl}/admin/admin-list/${id.toString()}`);
   }
 
   getCoachList(): Observable<User[]> {
-    return this.http.get<User[]>(`${environment.apiUrl}/coaches`);
+    return this.http.get<User[]>(`${environment.apiUrl}/admin/coach-list`);
   }
 
   createCoach(coach: CoachCreateFormModel): Observable<User> {
-    return this.http.post<User>(`${environment.apiUrl}/coaches`, coach);
+    return this.http.post<User>(`${environment.apiUrl}/admin/coach-list`, coach);
   }
 
   deleteCoach(id: number): Observable<ApiResponse> {
-    return this.http.delete<ApiResponse>(`${environment.apiUrl}/coach/${id.toString()}`);
+    return this.http.delete<ApiResponse>(`${environment.apiUrl}/admin/coach-list/${id.toString()}`);
   }
 
   deleteAllCoaches(): Observable<ApiResponse> {
-    return this.http.delete<ApiResponse>(`${environment.apiUrl}/coaches`);
+    return this.http.delete<ApiResponse>(`${environment.apiUrl}/admin/coach-list`);
   }
 }
