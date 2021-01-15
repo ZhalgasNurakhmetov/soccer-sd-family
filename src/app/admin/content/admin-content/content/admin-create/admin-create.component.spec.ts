@@ -3,6 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { AdminCreateComponent } from './admin-create.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {AdminCreateFormService} from './forms/admin-create.form.service';
+import {ToastrModule} from 'ngx-toastr';
 
 describe('AdminCreateComponent', () => {
   let component: AdminCreateComponent;
@@ -11,7 +12,7 @@ describe('AdminCreateComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ AdminCreateComponent ],
-      imports: [ReactiveFormsModule],
+      imports: [ReactiveFormsModule, ToastrModule.forRoot()],
       providers: [AdminCreateFormService]
     })
     .compileComponents();

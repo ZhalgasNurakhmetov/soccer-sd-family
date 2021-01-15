@@ -1,6 +1,7 @@
 import {Component, OnInit, ChangeDetectionStrategy, Output, EventEmitter} from '@angular/core';
 import {AdminCreateFormService} from './forms/admin-create.form.service';
 import {AdminCreateFormModel} from './forms/admin-create.form.model';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'admin-create',
@@ -16,7 +17,8 @@ export class AdminCreateComponent implements OnInit {
   form = this.adminCreateFormService.adminCreateForm;
 
   constructor(
-    private adminCreateFormService: AdminCreateFormService
+    private adminCreateFormService: AdminCreateFormService,
+    private toaster: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -24,7 +26,7 @@ export class AdminCreateComponent implements OnInit {
 
   createAdmin() {
     if (!this.form.valid) {
-      console.log('invalid');
+      this.toaster.error('Заполните все обязательные поля', 'Ошибка', {timeOut: 3000});
       return
     }
     this.onCreateAdmin.emit(this.form.value);

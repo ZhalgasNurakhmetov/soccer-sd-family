@@ -23,7 +23,6 @@ export class RegularApiErrorHandler implements ApiErrorHandler {
           break;
         }
         case ServerSideErrorStatus.NOT_FOUND: {
-          console.log('second')
           console.error('NOT_FOUND', apiError);
           // this.ngZone.run(() =>
           //   this.toaster.show({ type: 'warning', title: 'Нет ресурса!', message: 'К сожалению, этот ресурс недоступен' })

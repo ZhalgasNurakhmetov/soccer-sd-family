@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {ApiErrorInterceptorService} from './core/interceptors/api-error/api-error.interceptor.service';
 import {CredentialsInterceptorService} from './core/interceptors/creedentials/credentials.interceptor.service';
+import {ToastrModule} from 'ngx-toastr';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -14,7 +16,9 @@ import {CredentialsInterceptorService} from './core/interceptors/creedentials/cr
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot()
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ApiErrorInterceptorService, multi: true },

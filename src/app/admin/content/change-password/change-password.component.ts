@@ -4,6 +4,7 @@ import {Router} from '@angular/router';
 import {AppRoutes} from '../../../app.routes';
 import {AdminRoutes} from '../../admin.routes';
 import {AdminApiService} from '../../api/admin.api.service';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'admin-change-password',
@@ -18,7 +19,8 @@ export class ChangePasswordComponent implements OnInit {
   constructor(
     private changePasswordFormService: ChangePasswordFormService,
     private router: Router,
-    private adminApiService: AdminApiService
+    private adminApiService: AdminApiService,
+    private toaster: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -26,11 +28,11 @@ export class ChangePasswordComponent implements OnInit {
 
   changePassword() {
     this.adminApiService.changePassword(this.form?.value).subscribe(response => {
-      console.log(response.message);
+      this.toaster.success(response?.message, 'Готово', {timeOut: 3000});
       this.router.navigate([AppRoutes.admin, AdminRoutes.admin]);
       this.changePasswordFormService.form.reset();
     }, error => {
-      console.log(error.error.message);
+      this.toaster.error(error.error.message, 'Ошибка', {timeOut: 3000});
     });
   }
 

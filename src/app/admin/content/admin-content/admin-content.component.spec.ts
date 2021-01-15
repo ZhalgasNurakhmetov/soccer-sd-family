@@ -9,6 +9,7 @@ import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {AdminCreateFormService} from './content/admin-create/forms/admin-create.form.service';
 import {AdminEditFormService} from './content/admin-list/forms/admin-edit.form.service';
 import {NgxsModule} from '@ngxs/store';
+import {ToastrModule} from 'ngx-toastr';
 
 @Component({
   selector: 'admin-list',
@@ -35,7 +36,7 @@ describe('AdminContentComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ AdminContentComponent, AdminListMock, AdminCreateMock ],
-      imports: [HttpClientTestingModule,NgxsModule.forRoot()],
+      imports: [HttpClientTestingModule, NgxsModule.forRoot(), ToastrModule.forRoot()],
       providers: [AdminApiService, AdminCreateFormService, AdminEditFormService]
     })
     .compileComponents();

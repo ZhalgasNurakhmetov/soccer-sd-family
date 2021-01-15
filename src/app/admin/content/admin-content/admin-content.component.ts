@@ -10,6 +10,7 @@ import {AdminCreateFormModel} from './content/admin-create/forms/admin-create.fo
 import {AdminCreateFormService} from './content/admin-create/forms/admin-create.form.service';
 import {takeUntil} from 'rxjs/operators';
 import {AdminEditFormService} from './content/admin-list/forms/admin-edit.form.service';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'admin-content',
@@ -36,7 +37,8 @@ export class AdminContentComponent implements OnInit, OnDestroy {
     private adminApi: AdminApiService,
     private cd: ChangeDetectorRef,
     private adminCreateFormService: AdminCreateFormService,
-    private adminEditFormService: AdminEditFormService
+    private adminEditFormService: AdminEditFormService,
+    private toaster: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -51,16 +53,17 @@ export class AdminContentComponent implements OnInit, OnDestroy {
 
   createAdmin(adminInfo: AdminCreateFormModel) {
     if (!adminInfo?.username?.startsWith('admin')) {
-      console.log('not admin')
+      this.toaster.error('Имя учетной записи должно начинаться с admin', 'Ошибка', {timeOut: 3000});
       return
     }
     this.adminApi.createAdmin(adminInfo).subscribe(user => {
       this.adminList.push(user);
+      this.toaster.success('Пользователь создан', 'Готово', {timeOut: 3000});
       this.setAdminTabState(this.adminTabState.LIST);
       this.cd.markForCheck();
     }, error => {
-      console.log(error.error.message)
-    })
+      this.toaster.error(error?.error?.message, 'Ошибка', {timeOut: 3000});
+    });
   }
 
   cancelCreating() {
@@ -88,10 +91,11 @@ export class AdminContentComponent implements OnInit, OnDestroy {
           this.adminList[index] = user;
         }
       });
+      this.toaster.success('Данные успешно изменены', 'Готово', {timeOut: 3000});
       this.setAdminTabState(this.adminTabState.LIST);
       this.cd.markForCheck();
     }, error => {
-      console.log(error.error.message);
+      this.toaster.error(error?.error?.message, 'Ошибка', {timeOut: 3000});
     });
   }
 
@@ -104,9 +108,10 @@ export class AdminContentComponent implements OnInit, OnDestroy {
   deleteAdmin(id: number) {
     this.adminApi.deleteAdmin(id).subscribe(response => {
       this.adminList = this.adminList.filter(admin => admin.id !== id);
+      this.toaster.success(response?.message, 'Готово', {timeOut: 3000});
       this.cd.markForCheck();
     }, error => {
-      console.log(error.error.message);
+      this.toaster.error(error?.error?.message, 'Ошибка', {timeOut: 3000});
     });
   }
 
