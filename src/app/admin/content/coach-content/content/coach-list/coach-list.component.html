@@ -6,38 +6,39 @@
 <div class="container-fluid">
   <div class="row mt-2">
     <div class="col">
-      <table class="table table-bordered table-hover table-responsive-md">
-        <thead class="thead-dark">
-        <tr>
-          <th>
-            Имя
-          </th>
-          <th>
-            Фамилия
-          </th>
-          <th>
-            Отчество
-          </th>
-          <th>
-            Имя пользователя
-          </th>
-          <th>
-            Город
-          </th>
-          <th>
-            Почта
-          </th>
-          <th>
-            Номер
-          </th>
-          <th>
-            Добавил
-          </th>
-          <th>
-            Действия
-          </th>
-        </tr>
-        </thead>
+      <ng-container *ngIf="coachList?.length !== 0; else noCoaches">
+        <table class="table table-bordered table-hover table-responsive-md">
+          <thead class="thead-dark">
+          <tr>
+            <th>
+              Имя
+            </th>
+            <th>
+              Фамилия
+            </th>
+            <th>
+              Отчество
+            </th>
+            <th>
+              Имя пользователя
+            </th>
+            <th>
+              Город
+            </th>
+            <th>
+              Почта
+            </th>
+            <th>
+              Номер
+            </th>
+            <th>
+              Добавил
+            </th>
+            <th>
+              Действия
+            </th>
+          </tr>
+          </thead>
           <tbody>
           <tr *ngFor="let coach of coachList">
             <td>{{coach?.givenName}}</td>
@@ -55,7 +56,12 @@
             </td>
           </tr>
           </tbody>
-      </table>
+        </table>
+      </ng-container>
     </div>
   </div>
 </div>
+
+<ng-template #noCoaches>
+  <h4>Список тренеров пуст</h4>
+</ng-template>

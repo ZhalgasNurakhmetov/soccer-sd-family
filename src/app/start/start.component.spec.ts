@@ -5,6 +5,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {StartFormService} from './forms/start.form.service';
 import {RouterTestingModule} from '@angular/router/testing';
+import {ToastrModule} from 'ngx-toastr';
 
 describe('StartComponent', () => {
   let component: StartComponent;
@@ -13,7 +14,7 @@ describe('StartComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ StartComponent ],
-      imports: [ReactiveFormsModule, HttpClientTestingModule, RouterTestingModule],
+      imports: [ReactiveFormsModule, HttpClientTestingModule, RouterTestingModule, ToastrModule.forRoot()],
       providers: [StartFormService]
     })
     .compileComponents();

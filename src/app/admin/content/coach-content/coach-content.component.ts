@@ -20,7 +20,7 @@ export class CoachContentComponent implements OnInit {
 
   @Select(AdminState.coachTabState) coachTabState$: Observable<CoachTabState>;
 
-  coachList: User[];
+  coachList: User[] = [];
   coachTabState = CoachTabState;
 
   @Dispatch() setCoachTabState = (coachTabState: CoachTabState) => new SetCoachTabState(coachTabState);
@@ -70,7 +70,7 @@ export class CoachContentComponent implements OnInit {
   }
 
   deleteAllCoaches() {
-    if (this.coachList.length === 0) {
+    if (!this.coachList || this.coachList.length === 0) {
       this.toaster.show('Нет данных для удаления', 'Внимание', {timeOut: 3000});
       return
     }

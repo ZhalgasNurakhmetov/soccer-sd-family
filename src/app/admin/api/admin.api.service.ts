@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {User} from '../../core/models/user';
+import {Player, User} from '../../core/models/user';
 import {environment} from '../../../environments/environment';
 import {ApiResponse} from '../../core/models/api-response';
 import {AdminCreateFormModel} from '../content/admin-content/content/admin-create/forms/admin-create.form.model';
@@ -52,5 +52,13 @@ export class AdminApiService {
 
   deleteAllCoaches(): Observable<ApiResponse> {
     return this.http.delete<ApiResponse>(`${environment.apiUrl}/admin/coach-list`);
+  }
+
+  getPlayerList(): Observable<Player[]> {
+    return this.http.get<Player[]>(`${environment.apiUrl}/admin/player-list`);
+  }
+
+  deleteAllPlayers(): Observable<ApiResponse> {
+    return this.http.delete<ApiResponse>(`${environment.apiUrl}/admin/player-list`);
   }
 }

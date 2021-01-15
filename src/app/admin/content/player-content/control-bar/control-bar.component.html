@@ -2,9 +2,8 @@
   <div class="row mt-2">
     <div class="col-lg-6 col-xl-4">
       <div class="btn-group">
-        <button type="button" class="btn btn-success" (click)="onGoToCoachCreate.emit()">Добавить тренера</button>
-        <button type="button" class="btn btn-danger ml-2" data-toggle="modal" data-target="#myModal">
-          Удалить всех тренеров
+        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">
+          Удалить всех игроков
         </button>
       </div>
     </div>
@@ -15,14 +14,14 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title">Удаление тренеров</h4>
+        <h4 class="modal-title">Удаление игроков</h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-body">
-        Вы действительно хотите удалить всех тренеров?
+        Вы действительно хотите удалить всех игроков?
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-dark" data-dismiss="modal" (click)="onGoToDeleteAllCoaches.emit()">Удалить</button>
+        <button type="button" class="btn btn-dark" data-dismiss="modal" (click)="onGoToDeleteAllPlayers.emit()">Удалить</button>
         <button type="button" class="btn btn-danger" data-dismiss="modal">Отмена</button>
       </div>
     </div>

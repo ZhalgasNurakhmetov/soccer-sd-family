@@ -16,6 +16,10 @@ export class AppComponent implements OnInit{
   ) {
   }
 
+  ngOnInit() {
+    this.initializeApp();
+  }
+
   initializeApp() {
     this.authService.authenticationState.subscribe(state => {
       if (state) {
@@ -30,7 +34,4 @@ export class AppComponent implements OnInit{
     })
   }
 
-  ngOnInit() {
-    this.initializeApp();
-  }
 }

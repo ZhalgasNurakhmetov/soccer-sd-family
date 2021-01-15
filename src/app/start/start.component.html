@@ -14,9 +14,15 @@
           </div>
           <input type="password" class="form-control" placeholder="Пароль" [formControl]="loginForm?.controls?.password">
         </div>
-        <button type="submit" class="btn btn-primary login-button mb-3" [disabled]="!loginForm.valid">Войти</button>
+        <button type="submit" class="btn btn-primary login-button mb-3" [disabled]="!loginForm.valid" *ngIf="!loading; else loadingButton">Войти</button>
       </form>
       <button type="button" class="btn btn-outline-dark login-button">Забыли пароль?</button>
     </div>
   </div>
 </div>
+<ng-template #loadingButton>
+  <button class="btn btn-primary login-button mb-3">
+    <span class="spinner-border spinner-border-sm"></span>
+    Подождите
+  </button>
+</ng-template>

@@ -1,6 +1,18 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PlayerContentComponent } from './player-content.component';
+import {Component} from '@angular/core';
+import {AdminApiService} from '../../api/admin.api.service';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {ToastrModule} from 'ngx-toastr';
+
+@Component({
+  selector: 'player-list-control-bar',
+  template: ''
+})
+export class ControlBarMock {
+
+}
 
 describe('PlayerContentComponent', () => {
   let component: PlayerContentComponent;
@@ -8,7 +20,9 @@ describe('PlayerContentComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PlayerContentComponent ]
+      declarations: [ PlayerContentComponent, ControlBarMock ],
+      imports: [HttpClientTestingModule, ToastrModule.forRoot()],
+      providers: [AdminApiService]
     })
     .compileComponents();
   }));

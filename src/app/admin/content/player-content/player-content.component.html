@@ -1,1 +1,62 @@
-<p>player-content works!</p>
+<player-list-control-bar
+  (onGoToDeleteAllPlayers)="deleteAllPlayers()"
+>
+</player-list-control-bar>
+<div class="container-fluid">
+  <div class="row mt-2">
+    <div class="col">
+      <ng-container *ngIf="playerList?.length !== 0; else noPlayers">
+        <table class="table table-bordered table-hover table-responsive-md">
+          <thead class="thead-dark">
+          <tr>
+            <th>
+              Имя
+            </th>
+            <th>
+              Фамилия
+            </th>
+            <th>
+              Отчество
+            </th>
+            <th>
+              Дата рождения
+            </th>
+            <th>
+              Город
+            </th>
+            <th>
+              Рост / Вес
+            </th>
+            <th>
+              Игровая нога
+            </th>
+            <th>
+              Тренер
+            </th>
+            <th>
+              Команда
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let player of playerList">
+            <td>{{player?.givenName}}</td>
+            <td>{{player?.lastName}}</td>
+            <td>{{player?.fatherName}}</td>
+            <td>{{player?.birthdate}}</td>
+            <td>{{player?.city}}</td>
+            <td>{{player?.height}} / {{player?.weight}}</td>
+            <td>{{player?.activeFoot}}</td>
+            <td>{{player?.coach?.givenName}} {{player?.coach?.lastName}}</td>
+            <td>{{player?.team}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </ng-container>
+    </div>
+  </div>
+</div>
+
+<ng-template #noPlayers>
+  <h4>Список игроков пуст</h4>
+</ng-template>

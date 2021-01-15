@@ -1,10 +1,11 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component} from '@angular/core';
 import {ChangePasswordFormService} from './forms/change-password.form.service';
 import {Router} from '@angular/router';
 import {AppRoutes} from '../../../app.routes';
 import {AdminRoutes} from '../../admin.routes';
 import {AdminApiService} from '../../api/admin.api.service';
 import {ToastrService} from 'ngx-toastr';
+import {finalize} from 'rxjs/operators';
 
 @Component({
   selector: 'admin-change-password',
@@ -15,16 +16,25 @@ import {ToastrService} from 'ngx-toastr';
 export class ChangePasswordComponent {
 
   form = this.changePasswordFormService.form;
+  loading = false;
 
   constructor(
     private changePasswordFormService: ChangePasswordFormService,
     private router: Router,
     private adminApiService: AdminApiService,
-    private toaster: ToastrService
+    private toaster: ToastrService,
+    private cd: ChangeDetectorRef
   ) { }
 
   changePassword() {
-    this.adminApiService.changePassword(this.form?.value).subscribe(response => {
+    this.loading = true;
+    this.adminApiService.changePassword(this.form?.value)
+      .pipe(
+        finalize(() => {
+          this.loading = false;
+          this.cd.markForCheck();
+        })
+      ).subscribe(response => {
       this.toaster.success(response?.message, 'Готово', {timeOut: 3000});
       this.router.navigate([AppRoutes.admin, AdminRoutes.admin]);
       this.changePasswordFormService.form.reset();
