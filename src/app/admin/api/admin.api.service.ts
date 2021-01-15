@@ -7,6 +7,7 @@ import {ApiResponse} from '../../core/models/api-response';
 import {AdminCreateFormModel} from '../content/admin-content/content/admin-create/forms/admin-create.form.model';
 import {AdminEditFormModel} from '../content/admin-content/content/admin-list/forms/admin-edit.form.model';
 import {ChangePasswordFormModel} from '../content/change-password/forms/change-password.form.model';
+import {CoachCreateFormModel} from '../content/coach-content/content/coach-create/forms/coach-create,form.model';
 
 @Injectable()
 export class AdminApiService {
@@ -35,5 +36,21 @@ export class AdminApiService {
 
   deleteAdmin(id: number): Observable<ApiResponse> {
     return this.http.delete<ApiResponse>(`${environment.apiUrl}/admin/${id.toString()}`);
+  }
+
+  getCoachList(): Observable<User[]> {
+    return this.http.get<User[]>(`${environment.apiUrl}/coaches`);
+  }
+
+  createCoach(coach: CoachCreateFormModel): Observable<User> {
+    return this.http.post<User>(`${environment.apiUrl}/coaches`, coach);
+  }
+
+  deleteCoach(id: number): Observable<ApiResponse> {
+    return this.http.delete<ApiResponse>(`${environment.apiUrl}/coach/${id.toString()}`);
+  }
+
+  deleteAllCoaches(): Observable<ApiResponse> {
+    return this.http.delete<ApiResponse>(`${environment.apiUrl}/coaches`);
   }
 }

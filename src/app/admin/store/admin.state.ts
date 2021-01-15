@@ -2,13 +2,15 @@ import {Action, Selector, State, StateContext} from '@ngxs/store';
 import {Injectable} from '@angular/core';
 import {AdminStateModel} from './admin-state.model';
 import {User} from '../../core/models/user';
-import {ResetState, SetAdmin, SetAdminOnEdit, SetAdminTabState} from './admin.action';
+import {ResetState, SetAdmin, SetAdminOnEdit, SetAdminTabState, SetCoachTabState} from './admin.action';
 import {AdminTabState} from '../content/admin-content/enums/admin-tab.state.enum';
+import {CoachTabState} from '../content/coach-content/enums/coach-tab.state.enum';
 
 const defaultAdminState = (): AdminStateModel => {
   return {
     admin: null,
     adminTabState: AdminTabState.LIST,
+    coachTabState: CoachTabState.LIST,
     idOfAdminOnEdit: null
   }
 }
@@ -34,6 +36,11 @@ export class AdminState {
   }
 
   @Selector()
+  static coachTabState(state: AdminStateModel): CoachTabState {
+    return state.coachTabState;
+  }
+
+  @Selector()
   static idOfAdminOnEdit(state: AdminStateModel): number {
     return state.idOfAdminOnEdit;
   }
@@ -49,6 +56,13 @@ export class AdminState {
   setAdminTabState({patchState}: StateContext<AdminStateModel>, {adminTabState}: SetAdminTabState) {
     patchState({
       adminTabState
+    });
+  }
+
+  @Action(SetCoachTabState)
+  setCoachTabState({patchState}: StateContext<AdminStateModel>, {coachTabState}: SetCoachTabState) {
+    patchState({
+      coachTabState
     });
   }
 

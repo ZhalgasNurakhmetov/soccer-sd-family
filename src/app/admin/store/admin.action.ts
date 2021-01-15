@@ -1,5 +1,6 @@
 import {User} from '../../core/models/user';
 import {AdminTabState} from '../content/admin-content/enums/admin-tab.state.enum';
+import {CoachTabState} from '../content/coach-content/enums/coach-tab.state.enum';
 
 export class SetAdmin {
   static readonly type = '[AdminState] Set Admin';
@@ -9,6 +10,11 @@ export class SetAdmin {
 export class SetAdminTabState {
   static readonly type = '[AdminState] Set Admin Tab State';
   constructor(public adminTabState: AdminTabState) { }
+}
+
+export class SetCoachTabState {
+  static readonly type = '[AdminState] Set Coach Tab State';
+  constructor(public coachTabState: CoachTabState) { }
 }
 
 export class SetAdminOnEdit {

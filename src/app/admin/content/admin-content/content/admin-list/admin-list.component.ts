@@ -1,8 +1,7 @@
-import {ChangeDetectionStrategy, Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
 import {User} from '../../../../../core/models/user';
 import {AdminTabState} from '../../enums/admin-tab.state.enum';
 import {AdminEditFormService} from './forms/admin-edit.form.service';
-import {AdminEditFormModel} from './forms/admin-edit.form.model';
 
 @Component({
   selector: 'admin-list',
@@ -10,7 +9,7 @@ import {AdminEditFormModel} from './forms/admin-edit.form.model';
   styleUrls: ['./admin-list.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AdminListComponent implements OnInit {
+export class AdminListComponent {
 
   @Input() adminList: User[];
   @Input() currentAdminTabState: AdminTabState;
@@ -27,8 +26,5 @@ export class AdminListComponent implements OnInit {
   constructor(
     private adminEditFormService: AdminEditFormService
   ) { }
-
-  ngOnInit(): void {
-  }
 
 }

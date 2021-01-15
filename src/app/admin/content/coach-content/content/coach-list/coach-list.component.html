@@ -1,0 +1,61 @@
+<coach-list-control-bar
+  (onGoToCoachCreate)="onGoToCoachCreate.emit()"
+  (onGoToDeleteAllCoaches)="onDeleteAllCoaches.emit()"
+>
+</coach-list-control-bar>
+<div class="container-fluid">
+  <div class="row mt-2">
+    <div class="col">
+      <table class="table table-bordered table-hover table-responsive-md">
+        <thead class="thead-dark">
+        <tr>
+          <th>
+            Имя
+          </th>
+          <th>
+            Фамилия
+          </th>
+          <th>
+            Отчество
+          </th>
+          <th>
+            Имя пользователя
+          </th>
+          <th>
+            Город
+          </th>
+          <th>
+            Почта
+          </th>
+          <th>
+            Номер
+          </th>
+          <th>
+            Добавил
+          </th>
+          <th>
+            Действия
+          </th>
+        </tr>
+        </thead>
+          <tbody>
+          <tr *ngFor="let coach of coachList">
+            <td>{{coach?.givenName}}</td>
+            <td>{{coach?.lastName}}</td>
+            <td>{{coach?.fatherName}}</td>
+            <td>{{coach?.username}}</td>
+            <td>{{coach?.city}}</td>
+            <td>{{coach?.email}}</td>
+            <td>{{coach?.phone}}</td>
+            <td>{{coach?.userInfo}}</td>
+            <td>
+              <div class="btn-group">
+                <button type="button" class="btn btn-outline-danger ml-2" (click)="onDeleteCoach.emit(coach?.id)"><i class="bi bi-trash-fill"></i></button>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+      </table>
+    </div>
+  </div>
+</div>

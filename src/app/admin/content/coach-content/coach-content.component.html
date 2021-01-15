@@ -1,1 +1,16 @@
-<p>coach.content works!</p>
+<ng-container [ngSwitch]="coachTabState$ | async">
+  <coach-list
+    *ngSwitchCase="coachTabState.LIST"
+    [coachList]="coachList"
+    (onGoToCoachCreate)="goToCoachCreate()"
+    (onDeleteCoach)="deleteCoach($event)"
+    (onDeleteAllCoaches)="deleteAllCoaches()"
+  >
+  </coach-list>
+  <coach-create
+    *ngSwitchCase="coachTabState.CREATE"
+    (onCreateCoach)="createCoach($event)"
+    (onCancel)="cancelCreating()"
+  >
+  </coach-create>
+</ng-container>

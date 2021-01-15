@@ -4,6 +4,7 @@ import {AdminApiService} from './api/admin.api.service';
 import {AdminGuard} from './admin-guard.service';
 import {adminTabComponents} from './content';
 import {adminContentServices} from './content/admin-content';
+import {coachContentServices} from './content/coach-content';
 
 export const adminComponents = [
   AdminComponent,
@@ -18,5 +19,6 @@ export const adminView = {
 export const adminServices = [
   AdminApiService,
   AdminGuard,
-  ...adminContentServices
+  ...adminContentServices,
+  ...coachContentServices
 ]

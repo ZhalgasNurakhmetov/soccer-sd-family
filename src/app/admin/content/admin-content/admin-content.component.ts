@@ -60,6 +60,7 @@ export class AdminContentComponent implements OnInit, OnDestroy {
       this.adminList.push(user);
       this.toaster.success('Пользователь создан', 'Готово', {timeOut: 3000});
       this.setAdminTabState(this.adminTabState.LIST);
+      this.adminCreateFormService.adminCreateForm.reset();
       this.cd.markForCheck();
     }, error => {
       this.toaster.error(error?.error?.message, 'Ошибка', {timeOut: 3000});

@@ -1,0 +1,30 @@
+<div class="container-fluid">
+  <div class="row mt-2">
+    <div class="col-lg-6 col-xl-4">
+      <div class="btn-group">
+        <button type="button" class="btn btn-success" (click)="onGoToCoachCreate.emit()">Добавить тренера</button>
+        <button type="button" class="btn btn-danger ml-2" data-toggle="modal" data-target="#myModal">
+          Удалить всех тренеров
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Удаление тренеров</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        Вы действительно хотите удалить всех тренеров?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-dark" data-dismiss="modal" (click)="onGoToDeleteAllCoaches.emit()">Удалить</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Закрыть</button>
+      </div>
+    </div>
+  </div>
+</div>
