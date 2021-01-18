@@ -13,6 +13,7 @@
   </admin-list>
   <admin-create
     *ngSwitchCase="currentAdminTabState === adminTabState.CREATE"
+    [isLoading]="adminCreatingIsLoading$ | async"
     (onCreateAdmin)="createAdmin($event)"
     (onCancel)="cancelCreating()"
   >

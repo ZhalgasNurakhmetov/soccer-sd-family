@@ -15,6 +15,7 @@ import {NgxsModule} from '@ngxs/store';
 })
 export class CoachListMock {
   @Input() coachList: User[];
+  @Input() isLoading: boolean;
 }
 
 @Component({
@@ -22,6 +23,7 @@ export class CoachListMock {
   template: ''
 })
 export class CoachCreateMock {
+  @Input() isLoading: boolean;
 }
 
 describe('CoachContentComponent', () => {

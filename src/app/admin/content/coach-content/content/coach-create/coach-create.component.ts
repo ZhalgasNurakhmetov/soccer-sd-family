@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
 import {CoachCreateFormService} from './forms/coach-create.form.service';
 import {CoachCreateFormModel} from './forms/coach-create,form.model';
 import {ToastrService} from 'ngx-toastr';
@@ -10,6 +10,8 @@ import {ToastrService} from 'ngx-toastr';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CoachCreateComponent {
+
+  @Input() isLoading: boolean;
 
   @Output() onCreateCoach = new EventEmitter<CoachCreateFormModel>();
   @Output() onCancel = new EventEmitter();

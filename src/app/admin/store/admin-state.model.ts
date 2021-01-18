@@ -7,4 +7,7 @@ export interface AdminStateModel {
   adminTabState: AdminTabState;
   coachTabState: CoachTabState;
   idOfAdminOnEdit: number;
+  adminCreatingIsLoading: boolean;
+  coachCreatingIsLoading: boolean;
+  coachDeletingIsLoading: boolean
 }

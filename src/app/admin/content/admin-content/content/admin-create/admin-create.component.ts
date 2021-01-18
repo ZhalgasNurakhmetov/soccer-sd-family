@@ -1,4 +1,4 @@
-import {Component, OnInit, ChangeDetectionStrategy, Output, EventEmitter} from '@angular/core';
+import {Component, OnInit, ChangeDetectionStrategy, Output, EventEmitter, Input} from '@angular/core';
 import {AdminCreateFormService} from './forms/admin-create.form.service';
 import {AdminCreateFormModel} from './forms/admin-create.form.model';
 import {ToastrService} from 'ngx-toastr';
@@ -10,6 +10,8 @@ import {ToastrService} from 'ngx-toastr';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AdminCreateComponent implements OnInit {
+
+  @Input() isLoading: boolean;
 
   @Output() onCreateAdmin = new EventEmitter<AdminCreateFormModel>();
   @Output() onCancel = new EventEmitter();

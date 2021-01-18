@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {Select} from '@ngxs/store';
 import {Observable} from 'rxjs';
-import {AdminState, SetCoachTabState} from '../../store';
+import {AdminState, SetCoachCreatingIsLoading, SetCoachDeletingIsLoading, SetCoachTabState} from '../../store';
 import {CoachTabState} from './enums/coach-tab.state.enum';
 import {Dispatch} from '@ngxs-labs/dispatch-decorator';
 import {User} from '../../../core/models/user';
@@ -9,6 +9,7 @@ import {AdminApiService} from '../../api/admin.api.service';
 import {ToastrService} from 'ngx-toastr';
 import {CoachCreateFormModel} from './content/coach-create/forms/coach-create,form.model';
 import {CoachCreateFormService} from './content/coach-create/forms/coach-create.form.service';
+import {finalize} from 'rxjs/operators';
 
 @Component({
   selector: 'coach-content',
@@ -19,11 +20,15 @@ import {CoachCreateFormService} from './content/coach-create/forms/coach-create.
 export class CoachContentComponent implements OnInit {
 
   @Select(AdminState.coachTabState) coachTabState$: Observable<CoachTabState>;
+  @Select(AdminState.coachCreatingIsLoading) coachCreatingIsLoading$: Observable<boolean>;
+  @Select(AdminState.coachDeletingIsLoading) coachDeletingIsLoading$: Observable<boolean>;
 
   coachList: User[] = [];
   coachTabState = CoachTabState;
 
   @Dispatch() setCoachTabState = (coachTabState: CoachTabState) => new SetCoachTabState(coachTabState);
+  @Dispatch() setCoachCreatingIsLoading = (coachCreatingIsLoading: boolean) => new SetCoachCreatingIsLoading(coachCreatingIsLoading);
+  @Dispatch() setCoachDeletingIsLoading = (coachDeletingIsLoading: boolean) => new SetCoachDeletingIsLoading(coachDeletingIsLoading);
 
   constructor(
     private adminApi: AdminApiService,
@@ -42,12 +47,19 @@ export class CoachContentComponent implements OnInit {
   }
 
   createCoach(coachInfo: CoachCreateFormModel) {
-    this.adminApi.createCoach(coachInfo).subscribe(user => {
+    this.setCoachCreatingIsLoading(true);
+    this.cd.markForCheck();
+    this.adminApi.createCoach(coachInfo)
+      .pipe(
+        finalize(() => {
+          this.setCoachCreatingIsLoading(false);
+          this.cd.markForCheck();
+        })
+      ).subscribe(user => {
       this.coachList.push(user);
       this.toaster.success('Тренер создан', 'Готово', {timeOut: 3000});
       this.setCoachTabState(this.coachTabState.LIST);
       this.coachCreateFormService.form.reset();
-      this.cd.markForCheck();
     }, error => {
       this.toaster.error(error?.error?.message, 'Ошибка', {timeOut: 3000});
     });
@@ -74,10 +86,17 @@ export class CoachContentComponent implements OnInit {
       this.toaster.show('Нет данных для удаления', 'Внимание', {timeOut: 3000});
       return
     }
-    this.adminApi.deleteAllCoaches().subscribe(response => {
+    this.setCoachDeletingIsLoading(true);
+    this.cd.markForCheck();
+    this.adminApi.deleteAllCoaches()
+      .pipe(
+        finalize(() => {
+          this.setCoachDeletingIsLoading(false);
+          this.cd.markForCheck();
+        })
+      ).subscribe(response => {
       this.coachList = [];
       this.toaster.success(response?.message, 'Готово', {timeOut: 3000});
-      this.cd.markForCheck();
     }, error => {
       this.toaster.error(error?.error?.message, 'Ошибка', {timeOut: 3000});
     });

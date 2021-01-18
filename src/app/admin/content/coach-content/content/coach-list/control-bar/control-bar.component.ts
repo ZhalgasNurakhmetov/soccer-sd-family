@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
 
 @Component({
   selector: 'coach-list-control-bar',
@@ -7,6 +7,8 @@ import {ChangeDetectionStrategy, Component, EventEmitter, Output} from '@angular
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ControlBarComponent {
+
+  @Input() isLoading: boolean;
 
   @Output() onGoToCoachCreate = new EventEmitter();
   @Output() onGoToDeleteAllCoaches = new EventEmitter();

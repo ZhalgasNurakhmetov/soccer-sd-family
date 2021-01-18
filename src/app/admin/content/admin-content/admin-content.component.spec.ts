@@ -27,6 +27,8 @@ export class AdminListMock {
 })
 export class AdminCreateMock {
 
+  @Input() isLoading: boolean;
+
 }
 
 describe('AdminContentComponent', () => {

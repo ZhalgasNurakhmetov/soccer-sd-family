@@ -22,6 +22,21 @@ export class SetAdminOnEdit {
   constructor(public idOfAdminOnEdit: number) { }
 }
 
+export class SetAdminCreatingIsLoading {
+  static readonly type = '[AdminState] Set Admin Creating Is Loading';
+  constructor(public adminCreatingIsLoading: boolean) { }
+}
+
+export class SetCoachCreatingIsLoading {
+  static readonly type = '[AdminState] Set Coach Creating Is Loading';
+  constructor(public coachCreatingIsLoading: boolean) { }
+}
+
+export class SetCoachDeletingIsLoading {
+  static readonly type = '[AdminState] Set Coach Deleting Is Loading';
+  constructor(public coachDeletingIsLoading: boolean) { }
+}
+
 export class ResetState {
   static readonly type = '[AdminState] Reset State]';
 }

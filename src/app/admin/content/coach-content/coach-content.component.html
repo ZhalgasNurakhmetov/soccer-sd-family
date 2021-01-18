@@ -2,6 +2,7 @@
   <coach-list
     *ngSwitchCase="coachTabState.LIST"
     [coachList]="coachList"
+    [isLoading]="coachDeletingIsLoading$ | async"
     (onGoToCoachCreate)="goToCoachCreate()"
     (onDeleteCoach)="deleteCoach($event)"
     (onDeleteAllCoaches)="deleteAllCoaches()"
@@ -9,6 +10,7 @@
   </coach-list>
   <coach-create
     *ngSwitchCase="coachTabState.CREATE"
+    [isLoading]="coachCreatingIsLoading$ | async"
     (onCreateCoach)="createCoach($event)"
     (onCancel)="cancelCreating()"
   >

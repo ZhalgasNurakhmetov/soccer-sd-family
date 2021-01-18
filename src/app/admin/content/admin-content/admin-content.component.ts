@@ -2,13 +2,13 @@ import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit
 import {Select} from '@ngxs/store';
 import {Observable, Subject} from 'rxjs';
 import {AdminTabState} from './enums/admin-tab.state.enum';
-import {AdminState, SetAdminOnEdit, SetAdminTabState} from '../../store';
+import {AdminState, SetAdminCreatingIsLoading, SetAdminOnEdit, SetAdminTabState} from '../../store';
 import {AdminApiService} from '../../api/admin.api.service';
 import {User} from '../../../core/models/user';
 import {Dispatch} from '@ngxs-labs/dispatch-decorator';
 import {AdminCreateFormModel} from './content/admin-create/forms/admin-create.form.model';
 import {AdminCreateFormService} from './content/admin-create/forms/admin-create.form.service';
-import {takeUntil} from 'rxjs/operators';
+import {finalize, takeUntil} from 'rxjs/operators';
 import {AdminEditFormService} from './content/admin-list/forms/admin-edit.form.service';
 import {ToastrService} from 'ngx-toastr';
 
@@ -23,6 +23,7 @@ export class AdminContentComponent implements OnInit, OnDestroy {
   @Select(AdminState.adminTabState) adminTabState$: Observable<AdminTabState>;
   @Select(AdminState.admin) admin$: Observable<User>;
   @Select(AdminState.idOfAdminOnEdit) idOfAdminOnEdit$: Observable<number>;
+  @Select(AdminState.adminCreatingIsLoading) adminCreatingIsLoading$: Observable<boolean>;
 
   currentAdminTabState: AdminTabState;
   adminTabState = AdminTabState;
@@ -32,6 +33,7 @@ export class AdminContentComponent implements OnInit, OnDestroy {
 
   @Dispatch() setAdminTabState = (adminTabState: AdminTabState) => new SetAdminTabState(adminTabState);
   @Dispatch() setIdOfAdminOnEdit = (idOfAdminOnEdit: number) => new SetAdminOnEdit(idOfAdminOnEdit);
+  @Dispatch() setAdminCreatingIsLoading = (adminCreatingIsLoading: boolean) => new SetAdminCreatingIsLoading(adminCreatingIsLoading);
 
   constructor(
     private adminApi: AdminApiService,
@@ -56,12 +58,19 @@ export class AdminContentComponent implements OnInit, OnDestroy {
       this.toaster.error('Имя учетной записи должно начинаться с admin', 'Ошибка', {timeOut: 3000});
       return
     }
-    this.adminApi.createAdmin(adminInfo).subscribe(user => {
+    this.setAdminCreatingIsLoading(true);
+    this.cd.markForCheck();
+    this.adminApi.createAdmin(adminInfo)
+      .pipe(
+        finalize(() => {
+          this.setAdminCreatingIsLoading(false);
+          this.cd.markForCheck();
+        })
+      ).subscribe(user => {
       this.adminList.push(user);
       this.toaster.success('Пользователь создан', 'Готово', {timeOut: 3000});
       this.setAdminTabState(this.adminTabState.LIST);
       this.adminCreateFormService.adminCreateForm.reset();
-      this.cd.markForCheck();
     }, error => {
       this.toaster.error(error?.error?.message, 'Ошибка', {timeOut: 3000});
     });
@@ -110,7 +119,6 @@ export class AdminContentComponent implements OnInit, OnDestroy {
     this.adminApi.deleteAdmin(id).subscribe(response => {
       this.adminList = this.adminList.filter(admin => admin.id !== id);
       this.toaster.success(response?.message, 'Готово', {timeOut: 3000});
-      this.cd.markForCheck();
     }, error => {
       this.toaster.error(error?.error?.message, 'Ошибка', {timeOut: 3000});
     });

@@ -10,6 +10,7 @@ import {User} from '../../../../../core/models/user';
 export class CoachListComponent {
 
   @Input() coachList: User[];
+  @Input() isLoading: boolean;
   @Output() onGoToCoachCreate = new EventEmitter();
   @Output() onDeleteCoach = new EventEmitter<number>();
   @Output() onDeleteAllCoaches = new EventEmitter();

@@ -1,13 +1,14 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CoachListComponent } from './coach-list.component';
-import {Component} from '@angular/core';
+import {Component, Input} from '@angular/core';
 
 @Component({
   selector: 'coach-list-control-bar',
   template: ''
 })
 export class ControlBarMock {
+  @Input() isLoading: boolean;
 
 }
 
