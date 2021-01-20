@@ -1,0 +1,28 @@
+<div class="container-fluid bg-primary text-white pb-3 pt-3">
+  <div class="row h-100">
+    <div class="col-sm-4 col-md-6 col-lg-7 col-xl-7 my-auto">
+      <p class="font-weight-bold m-0">{{coach?.givenName}} {{coach?.lastName}}</p>
+    </div>
+    <div class="col-sm-8 col-md-6 col-lg-5 col-xl-5 my-auto">
+      <ul class="list-inline m-0">
+        <li class="list-inline-item m-0">Главная</li>
+        <li class="list-inline-item m-0 ml-2" (click)="onGoToTeams.emit()">Команды</li>
+        <li class="list-inline-item m-0 ml-2">Уведомления</li>
+        <li class="list-inline-item m-0 ml-2">
+          <div class="dropdown">
+            <button type="button" id="dropdownMenuButton" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Действия
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <p class="dropdown-item" (click)="onGoToEdit.emit()">Редактировать профиль</p>
+              <p class="dropdown-item" (click)="onGoToChangePassword.emit()">Изменить пароль</p>
+              <p class="dropdown-item" (click)="onGoToPayment.emit()">Оплатить</p>
+              <p class="dropdown-item mb-0" (click)="onLogout.emit()">Выйти</p>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+

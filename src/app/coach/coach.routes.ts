@@ -1,3 +1,4 @@
 export const CoachRoutes = {
-  feature: 'coach'
+  feature: 'coach',
+  teams: 'teams'
 }

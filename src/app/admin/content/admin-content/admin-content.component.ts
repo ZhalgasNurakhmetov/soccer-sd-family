@@ -116,7 +116,12 @@ export class AdminContentComponent implements OnInit, OnDestroy {
   }
 
   deleteAdmin(id: number) {
-    this.adminApi.deleteAdmin(id).subscribe(response => {
+    this.adminApi.deleteAdmin(id)
+      .pipe(
+        finalize(() => {
+          this.cd.markForCheck();
+        })
+      ).subscribe(response => {
       this.adminList = this.adminList.filter(admin => admin.id !== id);
       this.toaster.success(response?.message, 'Готово', {timeOut: 3000});
     }, error => {

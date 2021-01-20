@@ -1,0 +1,7 @@
+<coach-header
+  [coach]="coach$ | async"
+  (onGoToTeams)="goToTeams()"
+  (onLogout)="logout()"
+>
+</coach-header>
+<router-outlet></router-outlet>

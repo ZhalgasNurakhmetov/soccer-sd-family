@@ -1,14 +1,18 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 
-import { CoachRoutingModule } from './coach-routing.module';
+import {CoachRoutingModule} from './coach-routing.module';
+import {coachComponents, coachServices} from './index';
+import {CoachStoreModule} from './store/coach-store.module';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [...coachComponents],
   imports: [
     CommonModule,
-    CoachRoutingModule
-  ]
+    CoachRoutingModule,
+    CoachStoreModule
+  ],
+  providers: [...coachServices]
 })
 export class CoachModule { }
