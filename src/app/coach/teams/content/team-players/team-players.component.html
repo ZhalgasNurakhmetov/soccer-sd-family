@@ -1,1 +1,19 @@
-<p>team-players works!</p>
+<body class="inventory-body">
+<ng-container [ngSwitch]="teamPlayersState$ | async">
+  <team-players-player-list
+    *ngSwitchCase="teamPlayersState.LIST"
+    [players]="players$ | async"
+    (onOpen)="open($event)"
+    (onGoToPlayerCreate)="goToPlayerCreate()"
+  >
+  </team-players-player-list>
+  <team-players-player-create
+    *ngSwitchCase="teamPlayersState.CREATE"
+    [team]="team$ | async"
+    [isLoading]="playerCreateIsLoading$ | async"
+    (onCreatePlayer)="createPlayer($event)"
+    (onCancel)="onCancel()"
+  >
+  </team-players-player-create>
+</ng-container>
+</body>

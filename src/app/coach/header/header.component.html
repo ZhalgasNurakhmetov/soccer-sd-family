@@ -1,16 +1,17 @@
-<div class="container-fluid bg-primary text-white pb-3 pt-3">
+<div class="container-fluid bg-warning text-white pb-3 pt-3">
   <div class="row h-100">
     <div class="col-sm-4 col-md-6 col-lg-7 col-xl-7 my-auto">
-      <p class="font-weight-bold m-0">{{coach?.givenName}} {{coach?.lastName}}</p>
+      <img id="logo" src="../../../assets/logo.png" style="float: left;">
+      <p class="font-weight-bold m-0" style="font-size: 20px;">{{coach?.givenName}} {{coach?.lastName}}</p>
     </div>
     <div class="col-sm-8 col-md-6 col-lg-5 col-xl-5 my-auto">
       <ul class="list-inline m-0">
-        <li class="list-inline-item m-0">Главная</li>
-        <li class="list-inline-item m-0 ml-2" (click)="onGoToTeams.emit()">Команды</li>
-        <li class="list-inline-item m-0 ml-2">Уведомления</li>
-        <li class="list-inline-item m-0 ml-2">
+        <li class="list-inline-item m-0 font-weight-bold">Главная</li>
+        <li class="list-inline-item m-0 ml-2 font-weight-bold" (click)="onGoToTeams.emit()">Команды</li>
+        <li class="list-inline-item m-0 ml-2 font-weight-bold">Уведомления</li>
+        <li class="list-inline-item m-0 ml-2 font-weight-bold">
           <div class="dropdown">
-            <button type="button" id="dropdownMenuButton" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <button type="button" id="dropdownMenuButton" class="btn btn-outline-primary dropdown-toggle font-weight-bold" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Действия
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">

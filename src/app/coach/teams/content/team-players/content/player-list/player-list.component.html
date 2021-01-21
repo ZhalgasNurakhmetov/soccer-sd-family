@@ -1,0 +1,40 @@
+<player-list-control-bar
+  (onGoToPlayerCreate)="onGoToPlayerCreate.emit()"
+>
+</player-list-control-bar>
+<div class="container-fluid">
+  <div class="row mt-2">
+    <div class="col">
+      <table class="table table-bordered table-hover table-responsive-md">
+        <thead class="table-warning">
+        <tr>
+          <th>
+            Имя
+          </th>
+          <th>
+            Фамилия
+          </th>
+          <th>
+            Отчество
+          </th>
+          <th>
+            Дата рождения
+          </th>
+          <th>
+            Оплатил
+          </th>
+        </tr>
+        </thead>
+        <tbody class="table-light">
+        <tr *ngFor="let player of players" (click)="onOpen.emit(player)">
+          <td>{{player?.givenName}}</td>
+          <td>{{player?.lastName}}</td>
+          <td>{{player?.fatherName}}</td>
+          <td>{{player?.birthdate}}</td>
+          <td><input type="text"><button class="btn btn-outline-primary ml-2">Оплатил</button></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

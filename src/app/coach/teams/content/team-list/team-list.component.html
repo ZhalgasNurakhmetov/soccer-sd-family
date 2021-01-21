@@ -1,1 +1,18 @@
-<p>team-list works!</p>
+
+<body class="inventory-body">
+<teams-list-control-bar
+
+>
+</teams-list-control-bar>
+<div class="container-fluid">
+  <div class="card-deck mt-2">
+    <div class="card bg-light" *ngFor="let team of teams">
+      <div class="card-body text-center">
+        <p class="card-text font-weight-bold">Команда</p>
+        <p class="card-text font-weight-bold" style="font-size: 20px">{{team?.team}}</p>
+        <button class="btn btn-outline-primary" (click)="goToTeam(team?.players)">Перейти</button>
+      </div>
+    </div>
+  </div>
+</div>
+</body>

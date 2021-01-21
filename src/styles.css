@@ -1,6 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
-body {
+
+html, body, app-root, app-coach, coach-teams{
+  height: 100%;
   margin: 0;
+}
+
+.inventory-body {
+  background-image: linear-gradient(to top, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)),
+  url(./assets/logo.jpg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
 }
 
 .center {

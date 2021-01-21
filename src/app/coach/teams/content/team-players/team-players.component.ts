@@ -1,8 +1,17 @@
-import {Component, OnInit, ChangeDetectionStrategy, OnDestroy} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {Select} from '@ngxs/store';
 import {Observable, Subject} from 'rxjs';
 import {Player} from '../../../../core/models/user';
-import {TeamsState} from '../../store';
+import {SetPlayerCreateIsLoading, SetTeamPlayersState, TeamsState} from '../../store';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {PlayerModalComponent} from '../../modals/player-modal/player-modal.component';
+import {TeamPlayersStateEnum} from './enums/team-players.state';
+import {Dispatch} from '@ngxs-labs/dispatch-decorator';
+import {PlayerCreateFormService} from './content/player-create/forms/player-create.form.service';
+import {TeamsApiService} from '../../api/teams-api.service';
+import {PlayerCreateModel} from './content/player-create/forms/player-create.form.model';
+import {finalize, takeUntil} from 'rxjs/operators';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'teams-content-team-players',
@@ -10,20 +19,78 @@ import {TeamsState} from '../../store';
   styleUrls: ['./team-players.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TeamPlayersComponent implements OnInit, OnDestroy {
+export class TeamPlayersComponent implements OnInit, OnDestroy{
 
   @Select(TeamsState.players) players$: Observable<Player[]>;
+  @Select(TeamsState.teamPlayersState) teamPlayersState$: Observable<TeamPlayersStateEnum>;
+  @Select(TeamsState.team) team$: Observable<string>;
+  @Select(TeamsState.playerCreateIsLoading) playerCreateIsLoading$: Observable<boolean>;
+
+  players: Player[];
+
+  teamPlayersState = TeamPlayersStateEnum;
 
   private unsubscribe$ = new Subject();
 
-  constructor() { }
+  @Dispatch() setTeamPlayersState = (teamPlayersState: TeamPlayersStateEnum) => new SetTeamPlayersState(teamPlayersState);
+  @Dispatch() setPlayerCreateIsLoading = (playerCreateIsLoading: boolean) => new SetPlayerCreateIsLoading(playerCreateIsLoading);
+
+  constructor(
+    private cd: ChangeDetectorRef,
+    private modalService: NgbModal,
+    private playerCreateFormService: PlayerCreateFormService,
+    private teamsApi: TeamsApiService,
+    private toaster: ToastrService
+  ) { }
 
   ngOnInit(): void {
+    this.subscribeToPlayers();
+  }
+
+  open(player: Player) {
+    const modalRef = this.modalService.open(PlayerModalComponent);
+    modalRef.componentInstance.player = player;
+  }
+
+  goToPlayerCreate() {
+    this.setTeamPlayersState(this.teamPlayersState.CREATE);
+  }
+
+  createPlayer(player: PlayerCreateModel) {
+    this.setPlayerCreateIsLoading(true);
+    this.teamsApi.createPlayer(player)
+      .pipe(
+        finalize(() => {
+          this.setPlayerCreateIsLoading(false);
+          this.cd.markForCheck();
+        })
+      ).subscribe(newPlayer => {
+        this.players.push(newPlayer);
+      this.toaster.success('Игрок успешно добавлен', 'Готово', {timeOut: 3000});
+      this.setTeamPlayersState(this.teamPlayersState.LIST);
+      this.playerCreateFormService.form.reset();
+      this.playerCreateFormService.player.reset();
+    }, error => {
+      this.toaster.error(error?.error?.message, 'Ошибка', {timeOut: 3000});
+    })
+  }
+
+  onCancel() {
+    this.playerCreateFormService.form.reset();
+    this.playerCreateFormService.player.reset();
+    this.setTeamPlayersState(this.teamPlayersState.LIST);
+    this.cd.markForCheck();
+  }
+
+  private subscribeToPlayers() {
+    this.players$.pipe(takeUntil(this.unsubscribe$)).subscribe(players => {
+      this.players = players;
+      this.cd.markForCheck();
+    })
   }
 
   ngOnDestroy() {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
   }
-
 }

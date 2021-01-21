@@ -1,29 +1,55 @@
-import {Component, OnInit, ChangeDetectionStrategy, OnDestroy} from '@angular/core';
+import {Component, OnInit, ChangeDetectionStrategy, OnDestroy, ChangeDetectorRef} from '@angular/core';
 import {Select} from '@ngxs/store';
 import {Observable, Subject} from 'rxjs';
 import {Team} from '../../../../core/models/team';
-import {TeamsState} from '../../store';
+import {SetPlayers, TeamsState} from '../../store';
+import {takeUntil} from 'rxjs/operators';
+import {Router} from '@angular/router';
+import {AppRoutes} from '../../../../app.routes';
+import {CoachRoutes} from '../../../coach.routes';
+import {TeamsRoutes} from '../../teams.routes';
+import {Dispatch} from '@ngxs-labs/dispatch-decorator';
+import {Player} from '../../../../core/models/user';
 
 @Component({
   selector: 'teams-content-team-list',
   templateUrl: './team-list.component.html',
   styleUrls: ['./team-list.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TeamListComponent implements OnInit, OnDestroy {
 
   @Select(TeamsState.teams) teams$: Observable<Team[]>;
 
+  teams: Team[];
+
   private unsubscribe$ = new Subject();
 
-  constructor() { }
+  @Dispatch() setPlayers = (players: Player[]) => new SetPlayers(players);
+
+  constructor(
+    private cd: ChangeDetectorRef,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
+    this.subscribeToTeams();
+  }
+
+  goToTeam(players: Player[]) {
+    this.setPlayers(players);
+    this.router.navigate([AppRoutes.coach, CoachRoutes.teams, TeamsRoutes.players]);
+  }
+
+  private subscribeToTeams() {
+    this.teams$.pipe(takeUntil(this.unsubscribe$)).subscribe(teams => {
+      this.teams = teams;
+      this.cd.markForCheck();
+    })
   }
 
   ngOnDestroy() {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
   }
-
 }
