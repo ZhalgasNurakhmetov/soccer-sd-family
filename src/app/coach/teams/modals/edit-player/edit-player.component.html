@@ -1,87 +1,90 @@
 <div class="modal-body centered">
-  <div class="container-fluid">
-  <div class="row mt-2">
-    <div class="col">
-      <p class="h5">Редактирование игрока</p>
+  <div class="modal-content">
+    <div class="container-fluid">
+      <div class="row mt-2">
+        <div class="col">
+          <p class="h5">Редактирование игрока</p>
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class="col">
+          <form [formGroup]="form" (ngSubmit)="editPlayer()" class="was-validated">
+            <div class="form-group">
+              <div class="dropdown">
+                <label>Город:</label>
+                <button class="btn btn-primary dropdown-toggle ml-2" type="button" id="cities" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <span *ngIf="form?.controls?.city?.value; else notSelected">{{form?.controls?.city?.value}}</span>
+                </button>
+                <div class="dropdown-menu" aria-labelledby="cities">
+                  <h6 class="dropdown-header">Выбрать город</h6>
+                  <button class="dropdown-item" type="button" *ngFor="let city of cities" (click)="setCity(city)">{{city}}</button>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="height">Рост:</label>
+              <input type="text" class="form-control" id="height" placeholder="Рост"
+                     [formControl]="form?.controls?.height" required>
+              <div class="valid-feedback"></div>
+              <div class="invalid-feedback"></div>
+            </div>
+            <div class="form-group">
+              <label for="weight">Вес:</label>
+              <input type="text" class="form-control" id="weight" placeholder="Вес"
+                     [formControl]="form?.controls?.weight" required>
+              <div class="valid-feedback"></div>
+              <div class="invalid-feedback"></div>
+            </div>
+            <div class="form-group">
+              <div class="dropdown">
+                <label>Игровая нога:</label>
+                <button class="btn btn-primary dropdown-toggle ml-2" type="button" id="foot" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <span *ngIf="form?.controls?.activeFoot?.value; else notFoot">{{form?.controls?.activeFoot?.value}}</span>
+                </button>
+                <div class="dropdown-menu" aria-labelledby="foot">
+                  <h6 class="dropdown-header">Выбрать</h6>
+                  <button class="dropdown-item" type="button" *ngFor="let foot of feet" (click)="setFoot(foot)">{{foot}}</button>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="dropdown">
+                <label>Команда:</label>
+                <button class="btn btn-primary dropdown-toggle ml-2" type="button" id="team" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <span *ngIf="form?.controls?.team?.value; else notFoot">{{form?.controls?.team?.value}}</span>
+                </button>
+                <div class="dropdown-menu" aria-labelledby="team">
+                  <h6 class="dropdown-header">Выбрать</h6>
+                  <button class="dropdown-item" type="button" *ngFor="let team of teams" (click)="setTeam(team)">{{team}}</button>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="dropdown">
+                <label>Позиция:</label>
+                <button class="btn btn-primary dropdown-toggle ml-2" type="button" id="position" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <span *ngIf="form?.controls?.position?.value; else notFoot">{{form?.controls?.position?.value}}</span>
+                </button>
+                <div class="dropdown-menu" aria-labelledby="position">
+                  <h6 class="dropdown-header">Выбрать</h6>
+                  <button class="dropdown-item" type="button" *ngFor="let position of positions" (click)="setPosition(position)">{{position}}</button>
+                </div>
+              </div>
+            </div>
+            <div class="image-upload mb-2">
+              <img [src]="form?.controls?.photo?.value" style="max-width:300px; max-height:300px"/>
+              <input name="imageUrl" type="file" accept="image/*" (change)="handleInputChange($event)" />
+            </div>
+            <div class="btn-group">
+              <button type="submit" class="btn btn-primary" *ngIf="!isLoading; else loadingButton" [disabled]="!form.valid || !form.touched">Сохранить</button>
+              <button type="button" class="btn btn-danger ml-2" (click)="close()">Отмена</button>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="row mt-2">
-    <div class="col-sm-10 col-md-8 col-lg-6 col-xl-4">
-      <form [formGroup]="form" (ngSubmit)="editPlayer()" class="was-validated">
-        <div class="form-group">
-          <div class="dropdown">
-            <label>Город:</label>
-            <button class="btn btn-primary dropdown-toggle ml-2" type="button" id="cities" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <span *ngIf="form?.controls?.city?.value; else notSelected">{{form?.controls?.city?.value}}</span>
-            </button>
-            <div class="dropdown-menu" aria-labelledby="cities">
-              <h6 class="dropdown-header">Выбрать город</h6>
-              <button class="dropdown-item" type="button" *ngFor="let city of cities" (click)="setCity(city)">{{city}}</button>
-            </div>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="height">Рост:</label>
-          <input type="text" class="form-control" id="height" placeholder="Рост"
-                 [formControl]="form?.controls?.height" required>
-          <div class="valid-feedback"></div>
-          <div class="invalid-feedback"></div>
-        </div>
-        <div class="form-group">
-          <label for="weight">Вес:</label>
-          <input type="text" class="form-control" id="weight" placeholder="Вес"
-                 [formControl]="form?.controls?.weight" required>
-          <div class="valid-feedback"></div>
-          <div class="invalid-feedback"></div>
-        </div>
-        <div class="form-group">
-          <div class="dropdown">
-            <label>Игровая нога:</label>
-            <button class="btn btn-primary dropdown-toggle ml-2" type="button" id="foot" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <span *ngIf="form?.controls?.activeFoot?.value; else notFoot">{{form?.controls?.activeFoot?.value}}</span>
-            </button>
-            <div class="dropdown-menu" aria-labelledby="foot">
-              <h6 class="dropdown-header">Выбрать</h6>
-              <button class="dropdown-item" type="button" *ngFor="let foot of feet" (click)="setFoot(foot)">{{foot}}</button>
-            </div>
-          </div>
-        </div>
-        <div class="form-group">
-          <div class="dropdown">
-            <label>Команда:</label>
-            <button class="btn btn-primary dropdown-toggle ml-2" type="button" id="team" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <span *ngIf="form?.controls?.team?.value; else notFoot">{{form?.controls?.team?.value}}</span>
-            </button>
-            <div class="dropdown-menu" aria-labelledby="team">
-              <h6 class="dropdown-header">Выбрать</h6>
-              <button class="dropdown-item" type="button" *ngFor="let team of teams" (click)="setTeam(team)">{{team}}</button>
-            </div>
-          </div>
-        </div>
-        <div class="form-group">
-          <div class="dropdown">
-            <label>Позиция:</label>
-            <button class="btn btn-primary dropdown-toggle ml-2" type="button" id="position" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <span *ngIf="form?.controls?.position?.value; else notFoot">{{form?.controls?.position?.value}}</span>
-            </button>
-            <div class="dropdown-menu" aria-labelledby="position">
-              <h6 class="dropdown-header">Выбрать</h6>
-              <button class="dropdown-item" type="button" *ngFor="let position of positions" (click)="setPosition(position)">{{position}}</button>
-            </div>
-          </div>
-        </div>
-        <div class="image-upload mb-2">
-          <img [src]="form?.controls?.photo?.value" style="max-width:300px; max-height:300px"/>
-          <input name="imageUrl" type="file" accept="image/*" (change)="handleInputChange($event)" />
-        </div>
-        <div class="btn-group">
-          <button type="submit" class="btn btn-primary" *ngIf="!isLoading; else loadingButton" [disabled]="!form.valid || !form.touched">Сохранить</button>
-          <button type="button" class="btn btn-danger ml-2" (click)="close()">Отмена</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
+
 </div>
 
 <ng-template #notSelected>

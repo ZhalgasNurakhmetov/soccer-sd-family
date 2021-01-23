@@ -30,6 +30,14 @@ const routes: Routes = [
         loadChildren: () => import('./main/main.module').then(m => m.MainModule)
       },
       {
+        path: CoachRoutes.notification,
+        loadChildren: () => import('./notification/notification.module').then(m => m.NotificationModule)
+      },
+      {
+        path: CoachRoutes.payment,
+        loadChildren: () => import('./payment/payment.module').then(m => m.PaymentModule)
+      },
+      {
         path: '',
         pathMatch: 'full',
         redirectTo: CoachRoutes.main

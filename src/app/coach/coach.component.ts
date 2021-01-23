@@ -31,12 +31,20 @@ export class CoachComponent {
     this.router.navigate([AppRoutes.coach, CoachRoutes.teams]);
   }
 
+  goToNotification() {
+    this.router.navigate([AppRoutes.coach, CoachRoutes.notification]);
+  }
+
   goToEdit() {
     this.router.navigate([AppRoutes.coach, CoachRoutes.editProfile]);
   }
 
   goToChangePassword() {
     this.router.navigate([AppRoutes.coach, CoachRoutes.changePassword]);
+  }
+
+  goToPayment() {
+    this.router.navigate([AppRoutes.coach, CoachRoutes.payment]);
   }
 
   logout() {

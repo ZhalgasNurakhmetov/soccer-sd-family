@@ -17,6 +17,7 @@ export class HeaderComponent {
   @Output() onGoToPayment = new EventEmitter();
   @Output() onLogout = new EventEmitter();
   @Output() onGoToMain = new EventEmitter();
+  @Output() onGoToNotification = new EventEmitter();
 
   constructor() { }
 

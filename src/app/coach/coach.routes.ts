@@ -4,5 +4,7 @@ export const CoachRoutes = {
   changePassword: 'change-password',
   addPlayer: 'add-player',
   editProfile: 'edit-profile',
-  main: 'main'
+  main: 'main',
+  notification: 'notification',
+  payment: 'payment'
 }
