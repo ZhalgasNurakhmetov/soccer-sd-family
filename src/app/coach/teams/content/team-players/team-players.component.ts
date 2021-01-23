@@ -12,6 +12,9 @@ import {TeamsApiService} from '../../api/teams-api.service';
 import {PlayerCreateModel} from './content/player-create/forms/player-create.form.model';
 import {finalize, takeUntil} from 'rxjs/operators';
 import {ToastrService} from 'ngx-toastr';
+import {PaymentFormService} from './content/player-list/forms/payment-form.service';
+import {EditPlayerComponent} from '../../modals/edit-player/edit-player.component';
+import {DeleteComponent} from '../../modals/delete/delete.component';
 
 @Component({
   selector: 'teams-content-team-players',
@@ -39,6 +42,7 @@ export class TeamPlayersComponent implements OnInit, OnDestroy{
     private cd: ChangeDetectorRef,
     private modalService: NgbModal,
     private playerCreateFormService: PlayerCreateFormService,
+    private paymentFormService: PaymentFormService,
     private teamsApi: TeamsApiService,
     private toaster: ToastrService
   ) { }
@@ -47,9 +51,35 @@ export class TeamPlayersComponent implements OnInit, OnDestroy{
     this.subscribeToPlayers();
   }
 
-  open(player: Player) {
+  openPlayerModal(player: Player) {
     const modalRef = this.modalService.open(PlayerModalComponent);
     modalRef.componentInstance.player = player;
+  }
+
+  openEditModal(player: Player) {
+    const modalRef = this.modalService.open(EditPlayerComponent);
+    modalRef.componentInstance.player = player;
+    modalRef.dismissed.subscribe(response => {
+      this.players.forEach((pl, index) => {
+        if (pl?.id === response?.id) {
+          this.players[index] = response;
+        }
+      });
+      this.cd.markForCheck();
+    })
+  }
+
+  openDeleteModal(player: Player) {
+    const modalRef = this.modalService.open(DeleteComponent);
+    modalRef.componentInstance.player = player;
+    modalRef.dismissed.subscribe(response => {
+      this.players.forEach((pl, index) => {
+        if (pl?.id === response?.id) {
+          this.players.splice(index, 1);
+        }
+      });
+      this.cd.markForCheck();
+    })
   }
 
   goToPlayerCreate() {
@@ -82,6 +112,15 @@ export class TeamPlayersComponent implements OnInit, OnDestroy{
     this.cd.markForCheck();
   }
 
+  makePayment({player: id, form: formValue}) {
+    this.teamsApi.makePayment(id, formValue).subscribe(res => {
+      this.paymentFormService.form.reset();
+      this.toaster.success(res?.message, 'Готово', {timeOut: 3000});
+    }, error => {
+      this.toaster.error(error.error.message, 'Ошибка', {timeOut: 3000});
+    })
+  }
+
   private subscribeToPlayers() {
     this.players$.pipe(takeUntil(this.unsubscribe$)).subscribe(players => {
       this.players = players;
@@ -93,4 +132,5 @@ export class TeamPlayersComponent implements OnInit, OnDestroy{
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
   }
+
 }

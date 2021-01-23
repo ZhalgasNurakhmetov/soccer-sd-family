@@ -7,7 +7,7 @@ import {ChangeDetectionStrategy, Component, EventEmitter, Output} from '@angular
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ControlBarComponent {
-  @Output() onGoToTeamCreate = new EventEmitter();
+  @Output() onGoToPlayerCreate = new EventEmitter();
 
   constructor() { }
 

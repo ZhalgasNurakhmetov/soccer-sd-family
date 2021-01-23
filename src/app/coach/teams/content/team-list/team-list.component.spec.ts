@@ -1,6 +1,17 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TeamListComponent } from './team-list.component';
+import {Component} from '@angular/core';
+import {RouterTestingModule} from '@angular/router/testing';
+import {NgxsModule} from '@ngxs/store';
+
+@Component({
+  selector: 'teams-list-control-bar',
+  template: ''
+})
+export class ControlBarMock {
+
+}
 
 describe('TeamListComponent', () => {
   let component: TeamListComponent;
@@ -8,7 +19,8 @@ describe('TeamListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TeamListComponent ]
+      declarations: [ TeamListComponent, ControlBarMock ],
+      imports: [RouterTestingModule, NgxsModule.forRoot()]
     })
     .compileComponents();
   }));

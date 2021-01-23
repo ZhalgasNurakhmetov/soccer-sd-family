@@ -1,4 +1,4 @@
-import {Component, OnInit, ChangeDetectionStrategy, Input} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
 import {Player} from '../../../../core/models/user';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 
@@ -8,15 +8,12 @@ import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./player-modal.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PlayerModalComponent implements OnInit {
+export class PlayerModalComponent {
 
   @Input() player: Player;
 
   constructor(
     public activeModal: NgbActiveModal
   ) {}
-
-  ngOnInit(): void {
-  }
 
 }

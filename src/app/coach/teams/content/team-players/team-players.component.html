@@ -3,8 +3,11 @@
   <team-players-player-list
     *ngSwitchCase="teamPlayersState.LIST"
     [players]="players$ | async"
-    (onOpen)="open($event)"
+    (onOpen)="openPlayerModal($event)"
     (onGoToPlayerCreate)="goToPlayerCreate()"
+    (onMakePayment)="makePayment($event)"
+    (onOpenEdit)="openEditModal($event)"
+    (onOpenDelete)="openDeleteModal($event)"
   >
   </team-players-player-list>
   <team-players-player-create

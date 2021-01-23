@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PlayerModalComponent } from './player-modal.component';
+import {NgbActiveModal, NgbModalModule, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 describe('PlayerModalComponent', () => {
   let component: PlayerModalComponent;
@@ -8,7 +9,9 @@ describe('PlayerModalComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PlayerModalComponent ]
+      declarations: [ PlayerModalComponent ],
+      imports: [NgbModalModule],
+      providers: [NgbActiveModal]
     })
     .compileComponents();
   }));

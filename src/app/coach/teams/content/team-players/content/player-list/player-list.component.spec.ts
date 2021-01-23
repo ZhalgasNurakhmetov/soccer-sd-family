@@ -1,6 +1,18 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PlayerListComponent } from './player-list.component';
+import {Component} from '@angular/core';
+import {ReactiveFormsModule} from '@angular/forms';
+import {PaymentFormService} from './forms/payment-form.service';
+import {ToastrModule} from 'ngx-toastr';
+
+@Component({
+  selector: 'player-list-control-bar',
+  template: ''
+})
+export class ControlBarMock {
+
+}
 
 describe('PlayerListComponent', () => {
   let component: PlayerListComponent;
@@ -8,7 +20,9 @@ describe('PlayerListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PlayerListComponent ]
+      declarations: [ PlayerListComponent, ControlBarMock ],
+      imports: [ReactiveFormsModule, ToastrModule.forRoot()],
+      providers: [PaymentFormService]
     })
     .compileComponents();
   }));

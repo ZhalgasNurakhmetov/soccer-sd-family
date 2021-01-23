@@ -52,7 +52,7 @@
             <td>{{coach?.userInfo}}</td>
             <td>
               <div class="btn-group">
-                <button type="button" class="btn btn-outline-danger ml-2" (click)="onDeleteCoach.emit(coach?.id)"><i class="bi bi-trash-fill"></i></button>
+                <button type="button" class="btn btn-outline-danger ml-2" (click)="onDeleteCoach.emit(coach?.id)" data-toggle="tooltip" title="Удалить"><i class="bi bi-trash-fill"></i></button>
               </div>
             </td>
           </tr>
