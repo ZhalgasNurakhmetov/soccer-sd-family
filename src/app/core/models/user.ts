@@ -25,6 +25,8 @@ export interface Player {
   team: string;
   coachId: number;
   coach: Coach;
+  photo: string;
+  position: string;
 }
 
 export interface Coach {

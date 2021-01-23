@@ -5,7 +5,7 @@
 >
 </teams-list-control-bar>
 <div class="container-fluid">
-  <div class="card-deck mt-2">
+  <div class="card-deck mt-2" *ngIf="teams?.length !== 0; else noTeams">
     <div class="card bg-light" *ngFor="let team of teams">
       <div class="card-body text-center">
         <p class="card-text font-weight-bold">Команда</p>
@@ -16,3 +16,11 @@
   </div>
 </div>
 </body>
+
+<ng-template #noTeams>
+  <div class="row">
+    <div class="col">
+      <h3 class="text-white">Команды отсутствуют</h3>
+    </div>
+  </div>
+</ng-template>

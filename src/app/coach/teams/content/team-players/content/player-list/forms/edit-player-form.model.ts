@@ -4,4 +4,6 @@ export interface EditPlayerFormModel {
   team: string;
   city: string;
   activeFoot: string;
+  position: string;
+  photo: string;
 }

@@ -87,6 +87,22 @@
             </div>
           </div>
         </div>
+        <div class="form-group">
+          <div class="dropdown">
+            <label>Позиция:</label>
+            <button class="btn btn-primary dropdown-toggle ml-2" type="button" id="position" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span *ngIf="form?.controls?.position?.value; else notFoot">{{form?.controls?.position?.value}}</span>
+            </button>
+            <div class="dropdown-menu" aria-labelledby="position">
+              <h6 class="dropdown-header">Выбрать</h6>
+              <button class="dropdown-item" type="button" *ngFor="let position of positions" (click)="setPosition(position)">{{position}}</button>
+            </div>
+          </div>
+        </div>
+        <div class="image-upload mb-2">
+          <img [src]="form?.controls?.photo?.value" style="max-width:300px; max-height:300px"/>
+          <input name="imageUrl" type="file" accept="image/*" (change)="handleInputChange($event)" />
+        </div>
         <div class="btn-group">
           <button type="submit" class="btn btn-primary" *ngIf="!isLoading; else loadingButton" [disabled]="!form.valid">Сохранить</button>
           <button type="button" class="btn btn-danger ml-2" (click)="cancel()">Отмена</button>

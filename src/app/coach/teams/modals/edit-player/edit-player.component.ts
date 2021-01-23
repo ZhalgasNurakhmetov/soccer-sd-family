@@ -19,6 +19,7 @@ export class EditPlayerComponent implements AfterViewInit{
   cities = ['Нур-Султан', 'Алматы'];
   feet = ['Правая', 'Левая'];
   teams = ['2000', '2001', '2002', '2003'];
+  positions = ['Вратарь', 'Защитник', 'Полузащитник', 'Нападающий'];
   isLoading: boolean;
   onCancel: any;
 
@@ -30,13 +31,37 @@ export class EditPlayerComponent implements AfterViewInit{
     private toaster: ToastrService
   ) { }
 
+  imageSrc = '';
+
+  handleInputChange(e) {
+    const file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
+    const pattern = /image-*/;
+    const reader = new FileReader();
+    if (!file.type.match(pattern)) {
+      alert('invalid format');
+      return;
+    }
+    reader.onload = this._handleReaderLoaded.bind(this);
+    reader.readAsDataURL(file);
+  }
+  _handleReaderLoaded(e) {
+    const reader = e.target;
+    this.imageSrc = reader.result;
+    this.form.patchValue({
+      photo: this.imageSrc
+    });
+    this.cd.markForCheck();
+  }
+
   ngAfterViewInit() {
     this.form.patchValue({
       weight: this.player?.weight,
       height: this.player?.height,
       activeFoot: this.player?.activeFoot,
       city: this.player?.city,
-      team: this.player?.team
+      team: this.player?.team,
+      photo: this.player?.photo,
+      position: this.player?.position
     });
     this.cd.detectChanges();
   }
@@ -59,11 +84,21 @@ export class EditPlayerComponent implements AfterViewInit{
     });
   }
 
-  close() {
-    this.activeModal.close();
+  setPosition(position: string) {
+    this.form.patchValue({
+      position
+    });
   }
 
-  createPlayer() {
+  close() {
+    this.activeModal.close();
+    this.editPlayerFormService.form.reset();
+  }
+
+  editPlayer() {
+    this.form.patchValue({
+      photo: this.imageSrc
+    });
     if (!this.form.valid) {
       this.toaster.error('Заполните поля верно', 'Ошибка', {timeOut: 3000});
       return

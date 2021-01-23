@@ -13,6 +13,8 @@ export function initPlayerCreateForm(): TypedFormGroup<PlayerCreateFormModel> {
     weight: new FormControl(null, [Validators.required]),
     activeFoot: new FormControl(null, [Validators.required]),
     team: new FormControl(null),
+    position: new FormControl(null, [Validators.required]),
+    photo: new FormControl(null),
   })
 }
 
@@ -27,5 +29,7 @@ export function initPlayerForm(): TypedFormGroup<PlayerCreateModel> {
     weight: new FormControl(null, [Validators.required]),
     activeFoot: new FormControl(null, [Validators.required]),
     team: new FormControl(null, [Validators.required]),
+    position: new FormControl(null, [Validators.required]),
+    photo: new FormControl(null)
   })
 }

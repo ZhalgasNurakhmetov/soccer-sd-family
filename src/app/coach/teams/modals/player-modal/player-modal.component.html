@@ -1,6 +1,6 @@
 <div class="modal-body centered">
   <div class="card">
-    <img class="card-img-top mx-auto img-fluid" src="../../../../../assets/peron.jpg" style="display: block; width: 300px; height: 300px">
+    <img class="card-img-top mx-auto img-fluid" [src]="player?.photo" style="display: block; width: 250px; height: 300px">
     <div class="card-body">
       <table class="table table-bordered table-responsive-sm">
         <tbody>
@@ -27,6 +27,10 @@
         <tr>
           <td><h5 class="modal-title">Игровая нога:</h5></td>
           <td><h5 class="modal-title">{{player?.activeFoot}}</h5></td>
+        </tr>
+        <tr>
+          <td><h5 class="modal-title">Позиция:</h5></td>
+          <td><h5 class="modal-title">{{player?.position}}</h5></td>
         </tr>
         <tr>
           <td><h5 class="modal-title">Город:</h5></td>

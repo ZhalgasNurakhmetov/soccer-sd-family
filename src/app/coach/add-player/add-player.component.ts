@@ -20,6 +20,7 @@ export class AddPlayerComponent implements OnInit {
   cities = ['Нур-Султан', 'Алматы'];
   feet = ['Правая', 'Левая'];
   teams = ['2000', '2001', '2002', '2003'];
+  positions = ['Вратарь', 'Защитник', 'Полузащитник', 'Нападающий'];
   isLoading: boolean;
 
   constructor(
@@ -30,6 +31,28 @@ export class AddPlayerComponent implements OnInit {
     private cd: ChangeDetectorRef
   ) { }
 
+  imageSrc = '';
+
+  handleInputChange(e) {
+    const file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
+    const pattern = /image-*/;
+    const reader = new FileReader();
+    if (!file.type.match(pattern)) {
+      alert('invalid format');
+      return;
+    }
+    reader.onload = this._handleReaderLoaded.bind(this);
+    reader.readAsDataURL(file);
+  }
+  _handleReaderLoaded(e) {
+    const reader = e.target;
+    this.imageSrc = reader.result;
+    this.form.patchValue({
+      photo: this.imageSrc
+    });
+    this.cd.markForCheck();
+  }
+
   ngOnInit(): void {
   }
 
@@ -38,7 +61,8 @@ export class AddPlayerComponent implements OnInit {
     const date = new Date(this.form?.controls?.birthdate?.value?.year, this.form?.controls?.birthdate?.value?.month - 1, this.form?.controls?.birthdate?.value?.day + 1)
     this.player.patchValue({
       ...this.form?.value,
-      birthdate: date.toISOString()
+      birthdate: date.toISOString(),
+      photo: this.imageSrc
     });
     if(!this.player.valid) {
       this.toaster.error('Заполните все обязательные поля', 'Ошибка', {timeOut: 3000});
@@ -75,6 +99,12 @@ export class AddPlayerComponent implements OnInit {
   setTeam(team: string) {
     this.form.patchValue({
       team
+    });
+  }
+
+  setPosition(position: string) {
+    this.form.patchValue({
+      position
     });
   }
 

@@ -10,6 +10,8 @@ export interface PlayerCreateFormModel {
   weight: string;
   activeFoot: string;
   team: string;
+  position: string;
+  photo: string;
 }
 
 export interface PlayerCreateModel {
@@ -22,4 +24,6 @@ export interface PlayerCreateModel {
   weight: string;
   activeFoot: string;
   team: string;
+  position: string;
+  photo: string;
 }
