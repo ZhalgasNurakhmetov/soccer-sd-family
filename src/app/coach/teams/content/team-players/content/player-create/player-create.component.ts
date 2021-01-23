@@ -2,6 +2,7 @@ import {ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Inp
 import {PlayerCreateFormService} from './forms/player-create.form.service';
 import {ToastrService} from 'ngx-toastr';
 import {PlayerCreateModel} from './forms/player-create.form.model';
+import {EntityListService} from '../../../../../../services/entity-list.service';
 
 @Component({
   selector: 'team-players-player-create',
@@ -19,14 +20,15 @@ export class PlayerCreateComponent {
 
   form = this.playerCreateFormService.form;
   player = this.playerCreateFormService.player;
-  cities = ['Нур-Султан', 'Алматы'];
-  feet = ['Правая', 'Левая'];
-  positions = ['Вратарь', 'Защитник', 'Полузащитник', 'Нападающий'];
+  cities = this.entities.cities;
+  feet = this.entities.feet;
+  positions = this.entities.positions;
 
   constructor(
     private playerCreateFormService: PlayerCreateFormService,
     private toaster: ToastrService,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
+    private entities: EntityListService
   ) { }
 
   imageSrc = '';

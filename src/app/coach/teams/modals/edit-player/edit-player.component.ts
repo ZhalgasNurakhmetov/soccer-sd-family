@@ -4,6 +4,7 @@ import {EditPlayerFormService} from '../../content/team-players/content/player-l
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {TeamsApiService} from '../../api/teams-api.service';
 import {ToastrService} from 'ngx-toastr';
+import {EntityListService} from '../../../../services/entity-list.service';
 
 @Component({
   selector: 'app-edit-player',
@@ -16,10 +17,10 @@ export class EditPlayerComponent implements AfterViewInit{
 
   @Input() player: Player;
   form = this.editPlayerFormService.form;
-  cities = ['Нур-Султан', 'Алматы'];
-  feet = ['Правая', 'Левая'];
-  teams = ['2000', '2001', '2002', '2003'];
-  positions = ['Вратарь', 'Защитник', 'Полузащитник', 'Нападающий'];
+  cities = this.entities.cities;
+  feet = this.entities.feet;
+  teams = this.entities.teams;
+  positions = this.entities.teams;
   isLoading: boolean;
   onCancel: any;
 
@@ -28,7 +29,8 @@ export class EditPlayerComponent implements AfterViewInit{
     private cd: ChangeDetectorRef,
     public activeModal: NgbActiveModal,
     private api: TeamsApiService,
-    private toaster: ToastrService
+    private toaster: ToastrService,
+    private entities: EntityListService
   ) { }
 
   imageSrc = '';

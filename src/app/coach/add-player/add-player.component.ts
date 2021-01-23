@@ -6,6 +6,7 @@ import {CoachRoutes} from '../coach.routes';
 import {ToastrService} from 'ngx-toastr';
 import {AddPlayerApiService} from './api/add-player-api.service';
 import {finalize} from 'rxjs/operators';
+import {EntityListService} from '../../services/entity-list.service';
 
 @Component({
   selector: 'app-add-player',
@@ -17,10 +18,10 @@ export class AddPlayerComponent {
 
   form = this.addPlayerFormService.form;
   player = this.addPlayerFormService.player;
-  cities = ['Нур-Султан', 'Алматы'];
-  feet = ['Правая', 'Левая'];
-  teams = ['2000', '2001', '2002', '2003'];
-  positions = ['Вратарь', 'Защитник', 'Полузащитник', 'Нападающий'];
+  cities = this.entities.cities;
+  feet = this.entities.feet;
+  teams = this.entities.teams;
+  positions = this.entities.positions;
   isLoading: boolean;
 
   constructor(
@@ -28,7 +29,8 @@ export class AddPlayerComponent {
     private router: Router,
     private toaster: ToastrService,
     private addPlayerApi: AddPlayerApiService,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
+    private entities: EntityListService
   ) { }
 
   imageSrc = '';

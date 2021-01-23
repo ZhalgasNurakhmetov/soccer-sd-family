@@ -2,6 +2,7 @@ import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@
 import {CoachCreateFormService} from './forms/coach-create.form.service';
 import {CoachCreateFormModel} from './forms/coach-create,form.model';
 import {ToastrService} from 'ngx-toastr';
+import {EntityListService} from '../../../../../services/entity-list.service';
 
 @Component({
   selector: 'coach-create',
@@ -17,11 +18,12 @@ export class CoachCreateComponent {
   @Output() onCancel = new EventEmitter();
 
   form = this.coachCreateFormService.form;
-  cities = ['Нур-Султан', 'Алматы']
+  cities = this.entities.cities;
 
   constructor(
     private coachCreateFormService: CoachCreateFormService,
-    private toaster: ToastrService
+    private toaster: ToastrService,
+    private entities: EntityListService
   ) { }
 
   createCoach() {

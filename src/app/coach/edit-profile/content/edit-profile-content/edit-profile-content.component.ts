@@ -3,6 +3,7 @@ import {User} from '../../../../core/models/user';
 import {EditProfileFormService} from '../../forms/edit-profile.form.service';
 import {EditProfileFormsModel} from '../../forms/edit-profile.forms.model';
 import {ToastrService} from 'ngx-toastr';
+import {EntityListService} from '../../../../services/entity-list.service';
 
 @Component({
   selector: 'edit-profile-content',
@@ -18,12 +19,13 @@ export class EditProfileContentComponent implements AfterViewInit {
   @Output() onCancel = new EventEmitter();
 
   form = this.editProfileFormService.form;
-  cities = ['Нур-Султан', 'Алматы']
+  cities = this.entities.cities;
 
   constructor(
     private editProfileFormService: EditProfileFormService,
     private cd: ChangeDetectorRef,
-    private toaster: ToastrService
+    private toaster: ToastrService,
+    private entities: EntityListService
   ) { }
 
   ngAfterViewInit(): void {
