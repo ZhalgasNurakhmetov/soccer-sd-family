@@ -3,5 +3,6 @@ export const CoachRoutes = {
   teams: 'teams',
   changePassword: 'change-password',
   addPlayer: 'add-player',
-  editProfile: 'edit-profile'
+  editProfile: 'edit-profile',
+  main: 'main'
 }

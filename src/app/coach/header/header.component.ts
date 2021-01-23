@@ -16,6 +16,7 @@ export class HeaderComponent {
   @Output() onGoToChangePassword = new EventEmitter();
   @Output() onGoToPayment = new EventEmitter();
   @Output() onLogout = new EventEmitter();
+  @Output() onGoToMain = new EventEmitter();
 
   constructor() { }
 

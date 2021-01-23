@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {Select} from '@ngxs/store';
 import {Observable} from 'rxjs';
 import {User} from '../core/models/user';
@@ -14,7 +14,7 @@ import {AuthService} from '../core/auth/auth.service';
   styleUrls: ['./coach.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CoachComponent implements OnInit {
+export class CoachComponent {
 
   @Select(CoachState.coach) coach$: Observable<User>;
 
@@ -23,7 +23,8 @@ export class CoachComponent implements OnInit {
     private authApi: AuthService
   ) { }
 
-  ngOnInit(): void {
+  goToMain() {
+    this.router.navigate([AppRoutes.coach, CoachRoutes.main]);
   }
 
   goToTeams() {

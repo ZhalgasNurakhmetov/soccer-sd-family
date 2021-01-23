@@ -26,9 +26,13 @@ const routes: Routes = [
         loadChildren: () => import('./edit-profile/edit-profile.module').then(m => m.EditProfileModule)
       },
       {
+        path: CoachRoutes.main,
+        loadChildren: () => import('./main/main.module').then(m => m.MainModule)
+      },
+      {
         path: '',
         pathMatch: 'full',
-        redirectTo: CoachRoutes.teams
+        redirectTo: CoachRoutes.main
       }
     ],
     canActivate: [CoachGuard]
