@@ -78,7 +78,7 @@ export class TeamPlayersComponent implements OnInit, OnDestroy{
           this.players.splice(index, 1);
         }
       });
-      this.cd.markForCheck();
+      this.cd.detectChanges();
     })
   }
 

@@ -1,6 +1,7 @@
 <coach-header
   [coach]="coach$ | async"
   (onGoToTeams)="goToTeams()"
+  (onGoToEdit)="goToEdit()"
   (onGoToChangePassword)="goToChangePassword()"
   (onLogout)="logout()"
 >

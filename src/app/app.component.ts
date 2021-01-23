@@ -29,7 +29,7 @@ export class AppComponent implements OnInit{
           this.router.navigate([AppRoutes.coach]);
         }
       } else {
-        this.router.navigate([AppRoutes.start])
+        this.router.navigate([AppRoutes.start]);
       }
     })
   }

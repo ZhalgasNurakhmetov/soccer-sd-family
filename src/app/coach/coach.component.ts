@@ -30,6 +30,10 @@ export class CoachComponent implements OnInit {
     this.router.navigate([AppRoutes.coach, CoachRoutes.teams]);
   }
 
+  goToEdit() {
+    this.router.navigate([AppRoutes.coach, CoachRoutes.editProfile]);
+  }
+
   goToChangePassword() {
     this.router.navigate([AppRoutes.coach, CoachRoutes.changePassword]);
   }

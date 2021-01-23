@@ -1,0 +1,7 @@
+<edit-profile-content
+  [coach]="coach$ | async"
+  [isLoading]="isLoading$ | async"
+  (onSaveChanges)="saveChanges($event)"
+  (onCancel)="cancel()"
+>
+</edit-profile-content>

@@ -22,6 +22,10 @@ const routes: Routes = [
         loadChildren: () => import('./add-player/add-player.module').then(m => m.AddPlayerModule)
       },
       {
+        path: CoachRoutes.editProfile,
+        loadChildren: () => import('./edit-profile/edit-profile.module').then(m => m.EditProfileModule)
+      },
+      {
         path: '',
         pathMatch: 'full',
         redirectTo: CoachRoutes.teams
