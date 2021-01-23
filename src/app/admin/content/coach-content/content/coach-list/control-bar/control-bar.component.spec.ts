@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ControlBarComponent } from './control-bar.component';
+import {ControlBarComponent} from './control-bar.component';
 
 describe('ControlBarComponent', () => {
   let component: ControlBarComponent;

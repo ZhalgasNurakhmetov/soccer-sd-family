@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { EditProfileContentComponent } from './edit-profile-content.component';
+import {EditProfileContentComponent} from './edit-profile-content.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {EditProfileFormService} from '../../forms/edit-profile.form.service';
 import {ToastrModule} from 'ngx-toastr';

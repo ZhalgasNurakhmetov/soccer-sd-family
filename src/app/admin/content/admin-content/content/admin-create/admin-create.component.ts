@@ -1,4 +1,4 @@
-import {Component, OnInit, ChangeDetectionStrategy, Output, EventEmitter, Input} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
 import {AdminCreateFormService} from './forms/admin-create.form.service';
 import {AdminCreateFormModel} from './forms/admin-create.form.model';
 import {ToastrService} from 'ngx-toastr';
@@ -9,7 +9,7 @@ import {ToastrService} from 'ngx-toastr';
   styleUrls: ['./admin-create.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AdminCreateComponent implements OnInit {
+export class AdminCreateComponent {
 
   @Input() isLoading: boolean;
 
@@ -23,9 +23,6 @@ export class AdminCreateComponent implements OnInit {
     private adminCreateFormService: AdminCreateFormService,
     private toaster: ToastrService
   ) { }
-
-  ngOnInit(): void {
-  }
 
   createAdmin() {
     if (!this.form.valid) {

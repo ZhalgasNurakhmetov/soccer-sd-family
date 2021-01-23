@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {Team} from '../../../core/models/team';
 import {environment} from '../../../../environments/environment';

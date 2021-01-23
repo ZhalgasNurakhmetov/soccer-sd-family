@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { ChangePasswordApiService } from './change-password-api.service';
+import {ChangePasswordApiService} from './change-password-api.service';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 
 describe('ChangePasswordApiService', () => {

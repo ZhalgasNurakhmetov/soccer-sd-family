@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { CoachComponent } from './coach.component';
+import {CoachComponent} from './coach.component';
 import {Component, Input} from '@angular/core';
 import {User} from '../core/models/user';
 import {RouterTestingModule} from '@angular/router/testing';

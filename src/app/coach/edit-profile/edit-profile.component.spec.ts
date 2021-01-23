@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { EditProfileComponent } from './edit-profile.component';
+import {EditProfileComponent} from './edit-profile.component';
 import {Component, Input} from '@angular/core';
 import {User} from '../../core/models/user';
 import {EditProfileApiService} from './api/edit-profile-api.service';

@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {Select} from '@ngxs/store';
 import {Observable} from 'rxjs';
 import {User} from '../core/models/user';
@@ -14,7 +14,7 @@ import {AuthService} from '../core/auth/auth.service';
   styleUrls: ['./admin.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AdminComponent implements OnInit {
+export class AdminComponent {
 
   @Select(AdminState.admin) admin$: Observable<User>;
 
@@ -41,9 +41,6 @@ export class AdminComponent implements OnInit {
 
   logout() {
     this.authService.logout();
-  }
-
-  ngOnInit(): void {
   }
 
 }

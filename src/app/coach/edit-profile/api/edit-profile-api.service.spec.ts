@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { EditProfileApiService } from './edit-profile-api.service';
+import {EditProfileApiService} from './edit-profile-api.service';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 
 describe('EditProfileApiService', () => {

@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { AdminContentComponent } from './admin-content.component';
+import {AdminContentComponent} from './admin-content.component';
 import {Component, Input} from '@angular/core';
 import {User} from '../../../core/models/user';
 import {AdminTabState} from './enums/admin-tab.state.enum';

@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { AddPlayerApiService } from './add-player-api.service';
+import {AddPlayerApiService} from './add-player-api.service';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 
 describe('AddPlayerApiService', () => {

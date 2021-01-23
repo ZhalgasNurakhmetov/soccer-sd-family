@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { CoachCreateComponent } from './coach-create.component';
+import {CoachCreateComponent} from './coach-create.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {CoachCreateFormService} from './forms/coach-create.form.service';
 import {ToastrModule} from 'ngx-toastr';

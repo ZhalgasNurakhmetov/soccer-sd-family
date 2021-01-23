@@ -1,4 +1,4 @@
-import {Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
 import {User} from '../../core/models/user';
 
 @Component({
@@ -7,7 +7,7 @@ import {User} from '../../core/models/user';
   styleUrls: ['./header.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
 
   @Input() admin: User;
 
@@ -18,8 +18,5 @@ export class HeaderComponent implements OnInit {
   @Output() onLogout = new EventEmitter();
 
   constructor() { }
-
-  ngOnInit(): void {
-  }
 
 }

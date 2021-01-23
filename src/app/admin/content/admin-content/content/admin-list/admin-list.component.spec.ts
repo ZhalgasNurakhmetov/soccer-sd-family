@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { AdminListComponent } from './admin-list.component';
+import {AdminListComponent} from './admin-list.component';
 import {Component} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
 import {AdminEditFormService} from './forms/admin-edit.form.service';

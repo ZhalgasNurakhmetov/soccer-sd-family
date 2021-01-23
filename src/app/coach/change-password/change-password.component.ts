@@ -1,11 +1,10 @@
-import {Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component} from '@angular/core';
 import {ChangePasswordFormService} from './forms/change-password.form.service';
 import {ChangePasswordApiService} from './api/change-password-api.service';
 import {Router} from '@angular/router';
 import {AppRoutes} from '../../app.routes';
 import {CoachRoutes} from '../coach.routes';
 import {finalize} from 'rxjs/operators';
-import {AdminRoutes} from '../../admin/admin.routes';
 import {ToastrService} from 'ngx-toastr';
 
 @Component({
@@ -14,7 +13,7 @@ import {ToastrService} from 'ngx-toastr';
   styleUrls: ['./change-password.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ChangePasswordComponent implements OnInit {
+export class ChangePasswordComponent {
 
   form = this.changePasswordFormService.form;
   loading: boolean;
@@ -26,9 +25,6 @@ export class ChangePasswordComponent implements OnInit {
     private toaster: ToastrService,
     private cd: ChangeDetectorRef
   ) { }
-
-  ngOnInit(): void {
-  }
 
   changePassword() {
     this.loading = true

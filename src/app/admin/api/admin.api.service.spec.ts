@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { AdminApiService } from './admin.api.service';
+import {AdminApiService} from './admin.api.service';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 
 describe('AdminApiService', () => {

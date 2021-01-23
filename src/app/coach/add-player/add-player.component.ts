@@ -1,4 +1,4 @@
-import {Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component} from '@angular/core';
 import {AddPlayerFormService} from './forms/add-player.form.service';
 import {Router} from '@angular/router';
 import {AppRoutes} from '../../app.routes';
@@ -13,7 +13,7 @@ import {finalize} from 'rxjs/operators';
   styleUrls: ['./add-player.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AddPlayerComponent implements OnInit {
+export class AddPlayerComponent {
 
   form = this.addPlayerFormService.form;
   player = this.addPlayerFormService.player;
@@ -51,9 +51,6 @@ export class AddPlayerComponent implements OnInit {
       photo: this.imageSrc
     });
     this.cd.markForCheck();
-  }
-
-  ngOnInit(): void {
   }
 
   createPlayer() {

@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { CoachApiService } from './coach-api.service';
+import {CoachApiService} from './coach-api.service';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 
 describe('CoachApiService', () => {

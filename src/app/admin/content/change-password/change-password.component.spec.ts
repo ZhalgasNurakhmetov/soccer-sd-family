@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ChangePasswordComponent } from './change-password.component';
+import {ChangePasswordComponent} from './change-password.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {ChangePasswordFormService} from './forms/change-password.form.service';
 import {RouterTestingModule} from '@angular/router/testing';

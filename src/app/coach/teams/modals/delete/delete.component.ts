@@ -1,4 +1,4 @@
-import {Component, OnInit, ChangeDetectionStrategy, Input} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
 import {Player} from '../../../../core/models/user';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {TeamsApiService} from '../../api/teams-api.service';
@@ -11,7 +11,7 @@ import {ToastrService} from 'ngx-toastr';
   providers: [TeamsApiService],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DeleteComponent implements OnInit {
+export class DeleteComponent {
 
   @Input() player: Player;
 
@@ -20,9 +20,6 @@ export class DeleteComponent implements OnInit {
     private api: TeamsApiService,
     private toaster: ToastrService
   ) { }
-
-  ngOnInit(): void {
-  }
 
   delete() {
     this.api.deletePlayer(this.player?.id).subscribe(player => {

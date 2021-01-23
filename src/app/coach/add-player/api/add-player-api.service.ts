@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {PlayerCreateModel} from '../../teams/content/team-players/content/player-create/forms/player-create.form.model';
 import {Observable} from 'rxjs';
 import {Player} from '../../../core/models/user';

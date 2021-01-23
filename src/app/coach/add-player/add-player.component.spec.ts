@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { AddPlayerComponent } from './add-player.component';
+import {AddPlayerComponent} from './add-player.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {NgbDatepickerModule} from '@ng-bootstrap/ng-bootstrap';
 import {AddPlayerFormService} from './forms/add-player.form.service';

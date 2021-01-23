@@ -1,4 +1,4 @@
-import {Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component} from '@angular/core';
 import {Select} from '@ngxs/store';
 import {Observable} from 'rxjs';
 import {User} from '../../core/models/user';
@@ -20,7 +20,7 @@ import {ToastrService} from 'ngx-toastr';
   styleUrls: ['./edit-profile.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class EditProfileComponent implements OnInit {
+export class EditProfileComponent {
 
   @Select(CoachState.coach) coach$: Observable<User>;
   @Select(EditProfileState.isLoading) isLoading$: Observable<boolean>;
@@ -35,9 +35,6 @@ export class EditProfileComponent implements OnInit {
     private cd: ChangeDetectorRef,
     private toaster: ToastrService
   ) { }
-
-  ngOnInit(): void {
-  }
 
   saveChanges(profile: EditProfileFormsModel) {
     this.setIsLoading(true);

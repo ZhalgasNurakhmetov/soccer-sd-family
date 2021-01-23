@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { PlayerContentComponent } from './player-content.component';
+import {PlayerContentComponent} from './player-content.component';
 import {Component} from '@angular/core';
 import {AdminApiService} from '../../api/admin.api.service';
 import {HttpClientTestingModule} from '@angular/common/http/testing';

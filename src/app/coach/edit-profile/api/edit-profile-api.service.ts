@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {EditProfileFormsModel} from '../forms/edit-profile.forms.model';
 import {Observable} from 'rxjs';

@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { TeamPlayersComponent } from './team-players.component';
+import {TeamPlayersComponent} from './team-players.component';
 import {Component, Input} from '@angular/core';
 import {Player} from '../../../../core/models/user';
 import {PlayerCreateFormService} from './content/player-create/forms/player-create.form.service';

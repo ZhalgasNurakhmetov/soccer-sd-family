@@ -1,4 +1,4 @@
-import {AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit} from '@angular/core';
+import {AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, Input} from '@angular/core';
 import {Player} from '../../../../core/models/user';
 import {EditPlayerFormService} from '../../content/team-players/content/player-list/forms/edit-player.form.service';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
