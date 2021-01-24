@@ -34,8 +34,8 @@ export class ChangePasswordComponent {
           this.loading = false;
           this.cd.markForCheck();
         })
-      ).subscribe(response => {
-      this.toaster.success(response?.message, 'Готово', {timeOut: 3000});
+      ).subscribe(() => {
+      this.toaster.success('Пароль успешно изменен', 'Готово', {timeOut: 3000});
       this.router.navigate([AppRoutes.coach, CoachRoutes.teams]);
       this.changePasswordFormService.form.reset();
     }, error => {

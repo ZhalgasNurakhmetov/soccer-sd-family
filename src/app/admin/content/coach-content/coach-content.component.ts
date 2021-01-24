@@ -72,9 +72,9 @@ export class CoachContentComponent implements OnInit {
   }
 
   deleteCoach(id: number) {
-    this.adminApi.deleteCoach(id).subscribe(response => {
+    this.adminApi.deleteCoach(id).subscribe(() => {
       this.coachList = this.coachList.filter(coach => coach.id !== id);
-      this.toaster.success(response?.message, 'Готово', {timeOut: 3000});
+      this.toaster.success('Тренер успешно удален', 'Готово', {timeOut: 3000});
       this.cd.markForCheck();
     }, error => {
       this.toaster.error(error?.error?.message, 'Ошибка', {timeOut: 3000});

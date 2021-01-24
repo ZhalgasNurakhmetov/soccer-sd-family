@@ -111,9 +111,9 @@ export class TeamPlayersComponent implements OnInit, OnDestroy{
   }
 
   makePayment({player: id, form: formValue}) {
-    this.teamsApi.makePayment(id, formValue).subscribe(res => {
+    this.teamsApi.makePayment(id, formValue).subscribe(() => {
       this.paymentFormService.form.reset();
-      this.toaster.success(res?.message, 'Готово', {timeOut: 3000});
+      this.toaster.success(`Оплата записана`, 'Готово', {timeOut: 3000});
     }, error => {
       this.toaster.error(error.error.message, 'Ошибка', {timeOut: 3000});
     })

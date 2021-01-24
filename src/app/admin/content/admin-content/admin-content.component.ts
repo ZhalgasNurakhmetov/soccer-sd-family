@@ -121,9 +121,9 @@ export class AdminContentComponent implements OnInit, OnDestroy {
         finalize(() => {
           this.cd.markForCheck();
         })
-      ).subscribe(response => {
+      ).subscribe(() => {
       this.adminList = this.adminList.filter(admin => admin.id !== id);
-      this.toaster.success(response?.message, 'Готово', {timeOut: 3000});
+      this.toaster.success('Администратор удален', 'Готово', {timeOut: 3000});
     }, error => {
       this.toaster.error(error?.error?.message, 'Ошибка', {timeOut: 3000});
     });
