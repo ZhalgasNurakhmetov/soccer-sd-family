@@ -52,7 +52,7 @@ export class TeamPlayersComponent implements OnInit, OnDestroy{
   }
 
   openPlayerModal(player: Player) {
-    const modalRef = this.modalService.open(PlayerModalComponent, {size: 'lg'});
+    const modalRef = this.modalService.open(PlayerModalComponent);
     modalRef.componentInstance.player = player;
   }
 

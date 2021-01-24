@@ -1,40 +1,36 @@
-<div class="modal-body centered">
+<div class="modal-body centered bg-warning">
   <div class="card">
     <img class="card-img-top mx-auto img-fluid" [src]="player?.photo" style="display: block; width: 250px; height: 300px">
     <div class="card-body">
       <table class="table table-bordered table-responsive-sm">
         <tbody>
         <tr>
-          <td><h5 class="modal-title">Имя:</h5></td>
-          <td><h5 class="modal-title">{{player?.givenName}}</h5></td>
+          <td><h6 class="modal-title">Имя:</h6></td>
+          <td><h6 class="modal-title">{{player?.givenName}}</h6></td>
         </tr>
         <tr>
-          <td>  <h5 class="modal-title">Фамилия:</h5></td>
-          <td><h5 class="modal-title">{{player?.lastName}}</h5></td>
+          <td> <h6 class="modal-title">Фамилия:</h6></td>
+          <td><h6 class="modal-title">{{player?.lastName}}</h6></td>
         </tr>
         <tr>
-          <td>  <h5 class="modal-title">Отчество:</h5></td>
-          <td><h5 class="modal-title">{{player?.fatherName}}</h5></td>
+          <td><h6 class="modal-title">Дата рождения:</h6></td>
+          <td><h6 class="modal-title">{{player?.birthdate | date: 'dd.MM.yyyy'}}</h6></td>
         </tr>
         <tr>
-          <td><h5 class="modal-title">Дата рождения:</h5></td>
-          <td><h5 class="modal-title">{{player?.birthdate | date: 'dd.MM.yyyy'}}</h5></td>
+          <td><h6 class="modal-title">Рост / Вес:</h6></td>
+          <td><h6 class="modal-title">{{player?.height}}см / {{player?.weight}}кг</h6></td>
         </tr>
         <tr>
-          <td><h5 class="modal-title">Рост / Вес:</h5></td>
-          <td><h5 class="modal-title">{{player?.height}}см / {{player?.weight}}кг</h5></td>
+          <td><h6 class="modal-title">Игровая нога:</h6></td>
+          <td><h6 class="modal-title">{{player?.activeFoot}}</h6></td>
         </tr>
         <tr>
-          <td><h5 class="modal-title">Игровая нога:</h5></td>
-          <td><h5 class="modal-title">{{player?.activeFoot}}</h5></td>
+          <td><h6 class="modal-title">Позиция:</h6></td>
+          <td><h6 class="modal-title">{{player?.position}}</h6></td>
         </tr>
         <tr>
-          <td><h5 class="modal-title">Позиция:</h5></td>
-          <td><h5 class="modal-title">{{player?.position}}</h5></td>
-        </tr>
-        <tr>
-          <td><h5 class="modal-title">Город:</h5></td>
-          <td><h5 class="modal-title">{{player?.city}}</h5></td>
+          <td><h6 class="modal-title">Город:</h6></td>
+          <td><h6 class="modal-title">{{player?.city}}</h6></td>
         </tr>
         </tbody>
       </table>

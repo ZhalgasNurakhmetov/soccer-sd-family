@@ -25,10 +25,10 @@ const routes: Routes = [
         path: CoachRoutes.editProfile,
         loadChildren: () => import('./edit-profile/edit-profile.module').then(m => m.EditProfileModule)
       },
-      {
+    /*  {
         path: CoachRoutes.main,
         loadChildren: () => import('./main/main.module').then(m => m.MainModule)
-      },
+      },*/
       {
         path: CoachRoutes.notification,
         loadChildren: () => import('./notification/notification.module').then(m => m.NotificationModule)
@@ -40,7 +40,7 @@ const routes: Routes = [
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: CoachRoutes.main
+        redirectTo: CoachRoutes.teams
       }
     ],
     canActivate: [CoachGuard]
