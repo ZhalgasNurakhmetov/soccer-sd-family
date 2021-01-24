@@ -4,7 +4,7 @@ import {FormControl, Validators} from '@angular/forms';
 
 export function initAdminCreateForm(): TypedFormGroup<AdminCreateFormModel> {
   return typedFormGroup({
-    username: new FormControl(null, [Validators.required, Validators.minLength(10)]),
+    username: new FormControl(null, [Validators.required, Validators.minLength(6)]),
     password: new FormControl(null, [Validators.required]),
     givenName: new FormControl(null, [Validators.required]),
     lastName: new FormControl(null, [Validators.required]),

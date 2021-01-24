@@ -43,7 +43,7 @@
             <td>{{player?.givenName}}</td>
             <td>{{player?.lastName}}</td>
             <td>{{player?.fatherName}}</td>
-            <td>{{player?.birthdate}}</td>
+            <td>{{player?.birthdate | date: 'dd.MM.yyyy'}}</td>
             <td>{{player?.city}}</td>
             <td>{{player?.height}} / {{player?.weight}}</td>
             <td>{{player?.activeFoot}}</td>

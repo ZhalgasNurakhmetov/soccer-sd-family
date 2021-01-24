@@ -50,9 +50,9 @@
             <td>{{coach?.email}}</td>
             <td>{{coach?.phone}}</td>
             <td>{{coach?.userInfo}}</td>
-            <td>
+            <td class="text-center">
               <div class="btn-group">
-                <button type="button" class="btn btn-outline-danger ml-2" (click)="onDeleteCoach.emit(coach?.id)" data-toggle="tooltip" title="Удалить"><i class="bi bi-trash-fill"></i></button>
+                <button type="button" class="btn btn-outline-danger" (click)="onDeleteCoach.emit(coach?.id)" data-toggle="tooltip" title="Удалить"><i class="bi bi-trash-fill"></i></button>
               </div>
             </td>
           </tr>
