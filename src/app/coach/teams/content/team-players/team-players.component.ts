@@ -2,7 +2,7 @@ import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit
 import {Select} from '@ngxs/store';
 import {Observable, Subject} from 'rxjs';
 import {Player} from '../../../../core/models/user';
-import {SetPlayerCreateIsLoading, SetTeamPlayersState, TeamsState} from '../../store';
+import {SetPlayerCreateIsLoading, SetPlayers, SetTeamPlayersState, TeamsState} from '../../store';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {PlayerModalComponent} from '../../modals/player-modal/player-modal.component';
 import {TeamPlayersStateEnum} from './enums/team-players.state';
@@ -37,6 +37,7 @@ export class TeamPlayersComponent implements OnInit, OnDestroy{
 
   @Dispatch() setTeamPlayersState = (teamPlayersState: TeamPlayersStateEnum) => new SetTeamPlayersState(teamPlayersState);
   @Dispatch() setPlayerCreateIsLoading = (playerCreateIsLoading: boolean) => new SetPlayerCreateIsLoading(playerCreateIsLoading);
+  @Dispatch() setPlayers = (players: Player[]) => new SetPlayers(players);
 
   constructor(
     private cd: ChangeDetectorRef,
@@ -72,13 +73,10 @@ export class TeamPlayersComponent implements OnInit, OnDestroy{
   openDeleteModal(player: Player) {
     const modalRef = this.modalService.open(DeleteComponent);
     modalRef.componentInstance.player = player;
-    modalRef.dismissed.subscribe(response => {
-      this.players.forEach((pl, index) => {
-        if (pl?.id === response?.id) {
-          this.players.splice(index, 1);
-        }
-      });
-      this.cd.detectChanges();
+    modalRef.dismissed.subscribe(() => {
+      this.players = this.players.filter(pl => pl?.id !== player?.id);
+      this.setPlayers([...this.players]);
+      this.cd.markForCheck();
     })
   }
 

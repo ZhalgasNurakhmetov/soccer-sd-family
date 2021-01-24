@@ -36,7 +36,7 @@
           <td>{{player?.lastName}}</td>
           <td>{{player?.fatherName}}</td>
           <td>{{player?.birthdate | date: 'dd.MM.yyyy'}}</td>
-          <td><input type="text" [formControl]="form?.controls?.amount"><button class="btn btn-outline-primary ml-2" (click)="makePayment(player?.id)">Оплатил</button></td>
+          <td><input type="text" class="mr-2 mb-1" [formControl]="form?.controls?.amount"><button class="btn btn-outline-primary" (click)="makePayment(player?.id)">Оплатил</button></td>
           <td>
             <div class="btn-group">
               <button type="button" class="btn btn-outline-warning" (click)="onOpenEdit.emit(player)" data-toggle="tooltip" title="Редактировать"><i class="bi bi-pencil-fill"></i></button>
