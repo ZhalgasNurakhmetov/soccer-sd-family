@@ -16,6 +16,14 @@ const routes: Routes = [
     loadChildren: () => import('./coach/coach.module').then(m => m.CoachModule)
   },
   {
+    path: AppRoutes.reset,
+    loadChildren: () => import('./reset-password/reset-password.module').then(m => m.ResetPasswordModule)
+  },
+  {
+    path: AppRoutes.newPassword,
+    loadChildren: () => import('./new-password/new-password.module').then(m => m.NewPasswordModule)
+  },
+  {
     path: '',
     pathMatch: 'full',
     redirectTo: AppRoutes.start,

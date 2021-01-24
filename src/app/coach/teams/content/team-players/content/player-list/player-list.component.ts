@@ -37,8 +37,4 @@ export class PlayerListComponent implements OnInit {
     this.onMakePayment.emit({player: id, form: formValue});
   }
 
-  test() {
-    console.log('emit')
-  }
-
 }

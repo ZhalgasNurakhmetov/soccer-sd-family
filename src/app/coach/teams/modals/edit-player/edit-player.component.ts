@@ -98,9 +98,6 @@ export class EditPlayerComponent implements AfterViewInit{
   }
 
   editPlayer() {
-    this.form.patchValue({
-      photo: this.imageSrc
-    });
     if (!this.form.valid) {
       this.toaster.error('Заполните поля верно', 'Ошибка', {timeOut: 3000});
       return

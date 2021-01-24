@@ -52,4 +52,7 @@ export class StartComponent {
     });
   }
 
+  goToResetPassword() {
+    this.router.navigate([AppRoutes.reset]);
+  }
 }
