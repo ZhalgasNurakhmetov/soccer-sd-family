@@ -29,12 +29,15 @@ export class PlayerListComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  makePayment({player: id, form: formValue}) {
+  makePayment(player: number) {
+    this.form.patchValue({
+      date: new Date().toISOString()
+    });
     if (!this.form.valid) {
       this.toaster.error('Введите сумму', 'Ошибка', {timeOut: 3000});
       return
     }
-    this.onMakePayment.emit({player: id, form: formValue});
+    this.onMakePayment.emit({player, form: this.form.value});
   }
 
 }
