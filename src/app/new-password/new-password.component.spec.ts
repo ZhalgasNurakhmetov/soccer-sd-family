@@ -1,6 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NewPasswordComponent } from './new-password.component';
+import {NewPasswordApiService} from './api/new-password-api.service';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {RouterTestingModule} from '@angular/router/testing';
+import {ToastrModule} from 'ngx-toastr';
+import {NewPasswordFormService} from './forms/new-password.form.service';
 
 describe('NewPasswordComponent', () => {
   let component: NewPasswordComponent;
@@ -8,7 +13,9 @@ describe('NewPasswordComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NewPasswordComponent ]
+      declarations: [ NewPasswordComponent ],
+      imports: [HttpClientTestingModule, RouterTestingModule, ToastrModule.forRoot()],
+      providers: [NewPasswordApiService, NewPasswordFormService]
     })
     .compileComponents();
   }));

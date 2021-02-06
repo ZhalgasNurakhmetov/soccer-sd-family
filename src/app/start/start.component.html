@@ -1,3 +1,4 @@
+<body class="inventory-body">
 <div class="container-fluid">
   <div class="row center justify-content-center" id="login_content">
     <div class="col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4">
@@ -17,7 +18,7 @@
         </div>
         <button type="submit" class="btn btn-primary login-button mb-3" [disabled]="!loginForm.valid" *ngIf="!loading; else loadingButton">Войти</button>
       </form>
-      <button type="button" class="btn btn-outline-dark login-button" (click)="goToResetPassword()">Забыли пароль?</button>
+      <button type="button" class="btn btn-outline-light login-button text-white" (click)="goToResetPassword()">Забыли пароль?</button>
     </div>
   </div>
 </div>
@@ -27,3 +28,5 @@
     Подождите
   </button>
 </ng-template>
+</body>
+

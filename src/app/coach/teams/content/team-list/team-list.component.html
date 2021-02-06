@@ -5,15 +5,28 @@
 >
 </teams-list-control-bar>
 <div class="container-fluid">
-  <div class="card-deck mt-2" *ngIf="teams?.length !== 0; else noTeams">
-    <div class="card bg-light" *ngFor="let team of teams">
-      <div class="card-body text-center">
-        <p class="card-text font-weight-bold">Команда</p>
-        <p class="card-text font-weight-bold" style="font-size: 20px">{{team?.team}}</p>
-        <button class="btn btn-outline-primary" (click)="goToTeam(team?.players)">Перейти</button>
+  <div class="d-flex flex-wrap mt-2" style="width: 100%" *ngIf="teams?.length !== 0; else noTeams">
+      <div class="card bg-light mt-3 mr-2" *ngFor="let team of teams">
+        <div class="card-body text-center">
+          <p class="card-text font-weight-bold">Команда {{team?.team}}</p>
+          <p class="card-text font-weight-bold">Всего игроков: {{team?.players?.length}}<br>Вратари: {{team?.keeper}}<br>Защитники: {{team?.defender}}<br>Полузащитники: {{team?.middle}}<br>Нападающие: {{team?.forward}}</p>
+          <button class="btn btn-outline-primary" (click)="goToTeam(team?.players)">Перейти</button>
+        </div>
+      </div>
+</div>
+  <!--<div class="row" *ngIf="teams?.length !== 0; else noTeams">
+    <div class="col">
+      <div class="card-deck mt-2">
+        <div class="card bg-light" *ngFor="let team of teams | slice: 0: 4">
+          <div class="card-body text-center">
+            <p class="card-text font-weight-bold">Команда {{team?.team}}</p>
+            <p class="card-text font-weight-bold">Всего игроков: {{team?.players?.length}}<br>Вратари: {{team?.keeper}}<br>Защитники: {{team?.defender}}<br>Полузащитники: {{team?.middle}}<br>Нападающие: {{team?.forward}}</p>
+            <button class="btn btn-outline-primary" (click)="goToTeam(team?.players)">Перейти</button>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
+  </div>-->
 </div>
 </body>
 

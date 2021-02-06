@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Input} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
 import {Player} from '../../../../core/models/user';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {TeamsApiService} from '../../api/teams-api.service';
@@ -18,8 +18,7 @@ export class DeleteComponent {
   constructor(
     public activeModal: NgbActiveModal,
     private api: TeamsApiService,
-    private toaster: ToastrService,
-    private cd: ChangeDetectorRef
+    private toaster: ToastrService
   ) { }
 
   delete() {

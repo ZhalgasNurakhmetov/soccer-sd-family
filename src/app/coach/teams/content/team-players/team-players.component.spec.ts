@@ -9,6 +9,7 @@ import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {ToastrModule} from 'ngx-toastr';
 import {NgxsModule} from '@ngxs/store';
 import {PaymentFormService} from './content/player-list/forms/payment-form.service';
+import {RouterTestingModule} from '@angular/router/testing';
 
 @Component({
   selector: 'team-players-player-list',
@@ -34,7 +35,7 @@ describe('TeamPlayersComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ TeamPlayersComponent, PlayerListMock, PlayerCreateMock ],
-      imports: [HttpClientTestingModule, ToastrModule.forRoot(), NgxsModule.forRoot()],
+      imports: [HttpClientTestingModule, ToastrModule.forRoot(), NgxsModule.forRoot(), RouterTestingModule],
       providers: [PlayerCreateFormService, TeamsApiService, PaymentFormService]
     })
     .compileComponents();

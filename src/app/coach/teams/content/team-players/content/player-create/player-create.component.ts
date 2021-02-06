@@ -3,6 +3,12 @@ import {PlayerCreateFormService} from './forms/player-create.form.service';
 import {ToastrService} from 'ngx-toastr';
 import {PlayerCreateModel} from './forms/player-create.form.model';
 import {EntityListService} from '../../../../../../services/entity-list.service';
+import {finalize, takeUntil} from 'rxjs/operators';
+import {AppRoutes} from '../../../../../../app.routes';
+import {CoachRoutes} from '../../../../../coach.routes';
+import {Subject} from 'rxjs';
+import {TeamsApiService} from '../../../../api/teams-api.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'team-players-player-create',
@@ -23,12 +29,17 @@ export class PlayerCreateComponent {
   cities = this.entities.cities;
   feet = this.entities.feet;
   positions = this.entities.positions;
+  loadingFiles: boolean;
+
+  private cancel$ = new Subject();
 
   constructor(
     private playerCreateFormService: PlayerCreateFormService,
     private toaster: ToastrService,
     private cd: ChangeDetectorRef,
-    private entities: EntityListService
+    private entities: EntityListService,
+    private playerCreateApi: TeamsApiService,
+    private router: Router
   ) { }
 
   imageSrc = '';
@@ -84,5 +95,43 @@ export class PlayerCreateComponent {
     this.form.patchValue({
       position
     });
+  }
+
+  uploadFile(file: File) {
+    this.loadingFiles = true;
+    this.processFileUpload(file);
+  }
+
+  chooseByInput(event: Event) {
+    this.loadingFiles = true;
+    const file: File = (<HTMLInputElement>event.target).files[0];
+    this.processFileUpload(file);
+  }
+
+  processFileUpload(file: File) {
+    const formData = new FormData();
+    formData.append('file', file);
+    this.playerCreateApi.uploadFile(formData, this.team)
+      .pipe(
+        takeUntil(this.cancel$),
+        finalize(() => {
+          this.loadingFiles = false;
+          this.cd.markForCheck();
+        })
+      )
+      .subscribe(response => {
+        this.toaster.success(response?.message, 'Готово', {timeOut: 3000});
+        this.router.navigate([AppRoutes.coach, CoachRoutes.teams]);
+      }, error => {
+        this.toaster.error(error.error.message, 'Ошибка', {timeOut: 3000});
+      });
+  }
+
+  cancelUploadFile() {
+    this.cancel$.next();
+    this.cancel$.complete();
+    this.loadingFiles = false;
+    this.toaster.show('Отмена по вашей инициативе', 'Отмена', {timeOut: 3000});
+    this.cd.markForCheck();
   }
 }

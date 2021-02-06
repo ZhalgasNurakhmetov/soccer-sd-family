@@ -15,6 +15,9 @@ import {ToastrService} from 'ngx-toastr';
 import {PaymentFormService} from './content/player-list/forms/payment-form.service';
 import {EditPlayerComponent} from '../../modals/edit-player/edit-player.component';
 import {DeleteComponent} from '../../modals/delete/delete.component';
+import {Router} from '@angular/router';
+import {AppRoutes} from '../../../../app.routes';
+import {CoachRoutes} from '../../../coach.routes';
 
 @Component({
   selector: 'teams-content-team-players',
@@ -45,7 +48,8 @@ export class TeamPlayersComponent implements OnInit, OnDestroy{
     private playerCreateFormService: PlayerCreateFormService,
     private paymentFormService: PaymentFormService,
     private teamsApi: TeamsApiService,
-    private toaster: ToastrService
+    private toaster: ToastrService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -74,9 +78,15 @@ export class TeamPlayersComponent implements OnInit, OnDestroy{
     const modalRef = this.modalService.open(DeleteComponent);
     modalRef.componentInstance.player = player;
     modalRef.dismissed.subscribe(() => {
-      this.players = this.players.filter(pl => pl?.id !== player?.id);
-      this.setPlayers([...this.players]);
-      this.cd.markForCheck();
+      if (this.players.length > 1) {
+        this.players = this.players.filter(pl => pl?.id !== player?.id);
+        this.setPlayers([...this.players]);
+        this.cd.markForCheck();
+      } else {
+        this.router.navigate([AppRoutes.coach, CoachRoutes.teams]);
+        this.cd.markForCheck();
+      }
+
     })
   }
 

@@ -8,6 +8,7 @@ import {Player} from '../../../core/models/user';
 import {PaymentFormFormModel} from '../content/team-players/content/player-list/forms/payment-form.form.model';
 import {EditPlayerFormModel} from '../content/team-players/content/player-list/forms/edit-player-form.model';
 import {Payment} from '../../../core/models/payment';
+import {ApiResponse} from '../../../core/models/api-response';
 
 @Injectable()
 export class TeamsApiService {
@@ -36,5 +37,9 @@ export class TeamsApiService {
 
   deletePlayer(_id: number): Observable<Player> {
     return this.http.delete<Player>(`${environment.apiUrl}/coach/player-list/${_id.toString()}`);
+  }
+
+  uploadFile(formData: FormData, team: string): Observable<ApiResponse> {
+    return this.http.post<ApiResponse>(`${environment.apiUrl}/coach/upload-players/${team}`, formData);
   }
 }

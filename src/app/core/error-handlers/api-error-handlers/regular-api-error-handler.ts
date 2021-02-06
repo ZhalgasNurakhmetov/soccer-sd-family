@@ -34,7 +34,7 @@ export class RegularApiErrorHandler implements ApiErrorHandler {
           break;
         }
         case ServerSideErrorStatus.ITERNAL_SERVER_ERROR: {
-          console.error('ITERNAL_SERVER_ERROR', apiError);
+          console.error('INTERNAL_SERVER_ERROR', apiError);
           // this.ngZone.run(() =>
           //   this.toaster.show({
           //     type: 'warning',
@@ -56,7 +56,7 @@ export class RegularApiErrorHandler implements ApiErrorHandler {
           break;
         }
         case ServerSideErrorStatus.SERVICE_UNVAILABLE: {
-          console.error('SERVICE_UNVAILABLE', apiError);
+          console.error('SERVICE_UNAVAILABLE', apiError);
           // this.ngZone.run(() =>
           //   this.toaster.show({ type: 'warning', title: 'Нет доступа!', message: 'К сожалению, сервер недоступен по техническим причинам' })
           // );

@@ -5,8 +5,9 @@ import {AppRoutes} from '../../app.routes';
 import {CoachRoutes} from '../coach.routes';
 import {ToastrService} from 'ngx-toastr';
 import {AddPlayerApiService} from './api/add-player-api.service';
-import {finalize} from 'rxjs/operators';
+import {finalize, takeUntil} from 'rxjs/operators';
 import {EntityListService} from '../../services/entity-list.service';
+import {Subject} from 'rxjs';
 
 @Component({
   selector: 'app-add-player',
@@ -23,6 +24,9 @@ export class AddPlayerComponent {
   teams = this.entities.teams;
   positions = this.entities.positions;
   isLoading: boolean;
+  loadingFiles: boolean;
+
+  private cancel$ = new Subject();
 
   constructor(
     private addPlayerFormService: AddPlayerFormService,
@@ -111,5 +115,43 @@ export class AddPlayerComponent {
     this.router.navigate([AppRoutes.coach, CoachRoutes.teams]);
     this.addPlayerFormService.form.reset();
     this.addPlayerFormService.form.reset();
+  }
+
+  uploadFile(file: File) {
+    this.loadingFiles = true;
+    this.processFileUpload(file);
+  }
+
+  chooseByInput(event: Event) {
+    this.loadingFiles = true;
+    const file: File = (<HTMLInputElement>event.target).files[0];
+    this.processFileUpload(file);
+  }
+
+  processFileUpload(file: File) {
+    const formData = new FormData();
+    formData.append('file', file);
+    this.addPlayerApi.uploadFile(formData)
+      .pipe(
+        takeUntil(this.cancel$),
+        finalize(() => {
+          this.loadingFiles = false;
+          this.cd.markForCheck();
+        })
+      )
+      .subscribe(response => {
+        this.toaster.success(response?.message, 'Готово', {timeOut: 3000});
+        this.router.navigate([AppRoutes.coach, CoachRoutes.teams]);
+      }, error => {
+        this.toaster.error(error.error.message, 'Ошибка', {timeOut: 3000});
+      });
+  }
+
+  cancelUploadFile() {
+    this.cancel$.next();
+    this.cancel$.complete();
+    this.loadingFiles = false;
+    this.toaster.show('Отмена по вашей инициативе', 'Отмена', {timeOut: 3000});
+    this.cd.markForCheck();
   }
 }

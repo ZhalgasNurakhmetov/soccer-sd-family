@@ -5,6 +5,9 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {PlayerCreateFormService} from './forms/player-create.form.service';
 import {ToastrModule} from 'ngx-toastr';
+import {TeamsApiService} from '../../../../api/teams-api.service';
+import {RouterTestingModule} from '@angular/router/testing';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
 
 describe('PlayerCreateComponent', () => {
   let component: PlayerCreateComponent;
@@ -13,8 +16,8 @@ describe('PlayerCreateComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ PlayerCreateComponent ],
-      imports: [ReactiveFormsModule, NgbModule, ToastrModule.forRoot()],
-      providers: [PlayerCreateFormService]
+      imports: [ReactiveFormsModule, NgbModule, ToastrModule.forRoot(), RouterTestingModule, HttpClientTestingModule],
+      providers: [PlayerCreateFormService, TeamsApiService]
     })
     .compileComponents();
   }));

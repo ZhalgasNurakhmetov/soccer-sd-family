@@ -5,7 +5,7 @@
     </div>
   </div>
   <div class="row mt-2">
-    <div class="col-sm-10 col-md-8 col-lg-6 col-xl-4">
+    <div class="col-sm-7 col-md-6 col-lg-6 col-xl-4">
       <form [formGroup]="form" (ngSubmit)="createPlayer()" class="was-validated">
         <div class="form-group">
           <label for="name">Имя:</label>
@@ -109,6 +109,17 @@
         </div>
       </form>
     </div>
+    <div class="col-sm-5 col-md-6 col-lg-6 col-xl-4">
+      <div class="jumbotron text-center" style="border: dashed 1px gray" appDragAndDropFileUpload (onFileUploaded)="uploadFile($event)" *ngIf="!loadingFiles; else cancelLoadingFiles">
+        <i class="bi bi-file-earmark-arrow-up-fill" style="color: #0069d9; font-size: 36px"></i><br>
+        <p class="m-0">Выберите файл или перенесите его в эту область</p><br>
+        <p class="m-0">Допустимые форматы: xlsx</p>
+        <input
+          class="mt-3"
+          type="file"
+          (change)="chooseByInput($event)">
+      </div>
+    </div>
   </div>
 </div>
 
@@ -125,4 +136,12 @@
     <span class="spinner-border spinner-border-sm"></span>
     Подождите
   </button>
+</ng-template>
+
+<ng-template #cancelLoadingFiles>
+  <div class="jumbotron text-center" style="border: dashed 1px gray">
+    <i class="bi bi-file-earmark-arrow-up-fill" style="color: #0069d9; font-size: 36px"></i><br>
+    <p class="m-0">Идет загрузка файла</p><br>
+    <button class="btn btn-outline-danger" (click)="cancelUploadFile()">Отменить</button>
+  </div>
 </ng-template>
