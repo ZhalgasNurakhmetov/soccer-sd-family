@@ -12,6 +12,7 @@ import {ToastrService} from 'ngx-toastr';
 export class PlayerListComponent implements OnInit {
 
   @Input() players: Player[];
+  @Input() team: string;
 
   @Output() onOpen = new EventEmitter<Player>();
   @Output() onOpenEdit = new EventEmitter<Player>();

@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
 
 @Component({
   selector: 'player-list-control-bar',
@@ -7,6 +7,7 @@ import {ChangeDetectionStrategy, Component, EventEmitter, Output} from '@angular
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ControlBarComponent {
+  @Input() team: string;
   @Output() onGoToPlayerCreate = new EventEmitter();
 
   constructor() { }
