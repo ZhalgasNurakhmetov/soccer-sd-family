@@ -1,7 +1,9 @@
-import {Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef} from '@angular/core';
+import {Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy} from '@angular/core';
 import {AdminApiService} from '../../api/admin.api.service';
 import {ToastrService} from 'ngx-toastr';
 import {Player} from '../../../core/models/user';
+import {Subject} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
 
 @Component({
   selector: 'player-content',
@@ -9,9 +11,11 @@ import {Player} from '../../../core/models/user';
   styleUrls: ['./player-content.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PlayerContentComponent implements OnInit {
+export class PlayerContentComponent implements OnInit, OnDestroy {
 
   playerList: Player[] = [];
+
+  private unsubscribe$ = new Subject();
 
   constructor(private adminApi: AdminApiService, private toaster: ToastrService, private cd: ChangeDetectorRef) { }
 
@@ -24,7 +28,8 @@ export class PlayerContentComponent implements OnInit {
       this.toaster.show('Нет данных для удаления', 'Внимание', {timeOut: 3000});
       return
     }
-    this.adminApi.deleteAllPlayers().subscribe(response => {
+    this.adminApi.deleteAllPlayers()
+      .pipe(takeUntil(this.unsubscribe$)).subscribe(response => {
       this.playerList = [];
       this.toaster.success(response?.message, 'Готово', {timeOut: 3000});
       this.cd.markForCheck();
@@ -34,10 +39,15 @@ export class PlayerContentComponent implements OnInit {
   }
 
   private getPlayerList() {
-    this.adminApi.getPlayerList().subscribe(playerList => {
+    this.adminApi.getPlayerList().pipe(takeUntil(this.unsubscribe$)).subscribe(playerList => {
       this.playerList = playerList;
       this.cd.markForCheck()
     });
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 
 }

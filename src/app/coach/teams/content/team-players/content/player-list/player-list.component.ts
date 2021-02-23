@@ -1,4 +1,4 @@
-import {Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Player} from '../../../../../../core/models/user';
 import {PaymentFormService} from './forms/payment-form.service';
 import {ToastrService} from 'ngx-toastr';
@@ -21,6 +21,9 @@ export class PlayerListComponent implements OnInit {
   @Output() onOpenDelete = new EventEmitter<Player>();
 
   form = this.paymentFormService.form;
+  searchText: string;
+  searchResults: Player[];
+  showResults: boolean;
 
   constructor(
     private paymentFormService: PaymentFormService,
@@ -30,7 +33,7 @@ export class PlayerListComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  makePayment(player: number) {
+  makePayment(player: string) {
     this.form.patchValue({
       date: new Date().toISOString()
     });
@@ -41,4 +44,13 @@ export class PlayerListComponent implements OnInit {
     this.onMakePayment.emit({player, form: this.form.value});
   }
 
+  searchPlayer(searchPlayerText: string) {
+    this.searchText = searchPlayerText;
+    if (this.searchText) {
+      this.showResults = true;
+      this.searchResults = this.players.filter(value => value.givenName.toLowerCase().includes(searchPlayerText.toLowerCase()) || value.lastName.toLowerCase().includes(searchPlayerText.toLowerCase()));
+    } else {
+      this.showResults = false;
+    }
+  }
 }

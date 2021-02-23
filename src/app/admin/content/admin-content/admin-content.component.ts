@@ -22,7 +22,7 @@ export class AdminContentComponent implements OnInit, OnDestroy {
 
   @Select(AdminState.adminTabState) adminTabState$: Observable<AdminTabState>;
   @Select(AdminState.admin) admin$: Observable<User>;
-  @Select(AdminState.idOfAdminOnEdit) idOfAdminOnEdit$: Observable<number>;
+  @Select(AdminState.idOfAdminOnEdit) idOfAdminOnEdit$: Observable<string>;
   @Select(AdminState.adminCreatingIsLoading) adminCreatingIsLoading$: Observable<boolean>;
 
   currentAdminTabState: AdminTabState;
@@ -32,7 +32,7 @@ export class AdminContentComponent implements OnInit, OnDestroy {
   private unsubscribe$ = new Subject();
 
   @Dispatch() setAdminTabState = (adminTabState: AdminTabState) => new SetAdminTabState(adminTabState);
-  @Dispatch() setIdOfAdminOnEdit = (idOfAdminOnEdit: number) => new SetAdminOnEdit(idOfAdminOnEdit);
+  @Dispatch() setIdOfAdminOnEdit = (idOfAdminOnEdit: string) => new SetAdminOnEdit(idOfAdminOnEdit);
   @Dispatch() setAdminCreatingIsLoading = (adminCreatingIsLoading: boolean) => new SetAdminCreatingIsLoading(adminCreatingIsLoading);
 
   constructor(
@@ -54,10 +54,6 @@ export class AdminContentComponent implements OnInit, OnDestroy {
   }
 
   createAdmin(adminInfo: AdminCreateFormModel) {
-    if (!adminInfo?.username?.startsWith('admin')) {
-      this.toaster.error('Имя учетной записи должно начинаться с admin', 'Ошибка', {timeOut: 3000});
-      return
-    }
     this.setAdminCreatingIsLoading(true);
     this.cd.markForCheck();
     this.adminApi.createAdmin(adminInfo)
@@ -65,7 +61,8 @@ export class AdminContentComponent implements OnInit, OnDestroy {
         finalize(() => {
           this.setAdminCreatingIsLoading(false);
           this.cd.markForCheck();
-        })
+        }),
+        takeUntil(this.unsubscribe$)
       ).subscribe(user => {
       this.adminList.push(user);
       this.toaster.success('Пользователь создан', 'Готово', {timeOut: 3000});
@@ -95,7 +92,8 @@ export class AdminContentComponent implements OnInit, OnDestroy {
   }
 
   saveChanges(admin: any) {
-    this.adminApi.editAdmin(admin?.id, admin?.form).subscribe(user => {
+    this.adminApi.editAdmin(admin?.id, admin?.form)
+      .pipe(takeUntil(this.unsubscribe$)).subscribe(user => {
       this.adminList.forEach((adm, index) => {
         if (adm?.id === user?.id) {
           this.adminList[index] = user;
@@ -115,12 +113,13 @@ export class AdminContentComponent implements OnInit, OnDestroy {
     this.cd.markForCheck();
   }
 
-  deleteAdmin(id: number) {
+  deleteAdmin(id: string) {
     this.adminApi.deleteAdmin(id)
       .pipe(
         finalize(() => {
           this.cd.markForCheck();
-        })
+        }),
+        takeUntil(this.unsubscribe$)
       ).subscribe(() => {
       this.adminList = this.adminList.filter(admin => admin.id !== id);
       this.toaster.success('Администратор удален', 'Готово', {timeOut: 3000});
@@ -130,7 +129,8 @@ export class AdminContentComponent implements OnInit, OnDestroy {
   }
 
   private getAdminList() {
-    this.adminApi.getAdminList().subscribe(adminList => {
+    this.adminApi.getAdminList()
+      .pipe(takeUntil(this.unsubscribe$)).subscribe(adminList => {
       this.adminList = adminList;
       this.cd.markForCheck();
     });

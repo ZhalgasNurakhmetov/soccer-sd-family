@@ -1,8 +1,8 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy} from '@angular/core';
 import {Select} from '@ngxs/store';
-import {Observable} from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 import {User} from '../../core/models/user';
-import {CoachState, SetCoach} from '../store';
+import {SetCoach} from '../store';
 import {EditProfileApiService} from './api/edit-profile-api.service';
 import {EditProfileFormService} from './forms/edit-profile.form.service';
 import {Router} from '@angular/router';
@@ -11,7 +11,7 @@ import {CoachRoutes} from '../coach.routes';
 import {EditProfileState, SetEditProfileIsLoading} from './store';
 import {Dispatch} from '@ngxs-labs/dispatch-decorator';
 import {EditProfileFormsModel} from './forms/edit-profile.forms.model';
-import {finalize} from 'rxjs/operators';
+import {finalize, takeUntil} from 'rxjs/operators';
 import {ToastrService} from 'ngx-toastr';
 
 @Component({
@@ -20,10 +20,11 @@ import {ToastrService} from 'ngx-toastr';
   styleUrls: ['./edit-profile.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class EditProfileComponent {
+export class EditProfileComponent implements OnDestroy{
 
-  @Select(CoachState.coach) coach$: Observable<User>;
   @Select(EditProfileState.isLoading) isLoading$: Observable<boolean>;
+
+  private unsubscribe$ = new Subject();
 
   @Dispatch() setIsLoading = (isLoading: boolean) => new SetEditProfileIsLoading(isLoading);
   @Dispatch() setCoach = (coach: User) => new SetCoach(coach);
@@ -43,7 +44,8 @@ export class EditProfileComponent {
         finalize(() => {
           this.setIsLoading(false);
           this.cd.markForCheck();
-        })
+        }),
+        takeUntil(this.unsubscribe$)
       ).subscribe(coach => {
         this.toaster.success('Данные успешно изменены. Изменения вступят в силу после обновления страницы', 'Готово', {timeOut: 3000});
         this.setCoach(coach);
@@ -57,5 +59,10 @@ export class EditProfileComponent {
   cancel() {
     this.router.navigate([AppRoutes.coach, CoachRoutes.teams]);
     this.editProfileFormService.form.reset();
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 }

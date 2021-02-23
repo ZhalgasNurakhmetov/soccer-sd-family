@@ -1,7 +1,9 @@
 import {Injectable} from '@angular/core';
-import {initResetPasswordForm} from './reset-password.form.builder';
+import {initResetPasswordCodeForm, initResetPasswordForm, initResetPasswordWithEmailForm} from './reset-password.form.builder';
 
 @Injectable()
 export class ResetPasswordFormService {
   form = initResetPasswordForm();
+  formWithEmail = initResetPasswordWithEmailForm();
+  codeForm = initResetPasswordCodeForm();
 }

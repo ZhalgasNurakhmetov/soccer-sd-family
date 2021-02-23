@@ -19,7 +19,7 @@ export class SetCoachTabState {
 
 export class SetAdminOnEdit {
   static readonly type = '[AdminState] Set Admin On Edit';
-  constructor(public idOfAdminOnEdit: number) { }
+  constructor(public idOfAdminOnEdit: string) { }
 }
 
 export class SetAdminCreatingIsLoading {

@@ -1,6 +1,6 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {Select} from '@ngxs/store';
-import {Observable} from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 import {AdminState, SetCoachCreatingIsLoading, SetCoachDeletingIsLoading, SetCoachTabState} from '../../store';
 import {CoachTabState} from './enums/coach-tab.state.enum';
 import {Dispatch} from '@ngxs-labs/dispatch-decorator';
@@ -9,7 +9,7 @@ import {AdminApiService} from '../../api/admin.api.service';
 import {ToastrService} from 'ngx-toastr';
 import {CoachCreateFormModel} from './content/coach-create/forms/coach-create,form.model';
 import {CoachCreateFormService} from './content/coach-create/forms/coach-create.form.service';
-import {finalize} from 'rxjs/operators';
+import {finalize, takeUntil} from 'rxjs/operators';
 
 @Component({
   selector: 'coach-content',
@@ -17,7 +17,7 @@ import {finalize} from 'rxjs/operators';
   styleUrls: ['./coach-content.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CoachContentComponent implements OnInit {
+export class CoachContentComponent implements OnInit, OnDestroy {
 
   @Select(AdminState.coachTabState) coachTabState$: Observable<CoachTabState>;
   @Select(AdminState.coachCreatingIsLoading) coachCreatingIsLoading$: Observable<boolean>;
@@ -25,6 +25,8 @@ export class CoachContentComponent implements OnInit {
 
   coachList: User[] = [];
   coachTabState = CoachTabState;
+
+  private unsubscribe$ = new Subject();
 
   @Dispatch() setCoachTabState = (coachTabState: CoachTabState) => new SetCoachTabState(coachTabState);
   @Dispatch() setCoachCreatingIsLoading = (coachCreatingIsLoading: boolean) => new SetCoachCreatingIsLoading(coachCreatingIsLoading);
@@ -54,7 +56,8 @@ export class CoachContentComponent implements OnInit {
         finalize(() => {
           this.setCoachCreatingIsLoading(false);
           this.cd.markForCheck();
-        })
+        }),
+        takeUntil(this.unsubscribe$)
       ).subscribe(user => {
       this.coachList.push(user);
       this.toaster.success('Тренер создан', 'Готово', {timeOut: 3000});
@@ -71,8 +74,9 @@ export class CoachContentComponent implements OnInit {
     this.cd.markForCheck();
   }
 
-  deleteCoach(id: number) {
-    this.adminApi.deleteCoach(id).subscribe(() => {
+  deleteCoach(id: string) {
+    this.adminApi.deleteCoach(id)
+      .pipe(takeUntil(this.unsubscribe$)).subscribe(() => {
       this.coachList = this.coachList.filter(coach => coach.id !== id);
       this.toaster.success('Тренер успешно удален', 'Готово', {timeOut: 3000});
       this.cd.markForCheck();
@@ -93,7 +97,8 @@ export class CoachContentComponent implements OnInit {
         finalize(() => {
           this.setCoachDeletingIsLoading(false);
           this.cd.markForCheck();
-        })
+        }),
+        takeUntil(this.unsubscribe$)
       ).subscribe(response => {
       this.coachList = [];
       this.toaster.success(response?.message, 'Готово', {timeOut: 3000});
@@ -103,10 +108,15 @@ export class CoachContentComponent implements OnInit {
   }
 
   private getCoachList() {
-    this.adminApi.getCoachList().subscribe(coachList => {
+    this.adminApi.getCoachList()
+      .pipe(takeUntil(this.unsubscribe$)).subscribe(coachList => {
       this.coachList = coachList;
       this.cd.markForCheck();
     });
   }
 
+  ngOnDestroy() {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
+  }
 }

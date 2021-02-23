@@ -1,9 +1,13 @@
-import {AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, Output, EventEmitter} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {User} from '../../../../core/models/user';
 import {EditProfileFormService} from '../../forms/edit-profile.form.service';
 import {EditProfileFormsModel} from '../../forms/edit-profile.forms.model';
 import {ToastrService} from 'ngx-toastr';
 import {EntityListService} from '../../../../services/entity-list.service';
+import {Select} from '@ngxs/store';
+import {CoachState} from '../../../store';
+import {Observable, Subject} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
 
 @Component({
   selector: 'edit-profile-content',
@@ -11,15 +15,17 @@ import {EntityListService} from '../../../../services/entity-list.service';
   styleUrls: ['./edit-profile-content.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class EditProfileContentComponent implements AfterViewInit {
+export class EditProfileContentComponent implements OnInit, OnDestroy {
+  @Select(CoachState.coach) coach$: Observable<User>;
 
-  @Input() coach: User;
   @Input() isLoading: boolean;
   @Output() onSaveChanges = new EventEmitter<EditProfileFormsModel>();
   @Output() onCancel = new EventEmitter();
 
   form = this.editProfileFormService.form;
   cities = this.entities.cities;
+
+  private unsubscribe$ = new Subject();
 
   constructor(
     private editProfileFormService: EditProfileFormService,
@@ -28,16 +34,8 @@ export class EditProfileContentComponent implements AfterViewInit {
     private entities: EntityListService
   ) { }
 
-  ngAfterViewInit(): void {
-    this.form.patchValue({
-      givenName: this.coach?.givenName,
-      lastName: this.coach?.lastName,
-      fatherName: this.coach?.fatherName,
-      city: this.coach?.city,
-      email: this.coach?.email,
-      phone: this.coach?.phone
-    });
-    this.cd.detectChanges();
+  ngOnInit(): void {
+    this.subscribeToCoach();
   }
 
   saveChanges() {
@@ -52,6 +50,25 @@ export class EditProfileContentComponent implements AfterViewInit {
     this.form.patchValue({
       city
     });
+  }
+
+  private subscribeToCoach() {
+    this.coach$.pipe(takeUntil(this.unsubscribe$)).subscribe(coach => {
+      this.form.patchValue({
+        givenName: coach?.givenName,
+        lastName: coach?.lastName,
+        fatherName: coach?.fatherName,
+        city: coach?.city,
+        email: coach?.email,
+        phone: coach?.phone
+      });
+      this.cd.markForCheck();
+    });
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 
 }

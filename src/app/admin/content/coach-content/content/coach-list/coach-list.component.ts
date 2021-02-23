@@ -12,7 +12,7 @@ export class CoachListComponent {
   @Input() coachList: User[];
   @Input() isLoading: boolean;
   @Output() onGoToCoachCreate = new EventEmitter();
-  @Output() onDeleteCoach = new EventEmitter<number>();
+  @Output() onDeleteCoach = new EventEmitter<string>();
   @Output() onDeleteAllCoaches = new EventEmitter();
 
   constructor() { }

@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy} from '@angular/core';
 import {AddPlayerFormService} from './forms/add-player.form.service';
 import {Router} from '@angular/router';
 import {AppRoutes} from '../../app.routes';
@@ -15,7 +15,7 @@ import {Subject} from 'rxjs';
   styleUrls: ['./add-player.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AddPlayerComponent {
+export class AddPlayerComponent implements OnDestroy{
 
   form = this.addPlayerFormService.form;
   player = this.addPlayerFormService.player;
@@ -27,6 +27,7 @@ export class AddPlayerComponent {
   loadingFiles: boolean;
 
   private cancel$ = new Subject();
+  private unsubscribe$ = new Subject();
 
   constructor(
     private addPlayerFormService: AddPlayerFormService,
@@ -76,7 +77,8 @@ export class AddPlayerComponent {
         finalize(() => {
           this.isLoading = false;
           this.cd.markForCheck();
-        })
+        }),
+        takeUntil(this.unsubscribe$)
       ).subscribe(() => {
       this.toaster.success('Игрок успешно добавлен', 'Готово', {timeOut: 3000});
       this.router.navigate([AppRoutes.coach, CoachRoutes.teams]);
@@ -153,5 +155,10 @@ export class AddPlayerComponent {
     this.loadingFiles = false;
     this.toaster.show('Отмена по вашей инициативе', 'Отмена', {timeOut: 3000});
     this.cd.markForCheck();
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 }

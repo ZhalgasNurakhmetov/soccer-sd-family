@@ -1,5 +1,5 @@
 export interface User {
-  id: number;
+  id: string;
   username: string;
   givenName: string;
   lastName: string;
@@ -13,7 +13,7 @@ export interface User {
 }
 
 export interface Player {
-  id: number;
+  id: string;
   givenName: string;
   lastName: string;
   fatherName: string;
@@ -23,14 +23,14 @@ export interface Player {
   weight: string;
   activeFoot: string;
   team: string;
-  coachId: number;
+  coachId: string;
   coach: Coach;
   photo: string;
   position: string;
 }
 
 export interface Coach {
-  id: number;
+  id: string;
   givenName: string;
   lastName: string;
   fatherName: string;

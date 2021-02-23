@@ -23,20 +23,20 @@ export class TeamsApiService {
     return this.http.post<Player>(`${environment.apiUrl}/coach/player-registration`, player);
   }
 
-  makePayment(_id: number, payment: PaymentFormFormModel): Observable<Payment> {
-    return this.http.post<Payment>(`${environment.apiUrl}/coach/player/${_id.toString()}/payments`, payment);
+  makePayment(_id: string, payment: PaymentFormFormModel): Observable<Payment> {
+    return this.http.post<Payment>(`${environment.apiUrl}/coach/player/${_id}/payments`, payment);
   }
 
-  getPayments(_id: number): Observable<Payment[]> {
-    return this.http.get<Payment[]>(`${environment.apiUrl}/coach/player/${_id.toString()}/payments`);
+  getPayments(_id: string): Observable<Payment[]> {
+    return this.http.get<Payment[]>(`${environment.apiUrl}/coach/player/${_id}/payments`);
   }
 
-  editPlayer(_id: number, player: EditPlayerFormModel): Observable<Player> {
-    return this.http.put<Player>(`${environment.apiUrl}/coach/player-list/${_id.toString()}`, player);
+  editPlayer(_id: string, player: EditPlayerFormModel): Observable<Player> {
+    return this.http.put<Player>(`${environment.apiUrl}/coach/player-list/${_id}`, player);
   }
 
-  deletePlayer(_id: number): Observable<Player> {
-    return this.http.delete<Player>(`${environment.apiUrl}/coach/player-list/${_id.toString()}`);
+  deletePlayer(_id: string): Observable<Player> {
+    return this.http.delete<Player>(`${environment.apiUrl}/coach/player-list/${_id}`);
   }
 
   uploadFile(formData: FormData, team: string): Observable<ApiResponse> {

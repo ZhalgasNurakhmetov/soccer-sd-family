@@ -38,7 +38,7 @@
           <div class="invalid-feedback"></div>
         </div>
         <div class="btn-group">
-          <button type="submit" class="btn btn-primary" *ngIf="!loading; else loadingButton" [disabled]="!form?.valid">Сохранить</button>
+          <button type="submit" class="btn btn-primary" *ngIf="!isLoading; else loadingButton" [disabled]="!form?.valid">Сохранить</button>
           <button type="button" class="btn btn-danger ml-2" (click)="onCancel.emit()">Отмена</button>
         </div>
       </form>

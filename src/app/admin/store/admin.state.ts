@@ -52,7 +52,7 @@ export class AdminState {
   }
 
   @Selector()
-  static idOfAdminOnEdit(state: AdminStateModel): number {
+  static idOfAdminOnEdit(state: AdminStateModel): string {
     return state.idOfAdminOnEdit;
   }
 

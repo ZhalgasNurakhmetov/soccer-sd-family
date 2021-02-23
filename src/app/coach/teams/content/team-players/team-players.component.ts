@@ -101,7 +101,8 @@ export class TeamPlayersComponent implements OnInit, OnDestroy{
         finalize(() => {
           this.setPlayerCreateIsLoading(false);
           this.cd.markForCheck();
-        })
+        }),
+        takeUntil(this.unsubscribe$)
       ).subscribe(newPlayer => {
         this.players.push(newPlayer);
       this.toaster.success('Игрок успешно добавлен', 'Готово', {timeOut: 3000});
@@ -121,7 +122,7 @@ export class TeamPlayersComponent implements OnInit, OnDestroy{
   }
 
   makePayment({player: id, form: formValue}) {
-    this.teamsApi.makePayment(id, formValue).subscribe(() => {
+    this.teamsApi.makePayment(id, formValue).pipe(takeUntil(this.unsubscribe$)).subscribe(() => {
       this.paymentFormService.form.reset();
       this.toaster.success(`Оплата записана`, 'Готово', {timeOut: 3000});
     }, error => {

@@ -13,9 +13,9 @@ export class AdminListComponent {
 
   @Input() adminList: User[];
   @Input() currentAdminTabState: AdminTabState;
-  @Input() idOfAdminOnEdit: number;
+  @Input() idOfAdminOnEdit: string;
   @Output() onGoToAdminCreate = new EventEmitter();
-  @Output() onDeleteAdmin = new EventEmitter<number>();
+  @Output() onDeleteAdmin = new EventEmitter<string>();
   @Output() onEditAdmin = new EventEmitter<User>();
   @Output() onCancelEdit = new EventEmitter();
   @Output() onSaveChanges = new EventEmitter();

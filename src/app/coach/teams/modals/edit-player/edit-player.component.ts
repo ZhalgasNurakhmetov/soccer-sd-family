@@ -1,10 +1,12 @@
-import {AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, Input} from '@angular/core';
+import {AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy} from '@angular/core';
 import {Player} from '../../../../core/models/user';
 import {EditPlayerFormService} from '../../content/team-players/content/player-list/forms/edit-player.form.service';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {TeamsApiService} from '../../api/teams-api.service';
 import {ToastrService} from 'ngx-toastr';
 import {EntityListService} from '../../../../services/entity-list.service';
+import {takeUntil} from 'rxjs/operators';
+import {Subject} from 'rxjs';
 
 @Component({
   selector: 'app-edit-player',
@@ -13,16 +15,18 @@ import {EntityListService} from '../../../../services/entity-list.service';
   providers: [EditPlayerFormService, TeamsApiService],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class EditPlayerComponent implements AfterViewInit{
+export class EditPlayerComponent implements AfterViewInit, OnDestroy{
 
   @Input() player: Player;
   form = this.editPlayerFormService.form;
   cities = this.entities.cities;
   feet = this.entities.feet;
   teams = this.entities.teams;
-  positions = this.entities.teams;
+  positions = this.entities.positions;
   isLoading: boolean;
   onCancel: any;
+
+  private unsubscribe$ = new Subject();
 
   constructor(
     private editPlayerFormService: EditPlayerFormService,
@@ -102,12 +106,17 @@ export class EditPlayerComponent implements AfterViewInit{
       this.toaster.error('Заполните поля верно', 'Ошибка', {timeOut: 3000});
       return
     }
-    this.api.editPlayer(this.player?.id, this.form.value).subscribe(player => {
+    this.api.editPlayer(this.player?.id, this.form.value).pipe(takeUntil(this.unsubscribe$)).subscribe(player => {
       this.toaster.success('Данные успешно изменены', 'Готово', {timeOut: 3000});
       this.activeModal.dismiss(player);
       this.editPlayerFormService.form.reset();
     }, error => {
       this.toaster.error(error.error.message, 'Ошибка', {timeOut: 3000});
     });
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 }

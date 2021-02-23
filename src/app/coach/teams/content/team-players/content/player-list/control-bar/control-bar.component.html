@@ -1,10 +1,17 @@
 <div class="container-fluid">
   <div class="row pt-2">
-    <div class="col-lg-6 col-xl-4">
-      <div class="btn-group">
-        <button type="button" class="btn btn-success" (click)="onGoToPlayerCreate.emit()">Добавить игрока в команду</button>
+    <div class="col">
+      <div>
+        <div class="btn-group" style="float: left">
+          <button type="button" class="ml-2 btn btn-success" (click)="onGoToPlayerCreate.emit()">Добавить игрока в команду</button>
+        </div>
+        <div>
+          <div>
+            <p class="ml-2" style="font-size: 26px; font-family: 'Roboto Slab', serif; float: left">{{team}}</p>
+            <input class="ml-2 mb-1 p-2" type="text" placeholder="Введите имя или фамилию" style="width: 300px" [formControl]="searchText">
+          </div>
+        </div>
       </div>
-      <p class="text-white mt-3" style="font-size: 26px">{{team}}</p>
     </div>
   </div>
 </div>

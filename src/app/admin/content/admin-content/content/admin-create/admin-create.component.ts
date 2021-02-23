@@ -17,7 +17,6 @@ export class AdminCreateComponent {
   @Output() onCancel = new EventEmitter();
 
   form = this.adminCreateFormService.adminCreateForm;
-  loading = false;
 
   constructor(
     private adminCreateFormService: AdminCreateFormService,
@@ -25,6 +24,10 @@ export class AdminCreateComponent {
   ) { }
 
   createAdmin() {
+    if (!this.form.controls?.username?.value.startsWith('admin')) {
+      this.toaster.error('Имя учетной записи должно начинаться с admin', 'Ошибка', {timeOut: 3000});
+      return
+    }
     if (!this.form.valid) {
       this.toaster.error('Заполните все обязательные поля', 'Ошибка', {timeOut: 3000});
       return

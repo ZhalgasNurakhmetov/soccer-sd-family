@@ -101,7 +101,10 @@
         </div>
         <div class="image-upload mb-2">
           <img [src]="form?.controls?.photo?.value" style="max-width:300px; max-height:300px"/>
-          <input name="imageUrl" type="file" accept="image/*" (change)="handleInputChange($event)" />
+          <div class="mt-2">
+            <label for="image" class="btn btn-primary">Выбрать фото...</label><br>
+            <input name="imageUrl" id="image" type="file" accept="image/*" (change)="handleInputChange($event)" style="visibility:hidden;">
+          </div>
         </div>
         <div class="btn-group">
           <button type="submit" class="btn btn-primary" *ngIf="!isLoading; else loadingButton" [disabled]="!form.valid">Сохранить</button>
@@ -114,10 +117,10 @@
         <i class="bi bi-file-earmark-arrow-up-fill" style="color: #0069d9; font-size: 36px"></i><br>
         <p class="m-0">Выберите файл или перенесите его в эту область</p><br>
         <p class="m-0">Допустимые форматы: xlsx</p>
-        <input
-          class="mt-3"
-          type="file"
-          (change)="chooseByInput($event)">
+        <div class="text-center mt-5">
+          <label for="files" class="btn btn-primary">Выбрать файл...</label><br>
+          <input id="files"  class="mt-3 text-white" style="visibility:hidden;" type="file"  (change)="chooseByInput($event)">
+        </div>
       </div>
     </div>
   </div>

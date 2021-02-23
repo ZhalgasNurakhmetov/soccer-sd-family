@@ -18,7 +18,7 @@ import {ToastrModule} from 'ngx-toastr';
 export class AdminListMock {
   @Input() adminList: User[];
   @Input() currentAdminTabState: AdminTabState;
-  @Input() idOfAdminOnEdit: number;
+  @Input() idOfAdminOnEdit: string;
 }
 
 @Component({

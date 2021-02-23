@@ -20,10 +20,6 @@ const routes: Routes = [
     loadChildren: () => import('./reset-password/reset-password.module').then(m => m.ResetPasswordModule)
   },
   {
-    path: AppRoutes.newPassword,
-    loadChildren: () => import('./new-password/new-password.module').then(m => m.NewPasswordModule)
-  },
-  {
     path: '',
     pathMatch: 'full',
     redirectTo: AppRoutes.start,

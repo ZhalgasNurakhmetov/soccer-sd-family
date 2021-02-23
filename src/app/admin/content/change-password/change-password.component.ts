@@ -1,11 +1,12 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy} from '@angular/core';
 import {ChangePasswordFormService} from './forms/change-password.form.service';
 import {Router} from '@angular/router';
 import {AppRoutes} from '../../../app.routes';
 import {AdminRoutes} from '../../admin.routes';
 import {AdminApiService} from '../../api/admin.api.service';
 import {ToastrService} from 'ngx-toastr';
-import {finalize} from 'rxjs/operators';
+import {finalize, takeUntil} from 'rxjs/operators';
+import {Subject} from 'rxjs';
 
 @Component({
   selector: 'admin-change-password',
@@ -13,10 +14,12 @@ import {finalize} from 'rxjs/operators';
   styleUrls: ['./change-password.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ChangePasswordComponent {
+export class ChangePasswordComponent implements OnDestroy{
 
   form = this.changePasswordFormService.form;
   loading = false;
+
+  private unsubscribe$ = new Subject();
 
   constructor(
     private changePasswordFormService: ChangePasswordFormService,
@@ -33,7 +36,8 @@ export class ChangePasswordComponent {
         finalize(() => {
           this.loading = false;
           this.cd.markForCheck();
-        })
+        }),
+        takeUntil(this.unsubscribe$)
       ).subscribe(() => {
       this.toaster.success('Пароль успешно изменен', 'Готово', {timeOut: 3000});
       this.router.navigate([AppRoutes.admin, AdminRoutes.admin]);
@@ -46,5 +50,10 @@ export class ChangePasswordComponent {
   cancel() {
     this.router.navigate([AppRoutes.admin, AdminRoutes.admin]);
     this.changePasswordFormService.form.reset();
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 }
