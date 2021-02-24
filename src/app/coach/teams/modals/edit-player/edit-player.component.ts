@@ -5,7 +5,7 @@ import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {TeamsApiService} from '../../api/teams-api.service';
 import {ToastrService} from 'ngx-toastr';
 import {EntityListService} from '../../../../services/entity-list.service';
-import {takeUntil} from 'rxjs/operators';
+import {finalize, takeUntil} from 'rxjs/operators';
 import {Subject} from 'rxjs';
 
 @Component({
@@ -37,26 +37,27 @@ export class EditPlayerComponent implements AfterViewInit, OnDestroy{
     private entities: EntityListService
   ) { }
 
-  imageSrc = '';
-
-  handleInputChange(e) {
-    const file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
-    const pattern = /image-*/;
-    const reader = new FileReader();
-    if (!file.type.match(pattern)) {
-      alert('invalid format');
-      return;
-    }
-    reader.onload = this._handleReaderLoaded.bind(this);
-    reader.readAsDataURL(file);
+  handleInputChange(event: Event) {
+    const file: File = (<HTMLInputElement>event.target).files[0];
+    this.processFileUpload(file);
   }
-  _handleReaderLoaded(e) {
-    const reader = e.target;
-    this.imageSrc = reader.result;
-    this.form.patchValue({
-      photo: this.imageSrc
-    });
-    this.cd.markForCheck();
+
+  processFileUpload(file: File) {
+    const formData = new FormData();
+    formData.append('file', file);
+    this.api.uploadPhoto(formData, this.player?.id)
+      .pipe(
+        takeUntil(this.unsubscribe$),
+        finalize(() => {
+          this.cd.markForCheck();
+        })
+      )
+      .subscribe(player => {
+        this.player = player;
+        this.toaster.success('Фото успешно добавлено', 'Готово', {timeOut: 3000});
+      }, error => {
+        this.toaster.error(error.error.message, 'Ошибка', {timeOut: 3000});
+      });
   }
 
   ngAfterViewInit() {
@@ -113,6 +114,22 @@ export class EditPlayerComponent implements AfterViewInit, OnDestroy{
     }, error => {
       this.toaster.error(error.error.message, 'Ошибка', {timeOut: 3000});
     });
+  }
+
+  removePhoto() {
+    this.api.deletePhoto(this.player?.id)
+      .pipe(
+        takeUntil(this.unsubscribe$),
+        finalize(() => {
+          this.cd.markForCheck();
+        })
+      )
+      .subscribe(player => {
+        this.player = player;
+        this.toaster.success('Фото успешно удалено', 'Готово', {timeOut: 3000});
+      }, error => {
+        this.toaster.error(error.error.message, 'Ошибка', {timeOut: 3000});
+      })
   }
 
   ngOnDestroy() {

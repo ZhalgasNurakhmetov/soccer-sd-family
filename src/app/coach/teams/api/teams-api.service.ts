@@ -42,4 +42,12 @@ export class TeamsApiService {
   uploadFile(formData: FormData, team: string): Observable<ApiResponse> {
     return this.http.post<ApiResponse>(`${environment.apiUrl}/coach/upload-players/${team}`, formData);
   }
+
+  uploadPhoto(formData: FormData, _id: string): Observable<Player> {
+    return this.http.post<Player>(`${environment.apiUrl}/coach/upload-player-photo/${_id}`, formData);
+  }
+
+  deletePhoto(_id: string): Observable<Player> {
+    return this.http.delete<Player>(`${environment.apiUrl}/coach/remove-player-photo/${_id}`);
+  }
 }
