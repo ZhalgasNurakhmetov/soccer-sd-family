@@ -6,7 +6,7 @@ import {NgbDatepickerModule} from '@ng-bootstrap/ng-bootstrap';
 import {AddPlayerFormService} from './forms/add-player.form.service';
 import {RouterTestingModule} from '@angular/router/testing';
 import {ToastrModule} from 'ngx-toastr';
-import {AddPlayerApiService} from './api/add-player-api.service';
+import {AddPlayerApi} from './api/add-player.api';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 
 describe('AddPlayerComponent', () => {
@@ -17,7 +17,7 @@ describe('AddPlayerComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ AddPlayerComponent ],
       imports: [ReactiveFormsModule, NgbDatepickerModule, RouterTestingModule, ToastrModule.forRoot(), HttpClientTestingModule],
-      providers: [AddPlayerFormService, AddPlayerApiService]
+      providers: [AddPlayerFormService, AddPlayerApi]
     })
     .compileComponents();
   }));

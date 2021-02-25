@@ -4,7 +4,7 @@ import {Router} from '@angular/router';
 import {AppRoutes} from '../../app.routes';
 import {CoachRoutes} from '../coach.routes';
 import {ToastrService} from 'ngx-toastr';
-import {AddPlayerApiService} from './api/add-player-api.service';
+import {AddPlayerApi} from './api/add-player.api';
 import {finalize, takeUntil} from 'rxjs/operators';
 import {EntityListService} from '../../services/entity-list.service';
 import {Subject} from 'rxjs';
@@ -33,32 +33,10 @@ export class AddPlayerComponent implements OnDestroy{
     private addPlayerFormService: AddPlayerFormService,
     private router: Router,
     private toaster: ToastrService,
-    private addPlayerApi: AddPlayerApiService,
+    private addPlayerApi: AddPlayerApi,
     private cd: ChangeDetectorRef,
     private entities: EntityListService
   ) { }
-
-  imageSrc = '';
-
-  handleInputChange(e) {
-    const file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
-    const pattern = /image-*/;
-    const reader = new FileReader();
-    if (!file.type.match(pattern)) {
-      alert('invalid format');
-      return;
-    }
-    reader.onload = this._handleReaderLoaded.bind(this);
-    reader.readAsDataURL(file);
-  }
-  _handleReaderLoaded(e) {
-    const reader = e.target;
-    this.imageSrc = reader.result;
-    this.form.patchValue({
-      photo: this.imageSrc
-    });
-    this.cd.markForCheck();
-  }
 
   createPlayer() {
     this.isLoading = true;
@@ -66,7 +44,6 @@ export class AddPlayerComponent implements OnDestroy{
     this.player.patchValue({
       ...this.form?.value,
       birthdate: date.toISOString(),
-      photo: this.imageSrc
     });
     if(!this.player.valid) {
       this.toaster.error('Заполните все обязательные поля', 'Ошибка', {timeOut: 3000});

@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy} from '@angular/core';
 import {ChangePasswordFormService} from './forms/change-password.form.service';
-import {ChangePasswordApiService} from './api/change-password-api.service';
+import {ChangePasswordApi} from './api/change-password.api';
 import {Router} from '@angular/router';
 import {AppRoutes} from '../../app.routes';
 import {CoachRoutes} from '../coach.routes';
@@ -23,7 +23,7 @@ export class ChangePasswordComponent implements OnDestroy{
 
   constructor(
     private changePasswordFormService: ChangePasswordFormService,
-    private changePasswordApi: ChangePasswordApiService,
+    private changePasswordApi: ChangePasswordApi,
     private router: Router,
     private toaster: ToastrService,
     private cd: ChangeDetectorRef

@@ -2,7 +2,7 @@ import {AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, In
 import {Player} from '../../../../core/models/user';
 import {EditPlayerFormService} from '../../content/team-players/content/player-list/forms/edit-player.form.service';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import {TeamsApiService} from '../../api/teams-api.service';
+import {TeamsApi} from '../../api/teams.api';
 import {ToastrService} from 'ngx-toastr';
 import {EntityListService} from '../../../../services/entity-list.service';
 import {finalize, takeUntil} from 'rxjs/operators';
@@ -12,7 +12,7 @@ import {Subject} from 'rxjs';
   selector: 'app-edit-player',
   templateUrl: './edit-player.component.html',
   styleUrls: ['./edit-player.component.css'],
-  providers: [EditPlayerFormService, TeamsApiService],
+  providers: [EditPlayerFormService, TeamsApi],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EditPlayerComponent implements AfterViewInit, OnDestroy{
@@ -32,7 +32,7 @@ export class EditPlayerComponent implements AfterViewInit, OnDestroy{
     private editPlayerFormService: EditPlayerFormService,
     private cd: ChangeDetectorRef,
     public activeModal: NgbActiveModal,
-    private api: TeamsApiService,
+    private teamsApi: TeamsApi,
     private toaster: ToastrService,
     private entities: EntityListService
   ) { }
@@ -45,7 +45,7 @@ export class EditPlayerComponent implements AfterViewInit, OnDestroy{
   processFileUpload(file: File) {
     const formData = new FormData();
     formData.append('file', file);
-    this.api.uploadPhoto(formData, this.player?.id)
+    this.teamsApi.uploadPhoto(formData, this.player?.id)
       .pipe(
         takeUntil(this.unsubscribe$),
         finalize(() => {
@@ -107,7 +107,7 @@ export class EditPlayerComponent implements AfterViewInit, OnDestroy{
       this.toaster.error('Заполните поля верно', 'Ошибка', {timeOut: 3000});
       return
     }
-    this.api.editPlayer(this.player?.id, this.form.value).pipe(takeUntil(this.unsubscribe$)).subscribe(player => {
+    this.teamsApi.editPlayer(this.player?.id, this.form.value).pipe(takeUntil(this.unsubscribe$)).subscribe(player => {
       this.toaster.success('Данные успешно изменены', 'Готово', {timeOut: 3000});
       this.activeModal.dismiss(player);
       this.editPlayerFormService.form.reset();
@@ -117,7 +117,7 @@ export class EditPlayerComponent implements AfterViewInit, OnDestroy{
   }
 
   removePhoto() {
-    this.api.deletePhoto(this.player?.id)
+    this.teamsApi.deletePhoto(this.player?.id)
       .pipe(
         takeUntil(this.unsubscribe$),
         finalize(() => {

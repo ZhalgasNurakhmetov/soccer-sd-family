@@ -1,17 +1,17 @@
 import {TestBed} from '@angular/core/testing';
 
-import {ChangePasswordApiService} from './change-password-api.service';
+import {EditProfileApi} from './edit-profile.api';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 
-describe('ChangePasswordApiService', () => {
-  let service: ChangePasswordApiService;
+describe('EditProfileApiService', () => {
+  let service: EditProfileApi;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [ChangePasswordApiService]
+      providers: [EditProfileApi]
     });
-    service = TestBed.inject(ChangePasswordApiService);
+    service = TestBed.inject(EditProfileApi);
   });
 
   it('should be created', () => {

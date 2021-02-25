@@ -5,7 +5,7 @@ import {AdminState, SetCoachCreatingIsLoading, SetCoachDeletingIsLoading, SetCoa
 import {CoachTabState} from './enums/coach-tab.state.enum';
 import {Dispatch} from '@ngxs-labs/dispatch-decorator';
 import {User} from '../../../core/models/user';
-import {AdminApiService} from '../../api/admin.api.service';
+import {AdminApi} from '../../api/admin.api';
 import {ToastrService} from 'ngx-toastr';
 import {CoachCreateFormModel} from './content/coach-create/forms/coach-create,form.model';
 import {CoachCreateFormService} from './content/coach-create/forms/coach-create.form.service';
@@ -33,7 +33,7 @@ export class CoachContentComponent implements OnInit, OnDestroy {
   @Dispatch() setCoachDeletingIsLoading = (coachDeletingIsLoading: boolean) => new SetCoachDeletingIsLoading(coachDeletingIsLoading);
 
   constructor(
-    private adminApi: AdminApiService,
+    private adminApi: AdminApi,
     private toaster: ToastrService,
     private cd: ChangeDetectorRef,
     private coachCreateFormService: CoachCreateFormService

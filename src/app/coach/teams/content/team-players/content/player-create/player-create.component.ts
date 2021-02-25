@@ -7,7 +7,7 @@ import {finalize, takeUntil} from 'rxjs/operators';
 import {AppRoutes} from '../../../../../../app.routes';
 import {CoachRoutes} from '../../../../../coach.routes';
 import {Subject} from 'rxjs';
-import {TeamsApiService} from '../../../../api/teams-api.service';
+import {TeamsApi} from '../../../../api/teams.api';
 import {Router} from '@angular/router';
 
 @Component({
@@ -38,31 +38,9 @@ export class PlayerCreateComponent {
     private toaster: ToastrService,
     private cd: ChangeDetectorRef,
     private entities: EntityListService,
-    private playerCreateApi: TeamsApiService,
+    private teamsApi: TeamsApi,
     private router: Router
   ) { }
-
-  imageSrc = '';
-
-  handleInputChange(e) {
-    const file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
-    const pattern = /image-*/;
-    const reader = new FileReader();
-    if (!file.type.match(pattern)) {
-      alert('invalid format');
-      return;
-    }
-    reader.onload = this._handleReaderLoaded.bind(this);
-    reader.readAsDataURL(file);
-  }
-  _handleReaderLoaded(e) {
-    const reader = e.target;
-    this.imageSrc = reader.result;
-    this.form.patchValue({
-      photo: this.imageSrc
-    });
-    this.cd.markForCheck();
-  }
 
   createPlayer() {
     const date = new Date(this.form?.controls?.birthdate?.value?.year, this.form?.controls?.birthdate?.value?.month - 1, this.form?.controls?.birthdate?.value?.day + 1)
@@ -70,7 +48,6 @@ export class PlayerCreateComponent {
       ...this.form?.value,
       birthdate: date.toISOString(),
       team: this.team,
-      photo: this.imageSrc
     });
     if(!this.player.valid) {
       this.toaster.error('Заполните все обязательные поля', 'Ошибка', {timeOut: 3000});
@@ -111,7 +88,7 @@ export class PlayerCreateComponent {
   processFileUpload(file: File) {
     const formData = new FormData();
     formData.append('file', file);
-    this.playerCreateApi.uploadFile(formData, this.team)
+    this.teamsApi.uploadFile(formData, this.team)
       .pipe(
         takeUntil(this.cancel$),
         finalize(() => {

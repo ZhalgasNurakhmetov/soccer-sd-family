@@ -5,7 +5,7 @@ import {Observable} from 'rxjs';
 import {User} from '../../core/models/user';
 
 @Injectable()
-export class CoachApiService {
+export class CoachApi {
 
   constructor(private http: HttpClient) { }
 

@@ -5,7 +5,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {ToastrModule} from 'ngx-toastr';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {RouterTestingModule} from '@angular/router/testing';
-import {ResetPasswordApiService} from './api/reset-password-api.service';
+import {ResetPasswordApi} from './api/reset-password.api';
 import {ResetPasswordFormService} from './forms/reset-password.form.service';
 
 describe('ResetPasswordComponent', () => {
@@ -16,7 +16,7 @@ describe('ResetPasswordComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ ResetPasswordComponent ],
       imports: [ReactiveFormsModule, ToastrModule.forRoot(), HttpClientTestingModule, RouterTestingModule],
-      providers: [ResetPasswordApiService, ResetPasswordFormService]
+      providers: [ResetPasswordApi, ResetPasswordFormService]
     })
     .compileComponents();
   }));

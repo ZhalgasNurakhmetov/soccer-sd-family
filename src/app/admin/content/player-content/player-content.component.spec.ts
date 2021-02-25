@@ -2,7 +2,7 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {PlayerContentComponent} from './player-content.component';
 import {Component} from '@angular/core';
-import {AdminApiService} from '../../api/admin.api.service';
+import {AdminApi} from '../../api/admin.api';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {ToastrModule} from 'ngx-toastr';
 
@@ -22,7 +22,7 @@ describe('PlayerContentComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ PlayerContentComponent, ControlBarMock ],
       imports: [HttpClientTestingModule, ToastrModule.forRoot()],
-      providers: [AdminApiService]
+      providers: [AdminApi]
     })
     .compileComponents();
   }));

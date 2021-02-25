@@ -5,13 +5,13 @@ import {Dispatch} from '@ngxs-labs/dispatch-decorator';
 import {map} from 'rxjs/operators';
 import {User} from '../core/models/user';
 import {SetAdmin} from './store';
-import {AdminApiService} from './api/admin.api.service';
+import {AdminApi} from './api/admin.api';
 
 @Injectable()
 export class AdminGuard implements CanActivate {
   @Dispatch() setAdmin = (admin: User) => new SetAdmin(admin);
 
-  constructor(private adminApi: AdminApiService) {}
+  constructor(private adminApi: AdminApi) {}
 
   canActivate(
     route: ActivatedRouteSnapshot,

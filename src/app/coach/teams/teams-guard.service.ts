@@ -5,13 +5,13 @@ import {Dispatch} from '@ngxs-labs/dispatch-decorator';
 import {map} from 'rxjs/operators';
 import {SetTeams} from './store';
 import {Team} from '../../core/models/team';
-import {TeamsApiService} from './api/teams-api.service';
+import {TeamsApi} from './api/teams.api';
 
 @Injectable()
 export class TeamsGuard implements CanActivate {
   @Dispatch() setTeams = (teams: Team[]) => new SetTeams(teams);
 
-  constructor(private teamsApi: TeamsApiService) {}
+  constructor(private teamsApi: TeamsApi) {}
 
   canActivate(
     route: ActivatedRouteSnapshot,

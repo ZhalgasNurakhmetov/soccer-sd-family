@@ -3,7 +3,7 @@ import {Select} from '@ngxs/store';
 import {Observable, Subject} from 'rxjs';
 import {AdminTabState} from './enums/admin-tab.state.enum';
 import {AdminState, SetAdminCreatingIsLoading, SetAdminOnEdit, SetAdminTabState} from '../../store';
-import {AdminApiService} from '../../api/admin.api.service';
+import {AdminApi} from '../../api/admin.api';
 import {User} from '../../../core/models/user';
 import {Dispatch} from '@ngxs-labs/dispatch-decorator';
 import {AdminCreateFormModel} from './content/admin-create/forms/admin-create.form.model';
@@ -36,7 +36,7 @@ export class AdminContentComponent implements OnInit, OnDestroy {
   @Dispatch() setAdminCreatingIsLoading = (adminCreatingIsLoading: boolean) => new SetAdminCreatingIsLoading(adminCreatingIsLoading);
 
   constructor(
-    private adminApi: AdminApiService,
+    private adminApi: AdminApi,
     private cd: ChangeDetectorRef,
     private adminCreateFormService: AdminCreateFormService,
     private adminEditFormService: AdminEditFormService,

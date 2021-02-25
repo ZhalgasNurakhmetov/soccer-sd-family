@@ -4,6 +4,7 @@ import {EditProfileContentComponent} from './edit-profile-content.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {EditProfileFormService} from '../../forms/edit-profile.form.service';
 import {ToastrModule} from 'ngx-toastr';
+import {NgxsModule} from "@ngxs/store";
 
 describe('EditProfileContentComponent', () => {
   let component: EditProfileContentComponent;
@@ -12,7 +13,7 @@ describe('EditProfileContentComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ EditProfileContentComponent ],
-      imports: [ReactiveFormsModule, ToastrModule.forRoot()],
+      imports: [ReactiveFormsModule, ToastrModule.forRoot(), NgxsModule.forRoot()],
       providers: [EditProfileFormService]
     })
     .compileComponents();

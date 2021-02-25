@@ -3,7 +3,7 @@ import {Select} from '@ngxs/store';
 import {Observable, Subject} from 'rxjs';
 import {User} from '../../core/models/user';
 import {SetCoach} from '../store';
-import {EditProfileApiService} from './api/edit-profile-api.service';
+import {EditProfileApi} from './api/edit-profile.api';
 import {EditProfileFormService} from './forms/edit-profile.form.service';
 import {Router} from '@angular/router';
 import {AppRoutes} from '../../app.routes';
@@ -30,7 +30,7 @@ export class EditProfileComponent implements OnDestroy{
   @Dispatch() setCoach = (coach: User) => new SetCoach(coach);
 
   constructor(
-    private editProfileApi: EditProfileApiService,
+    private editProfileApi: EditProfileApi,
     private editProfileFormService: EditProfileFormService,
     private router: Router,
     private cd: ChangeDetectorRef,

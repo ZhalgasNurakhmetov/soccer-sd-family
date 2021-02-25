@@ -4,7 +4,7 @@ import {AdminContentComponent} from './admin-content.component';
 import {Component, Input} from '@angular/core';
 import {User} from '../../../core/models/user';
 import {AdminTabState} from './enums/admin-tab.state.enum';
-import {AdminApiService} from '../../api/admin.api.service';
+import {AdminApi} from '../../api/admin.api';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {AdminCreateFormService} from './content/admin-create/forms/admin-create.form.service';
 import {AdminEditFormService} from './content/admin-list/forms/admin-edit.form.service';
@@ -39,7 +39,7 @@ describe('AdminContentComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ AdminContentComponent, AdminListMock, AdminCreateMock ],
       imports: [HttpClientTestingModule, NgxsModule.forRoot(), ToastrModule.forRoot()],
-      providers: [AdminApiService, AdminCreateFormService, AdminEditFormService]
+      providers: [AdminApi, AdminCreateFormService, AdminEditFormService]
     })
     .compileComponents();
   }));

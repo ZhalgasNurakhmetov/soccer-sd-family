@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PlayerListComponent } from './player-list.component';
-import {Component} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
 import {PaymentFormService} from './forms/payment-form.service';
 import {ToastrModule} from 'ngx-toastr';
@@ -11,7 +11,7 @@ import {ToastrModule} from 'ngx-toastr';
   template: ''
 })
 export class ControlBarMock {
-
+  @Input() team: string;
 }
 
 describe('PlayerListComponent', () => {

@@ -1,4 +1,4 @@
-import {TeamsApiService} from './api/teams-api.service';
+import {TeamsApi} from './api/teams.api';
 import {TeamsGuard} from './teams-guard.service';
 import {TeamsComponent} from './teams.component';
 import {teamListComponents} from './content/team-list';
@@ -12,4 +12,4 @@ import {DeleteComponent} from './modals/delete/delete.component';
 
 export const teamsComponents = [TeamsComponent, ...teamListComponents, ...teamPlayersComponents, PlayerModalComponent, EditPlayerComponent, DeleteComponent];
 
-export const teamsServices = [TeamsApiService, TeamsGuard, PlayerCreateFormService, PaymentFormService, EditPlayerFormService];
+export const teamsServices = [TeamsApi, TeamsGuard, PlayerCreateFormService, PaymentFormService, EditPlayerFormService];

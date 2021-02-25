@@ -10,7 +10,7 @@ import {ChangePasswordFormModel} from '../content/change-password/forms/change-p
 import {CoachCreateFormModel} from '../content/coach-content/content/coach-create/forms/coach-create,form.model';
 
 @Injectable()
-export class AdminApiService {
+export class AdminApi {
 
   constructor(private http: HttpClient) { }
 

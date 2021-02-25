@@ -1,17 +1,17 @@
 import {TestBed} from '@angular/core/testing';
 
-import {CoachApiService} from './coach-api.service';
+import {AddPlayerApi} from './add-player.api';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 
-describe('CoachApiService', () => {
-  let service: CoachApiService;
+describe('AddPlayerApi', () => {
+  let service: AddPlayerApi;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [CoachApiService]
+      providers: [AddPlayerApi]
     });
-    service = TestBed.inject(CoachApiService);
+    service = TestBed.inject(AddPlayerApi);
   });
 
   it('should be created', () => {

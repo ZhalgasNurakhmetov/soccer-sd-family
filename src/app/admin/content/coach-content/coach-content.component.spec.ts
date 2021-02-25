@@ -3,7 +3,7 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {CoachContentComponent} from './coach-content.component';
 import {Component, Input} from '@angular/core';
 import {User} from '../../../core/models/user';
-import {AdminApiService} from '../../api/admin.api.service';
+import {AdminApi} from '../../api/admin.api';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {ToastrModule} from 'ngx-toastr';
 import {CoachCreateFormService} from './content/coach-create/forms/coach-create.form.service';
@@ -34,7 +34,7 @@ describe('CoachContentComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ CoachContentComponent, CoachListMock, CoachCreateMock ],
       imports: [HttpClientTestingModule, ToastrModule.forRoot(), NgxsModule.forRoot()],
-      providers: [AdminApiService, CoachCreateFormService]
+      providers: [AdminApi, CoachCreateFormService]
     })
     .compileComponents();
   }));

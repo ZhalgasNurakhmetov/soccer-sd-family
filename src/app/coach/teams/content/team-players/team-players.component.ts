@@ -8,7 +8,7 @@ import {PlayerModalComponent} from '../../modals/player-modal/player-modal.compo
 import {TeamPlayersStateEnum} from './enums/team-players.state';
 import {Dispatch} from '@ngxs-labs/dispatch-decorator';
 import {PlayerCreateFormService} from './content/player-create/forms/player-create.form.service';
-import {TeamsApiService} from '../../api/teams-api.service';
+import {TeamsApi} from '../../api/teams.api';
 import {PlayerCreateModel} from './content/player-create/forms/player-create.form.model';
 import {finalize, takeUntil} from 'rxjs/operators';
 import {ToastrService} from 'ngx-toastr';
@@ -47,7 +47,7 @@ export class TeamPlayersComponent implements OnInit, OnDestroy{
     private modalService: NgbModal,
     private playerCreateFormService: PlayerCreateFormService,
     private paymentFormService: PaymentFormService,
-    private teamsApi: TeamsApiService,
+    private teamsApi: TeamsApi,
     private toaster: ToastrService,
     private router: Router
   ) { }

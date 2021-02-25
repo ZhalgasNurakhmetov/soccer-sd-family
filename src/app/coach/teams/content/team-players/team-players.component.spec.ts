@@ -4,7 +4,7 @@ import {TeamPlayersComponent} from './team-players.component';
 import {Component, Input} from '@angular/core';
 import {Player} from '../../../../core/models/user';
 import {PlayerCreateFormService} from './content/player-create/forms/player-create.form.service';
-import {TeamsApiService} from '../../api/teams-api.service';
+import {TeamsApi} from '../../api/teams.api';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {ToastrModule} from 'ngx-toastr';
 import {NgxsModule} from '@ngxs/store';
@@ -17,6 +17,7 @@ import {RouterTestingModule} from '@angular/router/testing';
 })
 export class PlayerListMock {
   @Input() players: Player[];
+  @Input() team: string;
 }
 
 @Component({
@@ -36,7 +37,7 @@ describe('TeamPlayersComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ TeamPlayersComponent, PlayerListMock, PlayerCreateMock ],
       imports: [HttpClientTestingModule, ToastrModule.forRoot(), NgxsModule.forRoot(), RouterTestingModule],
-      providers: [PlayerCreateFormService, TeamsApiService, PaymentFormService]
+      providers: [PlayerCreateFormService, TeamsApi, PaymentFormService]
     })
     .compileComponents();
   }));

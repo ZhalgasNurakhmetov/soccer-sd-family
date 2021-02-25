@@ -5,13 +5,13 @@ import {Dispatch} from '@ngxs-labs/dispatch-decorator';
 import {map} from 'rxjs/operators';
 import {User} from '../core/models/user';
 import {SetCoach} from './store';
-import {CoachApiService} from './api/coach-api.service';
+import {CoachApi} from './api/coach.api';
 
 @Injectable()
 export class CoachGuard implements CanActivate {
   @Dispatch() setCoach = (coach: User) => new SetCoach(coach);
 
-  constructor(private coachApi: CoachApiService) {}
+  constructor(private coachApi: CoachApi) {}
 
   canActivate(
     route: ActivatedRouteSnapshot,

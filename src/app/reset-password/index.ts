@@ -1,5 +1,5 @@
 import {ResetPasswordComponent} from './reset-password.component';
-import {ResetPasswordApiService} from './api/reset-password-api.service';
+import {ResetPasswordApi} from './api/reset-password.api';
 import {ResetPasswordFormService} from './forms/reset-password.form.service';
 
 export const resetPasswordComponents = [
@@ -7,6 +7,6 @@ export const resetPasswordComponents = [
 ]
 
 export const resetPasswordServices = [
-  ResetPasswordApiService,
+  ResetPasswordApi,
   ResetPasswordFormService
 ]

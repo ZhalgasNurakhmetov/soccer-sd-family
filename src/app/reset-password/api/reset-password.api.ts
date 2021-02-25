@@ -7,7 +7,7 @@ import {ApiResponse} from '../../core/models/api-response';
 import {User} from '../../core/models/user';
 
 @Injectable()
-export class ResetPasswordApiService {
+export class ResetPasswordApi {
 
   constructor(private http: HttpClient) { }
 

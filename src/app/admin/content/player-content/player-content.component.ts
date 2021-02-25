@@ -1,5 +1,5 @@
 import {Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy} from '@angular/core';
-import {AdminApiService} from '../../api/admin.api.service';
+import {AdminApi} from '../../api/admin.api';
 import {ToastrService} from 'ngx-toastr';
 import {Player} from '../../../core/models/user';
 import {Subject} from 'rxjs';
@@ -17,7 +17,7 @@ export class PlayerContentComponent implements OnInit, OnDestroy {
 
   private unsubscribe$ = new Subject();
 
-  constructor(private adminApi: AdminApiService, private toaster: ToastrService, private cd: ChangeDetectorRef) { }
+  constructor(private adminApi: AdminApi, private toaster: ToastrService, private cd: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     this.getPlayerList();

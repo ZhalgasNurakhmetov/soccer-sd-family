@@ -1,17 +1,17 @@
 import {TestBed} from '@angular/core/testing';
 
-import {TeamsApiService} from './teams-api.service';
+import {AdminApi} from './admin.api';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 
-describe('TeamsApiService', () => {
-  let service: TeamsApiService;
+describe('AdminApi', () => {
+  let service: AdminApi;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [TeamsApiService]
+      providers: [AdminApi]
     });
-    service = TestBed.inject(TeamsApiService);
+    service = TestBed.inject(AdminApi);
   });
 
   it('should be created', () => {

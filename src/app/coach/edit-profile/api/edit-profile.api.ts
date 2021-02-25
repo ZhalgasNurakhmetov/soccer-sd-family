@@ -6,7 +6,7 @@ import {User} from '../../../core/models/user';
 import {environment} from '../../../../environments/environment';
 
 @Injectable()
-export class EditProfileApiService {
+export class EditProfileApi {
 
   constructor(private http: HttpClient) { }
 

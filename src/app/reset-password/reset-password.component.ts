@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy} from '@angular/core';
-import {ResetPasswordApiService} from './api/reset-password-api.service';
+import {ResetPasswordApi} from './api/reset-password.api';
 import {ResetPasswordFormService} from './forms/reset-password.form.service';
 import {Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
@@ -27,7 +27,7 @@ export class ResetPasswordComponent implements OnDestroy {
   private unsubscribe$ = new Subject();
 
   constructor(
-    private resetPasswordApi: ResetPasswordApiService,
+    private resetPasswordApi: ResetPasswordApi,
     private resetPasswordForm: ResetPasswordFormService,
     private router: Router,
     private toaster: ToastrService,

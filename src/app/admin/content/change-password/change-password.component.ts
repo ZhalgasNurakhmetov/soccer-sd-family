@@ -3,7 +3,7 @@ import {ChangePasswordFormService} from './forms/change-password.form.service';
 import {Router} from '@angular/router';
 import {AppRoutes} from '../../../app.routes';
 import {AdminRoutes} from '../../admin.routes';
-import {AdminApiService} from '../../api/admin.api.service';
+import {AdminApi} from '../../api/admin.api';
 import {ToastrService} from 'ngx-toastr';
 import {finalize, takeUntil} from 'rxjs/operators';
 import {Subject} from 'rxjs';
@@ -24,14 +24,14 @@ export class ChangePasswordComponent implements OnDestroy{
   constructor(
     private changePasswordFormService: ChangePasswordFormService,
     private router: Router,
-    private adminApiService: AdminApiService,
+    private adminApi: AdminApi,
     private toaster: ToastrService,
     private cd: ChangeDetectorRef
   ) { }
 
   changePassword() {
     this.loading = true;
-    this.adminApiService.changePassword(this.form?.value)
+    this.adminApi.changePassword(this.form?.value)
       .pipe(
         finalize(() => {
           this.loading = false;

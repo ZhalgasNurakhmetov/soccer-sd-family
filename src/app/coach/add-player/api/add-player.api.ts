@@ -7,7 +7,7 @@ import {HttpClient} from '@angular/common/http';
 import {ApiResponse} from '../../../core/models/api-response';
 
 @Injectable()
-export class AddPlayerApiService {
+export class AddPlayerApi {
 
   constructor(private http: HttpClient) { }
 

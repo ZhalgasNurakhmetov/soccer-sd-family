@@ -6,7 +6,7 @@ import {RouterTestingModule} from '@angular/router/testing';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {ToastrModule} from 'ngx-toastr';
 import {ChangePasswordFormService} from './forms/change-password.form.service';
-import {ChangePasswordApiService} from './api/change-password-api.service';
+import {ChangePasswordApi} from './api/change-password.api';
 
 describe('ChangePasswordComponent', () => {
   let component: ChangePasswordComponent;
@@ -16,7 +16,7 @@ describe('ChangePasswordComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ ChangePasswordComponent ],
       imports: [ReactiveFormsModule, RouterTestingModule, HttpClientTestingModule, ToastrModule.forRoot()],
-      providers: [ChangePasswordFormService, ChangePasswordApiService]
+      providers: [ChangePasswordFormService, ChangePasswordApi]
     })
     .compileComponents();
   }));

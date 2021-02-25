@@ -5,7 +5,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {PlayerCreateFormService} from './forms/player-create.form.service';
 import {ToastrModule} from 'ngx-toastr';
-import {TeamsApiService} from '../../../../api/teams-api.service';
+import {TeamsApi} from '../../../../api/teams.api';
 import {RouterTestingModule} from '@angular/router/testing';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 
@@ -17,7 +17,7 @@ describe('PlayerCreateComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ PlayerCreateComponent ],
       imports: [ReactiveFormsModule, NgbModule, ToastrModule.forRoot(), RouterTestingModule, HttpClientTestingModule],
-      providers: [PlayerCreateFormService, TeamsApiService]
+      providers: [PlayerCreateFormService, TeamsApi]
     })
     .compileComponents();
   }));

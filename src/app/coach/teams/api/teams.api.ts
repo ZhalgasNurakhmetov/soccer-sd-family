@@ -11,7 +11,7 @@ import {Payment} from '../../../core/models/payment';
 import {ApiResponse} from '../../../core/models/api-response';
 
 @Injectable()
-export class TeamsApiService {
+export class TeamsApi {
 
   constructor(private http: HttpClient) { }
 
